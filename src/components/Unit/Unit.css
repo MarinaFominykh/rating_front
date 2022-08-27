@@ -1,0 +1,8 @@
+.unit {}
+
+.unit__rating {}
+
+.table__cell {
+    width: 100px;
+    height: 30px;
+}
