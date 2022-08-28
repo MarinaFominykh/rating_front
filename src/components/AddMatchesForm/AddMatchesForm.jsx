@@ -4,7 +4,7 @@ import "./AddMatchesForm.css";
 import { getMatches, getUnits } from "../../utils/Api.js";
 import OptionUnit from "../OptionUnit/OptionUnit.jsx";
 
-function AddMatchesForm({ isOpen, onAddMatch, onClose }) {
+function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick }) {
   const [units, setUnits] = useState([]);
   const [title, setTitle] = useState("");
   const [gameMaster, setGameMaster] = useState("");
@@ -22,6 +22,8 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose }) {
   }
 
   function handleInputGameMasterChange(e) {
+    if(e.target.value === "newItem" )
+    {onClick()}
     setGameMaster(e.target.value);
   }
 
@@ -38,7 +40,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose }) {
     onAddMatch(title, gameMaster, date, result);
   }
 
-  useEffect(() => {
+   useEffect(() => {
     getInitialUnits();
   }, []);
   return (
@@ -65,6 +67,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose }) {
           <label>
             Ведущий
             <select value={gameMaster} onChange={handleInputGameMasterChange}>
+              <option></option>
               {units.map((unit) => {
                 return (
                   <OptionUnit
@@ -74,6 +77,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose }) {
                   />
                 );
               })}
+              <option value="newItem">...добавить игрока</option>
             </select>
           </label>
           <label>

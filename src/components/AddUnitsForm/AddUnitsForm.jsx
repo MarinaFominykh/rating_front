@@ -233,6 +233,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
         <label>
           Название игры
           <select value={matchId} onChange={handleInputMatchIdChange}>
+            <option></option>
             {allMatches.map((match) => {
               return (
                 <OptionMatch
@@ -242,471 +243,513 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                 />
               );
             })}
+            <option>...добавить игру</option>
           </select>
         </label>
+        <div className="form__columns">
+          <div className="form__column">
+            <fieldset className="form__units">
+              <h3>Игрок 1</h3>
+              <label>
+                Ник игрока
+                <select value={unit1Id} onChange={handleInputUnit1IdChange}>
+                  <option></option>
+                  {units.map((unit) => {
+                    return (
+                      <OptionUnit
+                        name={unit.name}
+                        key={unit._id}
+                        unitId={unit._id}
+                      />
+                    );
+                  })}
+                  <option>...добавить игрока</option>
+                </select>
+              </label>
+              <label>
+                Роль в игре
+                <select value={unit1Role} onChange={handleInputUnit1RoleChange}>
+                  <option></option>
+                  <option value="мирный">мирный</option>
+                  <option value="мафия">мафия</option>
+                  <option value="дон">дон</option>
+                  <option value="шериф">шериф</option>
+                </select>
+              </label>
 
-        <fieldset className="form__units">
-          <h3>Игрок 1</h3>
-          <label>
-            Ник игрока
-            <select value={unit1Id} onChange={handleInputUnit1IdChange}>
-              {units.map((unit) => {
-                return (
-                  <OptionUnit
-                    name={unit.name}
-                    key={unit._id}
-                    unitId={unit._id}
-                  />
-                );
-              })}
-            </select>
-          </label>
-          <label>
-            Роль в игре
-            <select value={unit1Role} onChange={handleInputUnit1RoleChange}>
-              <option value="мирный">мирный</option>
-              <option value="мафия">мафия</option>
-              <option value="дон">дон</option>
-              <option value="шериф">шериф</option>
-            </select>
-          </label>
+              <label>
+                Модкилл в игре
+                <input
+                  type="checkbox"
+                  checked={checkedUnit1ModKill}
+                  onChange={() => setCheckedUnit1ModKill(!checkedUnit1ModKill)}
+                ></input>
+              </label>
 
-          <label>
-            Модкилл в игре
-            <input
-              type="checkbox"
-              checked={checkedUnit1ModKill}
-              onChange={() => setCheckedUnit1ModKill(!checkedUnit1ModKill)}
-            ></input>
-          </label>
+              <label>
+                Лучший игрок
+                <input
+                  type="checkbox"
+                  checked={checkedUnit1BestPlayer}
+                  onChange={() =>
+                    setCheckedUnit1BestPlayer(!checkedUnit1BestPlayer)
+                  }
+                ></input>
+              </label>
+            </fieldset>
 
-          <label>
-            Лучший игрок
-            <input
-              type="checkbox"
-              checked={checkedUnit1BestPlayer}
-              onChange={() =>
-                setCheckedUnit1BestPlayer(!checkedUnit1BestPlayer)
-              }
-            ></input>
-          </label>
-        </fieldset>
+            <fieldset className="form__units">
+              <h3>Игрок 2</h3>
+              <label>
+                Ник игрока
+                <select value={unit2Id} onChange={handleInputUnit2IdChange}>
+                  <option></option>
+                  {units.map((unit) => {
+                    return (
+                      <OptionUnit
+                        name={unit.name}
+                        key={unit._id}
+                        unitId={unit._id}
+                      />
+                    );
+                  })}
+                  <option>...добавить игрока</option>
+                </select>
+              </label>
+              <label>
+                Роль в игре
+                <select value={unit2Role} onChange={handleInputUnit2RoleChange}>
+                  <option></option>
+                  <option value="мирный">мирный</option>
+                  <option value="мафия">мафия</option>
+                  <option value="дон">дон</option>
+                  <option value="шериф">шериф</option>
+                </select>
+              </label>
 
-        <fieldset className="form__units">
-          <h3>Игрок 2</h3>
-          <label>
-            Ник игрока
-            <select value={unit2Id} onChange={handleInputUnit2IdChange}>
-              {units.map((unit) => {
-                return (
-                  <OptionUnit
-                    name={unit.name}
-                    key={unit._id}
-                    unitId={unit._id}
-                  />
-                );
-              })}
-            </select>
-          </label>
-          <label>
-            Роль в игре
-            <select value={unit2Role} onChange={handleInputUnit2RoleChange}>
-              <option value="мирный">мирный</option>
-              <option value="мафия">мафия</option>
-              <option value="дон">дон</option>
-              <option value="шериф">шериф</option>
-            </select>
-          </label>
+              <label>
+                Модкилл в игре
+                <input
+                  type="checkbox"
+                  checked={checkedUnit2ModKill}
+                  onChange={() => setCheckedUnit2ModKill(!checkedUnit2ModKill)}
+                ></input>
+              </label>
 
-          <label>
-            Модкилл в игре
-            <input
-              type="checkbox"
-              checked={checkedUnit2ModKill}
-              onChange={() => setCheckedUnit2ModKill(!checkedUnit2ModKill)}
-            ></input>
-          </label>
+              <label>
+                Лучший игрок
+                <input
+                  type="checkbox"
+                  checked={checkedUnit2BestPlayer}
+                  onChange={() =>
+                    setCheckedUnit2BestPlayer(!checkedUnit2BestPlayer)
+                  }
+                ></input>
+              </label>
+            </fieldset>
+            <fieldset className="form__units">
+              <h3>Игрок 3</h3>
+              <label>
+                Ник игрока
+                <select value={unit3Id} onChange={handleInputUnit3IdChange}>
+                  <option></option>
+                  {units.map((unit) => {
+                    return (
+                      <OptionUnit
+                        name={unit.name}
+                        key={unit._id}
+                        unitId={unit._id}
+                      />
+                    );
+                  })}
+                  <option>...добавить игрока</option>
+                </select>
+              </label>
+              <label>
+                Роль в игре
+                <select value={unit3Role} onChange={handleInputUnit3RoleChange}>
+                  <option></option>
+                  <option value="мирный">мирный</option>
+                  <option value="мафия">мафия</option>
+                  <option value="дон">дон</option>
+                  <option value="шериф">шериф</option>
+                </select>
+              </label>
 
-          <label>
-            Лучший игрок
-            <input
-              type="checkbox"
-              checked={checkedUnit2BestPlayer}
-              onChange={() =>
-                setCheckedUnit2BestPlayer(!checkedUnit2BestPlayer)
-              }
-            ></input>
-          </label>
-        </fieldset>
-        <fieldset className="form__units">
-          <h3>Игрок 3</h3>
-          <label>
-            Ник игрока
-            <select value={unit3Id} onChange={handleInputUnit3IdChange}>
-              {units.map((unit) => {
-                return (
-                  <OptionUnit
-                    name={unit.name}
-                    key={unit._id}
-                    unitId={unit._id}
-                  />
-                );
-              })}
-            </select>
-          </label>
-          <label>
-            Роль в игре
-            <select value={unit3Role} onChange={handleInputUnit3RoleChange}>
-              <option value="мирный">мирный</option>
-              <option value="мафия">мафия</option>
-              <option value="дон">дон</option>
-              <option value="шериф">шериф</option>
-            </select>
-          </label>
+              <label>
+                Модкилл в игре
+                <input
+                  type="checkbox"
+                  checked={checkedUnit3ModKill}
+                  onChange={() => setCheckedUnit3ModKill(!checkedUnit3ModKill)}
+                ></input>
+              </label>
 
-          <label>
-            Модкилл в игре
-            <input
-              type="checkbox"
-              checked={checkedUnit3ModKill}
-              onChange={() => setCheckedUnit3ModKill(!checkedUnit3ModKill)}
-            ></input>
-          </label>
+              <label>
+                Лучший игрок
+                <input
+                  type="checkbox"
+                  checked={checkedUnit3BestPlayer}
+                  onChange={() =>
+                    setCheckedUnit3BestPlayer(!checkedUnit3BestPlayer)
+                  }
+                ></input>
+              </label>
+            </fieldset>
+            <fieldset className="form__units">
+              <h3>Игрок 4</h3>
+              <label>
+                Ник игрока
+                <select value={unit4Id} onChange={handleInputUnit4IdChange}>
+                  <option></option>
+                  {units.map((unit) => {
+                    return (
+                      <OptionUnit
+                        name={unit.name}
+                        key={unit._id}
+                        unitId={unit._id}
+                      />
+                    );
+                  })}
+                  <option>...добавить игрока</option>
+                </select>
+              </label>
+              <label>
+                Роль в игре
+                <select value={unit4Role} onChange={handleInputUnit4RoleChange}>
+                  <option></option>
+                  <option value="мирный">мирный</option>
+                  <option value="мафия">мафия</option>
+                  <option value="дон">дон</option>
+                  <option value="шериф">шериф</option>
+                </select>
+              </label>
 
-          <label>
-            Лучший игрок
-            <input
-              type="checkbox"
-              checked={checkedUnit3BestPlayer}
-              onChange={() =>
-                setCheckedUnit3BestPlayer(!checkedUnit3BestPlayer)
-              }
-            ></input>
-          </label>
-        </fieldset>
-        <fieldset className="form__units">
-          <h3>Игрок 4</h3>
-          <label>
-            Ник игрока
-            <select value={unit4Id} onChange={handleInputUnit4IdChange}>
-              {units.map((unit) => {
-                return (
-                  <OptionUnit
-                    name={unit.name}
-                    key={unit._id}
-                    unitId={unit._id}
-                  />
-                );
-              })}
-            </select>
-          </label>
-          <label>
-            Роль в игре
-            <select value={unit4Role} onChange={handleInputUnit4RoleChange}>
-              <option value="мирный">мирный</option>
-              <option value="мафия">мафия</option>
-              <option value="дон">дон</option>
-              <option value="шериф">шериф</option>
-            </select>
-          </label>
+              <label>
+                Модкилл в игре
+                <input
+                  type="checkbox"
+                  checked={checkedUnit4ModKill}
+                  onChange={() => setCheckedUnit4ModKill(!checkedUnit4ModKill)}
+                ></input>
+              </label>
 
-          <label>
-            Модкилл в игре
-            <input
-              type="checkbox"
-              checked={checkedUnit4ModKill}
-              onChange={() => setCheckedUnit4ModKill(!checkedUnit4ModKill)}
-            ></input>
-          </label>
+              <label>
+                Лучший игрок
+                <input
+                  type="checkbox"
+                  checked={checkedUnit4BestPlayer}
+                  onChange={() =>
+                    setCheckedUnit4BestPlayer(!checkedUnit4BestPlayer)
+                  }
+                ></input>
+              </label>
+            </fieldset>
+            <fieldset className="form__units">
+              <h3>Игрок 5</h3>
+              <label>
+                Ник игрока
+                <select value={unit5Id} onChange={handleInputUnit5IdChange}>
+                  <option></option>
+                  {units.map((unit) => {
+                    return (
+                      <OptionUnit
+                        name={unit.name}
+                        key={unit._id}
+                        unitId={unit._id}
+                      />
+                    );
+                  })}
+                  <option>...добавить игрока</option>
+                </select>
+              </label>
+              <label>
+                Роль в игре
+                <select value={unit5Role} onChange={handleInputUnit5RoleChange}>
+                  <option></option>
+                  <option value="мирный">мирный</option>
+                  <option value="мафия">мафия</option>
+                  <option value="дон">дон</option>
+                  <option value="шериф">шериф</option>
+                </select>
+              </label>
 
-          <label>
-            Лучший игрок
-            <input
-              type="checkbox"
-              checked={checkedUnit4BestPlayer}
-              onChange={() =>
-                setCheckedUnit4BestPlayer(!checkedUnit4BestPlayer)
-              }
-            ></input>
-          </label>
-        </fieldset>
-        <fieldset className="form__units">
-          <h3>Игрок 5</h3>
-          <label>
-            Ник игрока
-            <select value={unit5Id} onChange={handleInputUnit5IdChange}>
-              {units.map((unit) => {
-                return (
-                  <OptionUnit
-                    name={unit.name}
-                    key={unit._id}
-                    unitId={unit._id}
-                  />
-                );
-              })}
-            </select>
-          </label>
-          <label>
-            Роль в игре
-            <select value={unit5Role} onChange={handleInputUnit5RoleChange}>
-              <option value="мирный">мирный</option>
-              <option value="мафия">мафия</option>
-              <option value="дон">дон</option>
-              <option value="шериф">шериф</option>
-            </select>
-          </label>
+              <label>
+                Модкилл в игре
+                <input
+                  type="checkbox"
+                  checked={checkedUnit5ModKill}
+                  onChange={() => setCheckedUnit5ModKill(!checkedUnit5ModKill)}
+                ></input>
+              </label>
 
-          <label>
-            Модкилл в игре
-            <input
-              type="checkbox"
-              checked={checkedUnit5ModKill}
-              onChange={() => setCheckedUnit5ModKill(!checkedUnit5ModKill)}
-            ></input>
-          </label>
+              <label>
+                Лучший игрок
+                <input
+                  type="checkbox"
+                  checked={checkedUnit5BestPlayer}
+                  onChange={() =>
+                    setCheckedUnit5BestPlayer(!checkedUnit5BestPlayer)
+                  }
+                ></input>
+              </label>
+            </fieldset>
+          </div>
+          <div className="form__column">
+            <fieldset className="form__units">
+              <h3>Игрок 6</h3>
+              <label>
+                Ник игрока
+                <select value={unit6Id} onChange={handleInputUnit6IdChange}>
+                  <option></option>
+                  {units.map((unit) => {
+                    return (
+                      <OptionUnit
+                        name={unit.name}
+                        key={unit._id}
+                        unitId={unit._id}
+                      />
+                    );
+                  })}
+                  <option>...добавить игрока</option>
+                </select>
+              </label>
+              <label>
+                Роль в игре
+                <select value={unit6Role} onChange={handleInputUnit6RoleChange}>
+                  <option></option>
+                  <option value="мирный">мирный</option>
+                  <option value="мафия">мафия</option>
+                  <option value="дон">дон</option>
+                  <option value="шериф">шериф</option>
+                </select>
+              </label>
 
-          <label>
-            Лучший игрок
-            <input
-              type="checkbox"
-              checked={checkedUnit5BestPlayer}
-              onChange={() =>
-                setCheckedUnit5BestPlayer(!checkedUnit5BestPlayer)
-              }
-            ></input>
-          </label>
-        </fieldset>
-        <fieldset className="form__units">
-          <h3>Игрок 6</h3>
-          <label>
-            Ник игрока
-            <select value={unit6Id} onChange={handleInputUnit6IdChange}>
-              {units.map((unit) => {
-                return (
-                  <OptionUnit
-                    name={unit.name}
-                    key={unit._id}
-                    unitId={unit._id}
-                  />
-                );
-              })}
-            </select>
-          </label>
-          <label>
-            Роль в игре
-            <select value={unit6Role} onChange={handleInputUnit6RoleChange}>
-              <option value="мирный">мирный</option>
-              <option value="мафия">мафия</option>
-              <option value="дон">дон</option>
-              <option value="шериф">шериф</option>
-            </select>
-          </label>
+              <label>
+                Модкилл в игре
+                <input
+                  type="checkbox"
+                  checked={checkedUnit6ModKill}
+                  onChange={() => setCheckedUnit6ModKill(!checkedUnit6ModKill)}
+                ></input>
+              </label>
 
-          <label>
-            Модкилл в игре
-            <input
-              type="checkbox"
-              checked={checkedUnit6ModKill}
-              onChange={() => setCheckedUnit6ModKill(!checkedUnit6ModKill)}
-            ></input>
-          </label>
+              <label>
+                Лучший игрок
+                <input
+                  type="checkbox"
+                  checked={checkedUnit6BestPlayer}
+                  onChange={() =>
+                    setCheckedUnit6BestPlayer(!checkedUnit6BestPlayer)
+                  }
+                ></input>
+              </label>
+            </fieldset>
+            <fieldset className="form__units">
+              <h3>Игрок 7</h3>
+              <label>
+                Ник игрока
+                <select value={unit7Id} onChange={handleInputUnit7IdChange}>
+                  <option></option>
+                  {units.map((unit) => {
+                    return (
+                      <OptionUnit
+                        name={unit.name}
+                        key={unit._id}
+                        unitId={unit._id}
+                      />
+                    );
+                  })}
+                  <option>...добавить игрока</option>
+                </select>
+              </label>
+              <label>
+                Роль в игре
+                <select value={unit7Role} onChange={handleInputUnit7RoleChange}>
+                  <option></option>
+                  <option value="мирный">мирный</option>
+                  <option value="мафия">мафия</option>
+                  <option value="дон">дон</option>
+                  <option value="шериф">шериф</option>
+                </select>
+              </label>
 
-          <label>
-            Лучший игрок
-            <input
-              type="checkbox"
-              checked={checkedUnit6BestPlayer}
-              onChange={() =>
-                setCheckedUnit6BestPlayer(!checkedUnit6BestPlayer)
-              }
-            ></input>
-          </label>
-        </fieldset>
-        <fieldset className="form__units">
-          <h3>Игрок 7</h3>
-          <label>
-            Ник игрока
-            <select value={unit7Id} onChange={handleInputUnit7IdChange}>
-              {units.map((unit) => {
-                return (
-                  <OptionUnit
-                    name={unit.name}
-                    key={unit._id}
-                    unitId={unit._id}
-                  />
-                );
-              })}
-            </select>
-          </label>
-          <label>
-            Роль в игре
-            <select value={unit7Role} onChange={handleInputUnit7RoleChange}>
-              <option value="мирный">мирный</option>
-              <option value="мафия">мафия</option>
-              <option value="дон">дон</option>
-              <option value="шериф">шериф</option>
-            </select>
-          </label>
+              <label>
+                Модкилл в игре
+                <input
+                  type="checkbox"
+                  checked={checkedUnit7ModKill}
+                  onChange={() => setCheckedUnit7ModKill(!checkedUnit7ModKill)}
+                ></input>
+              </label>
 
-          <label>
-            Модкилл в игре
-            <input
-              type="checkbox"
-              checked={checkedUnit7ModKill}
-              onChange={() => setCheckedUnit7ModKill(!checkedUnit7ModKill)}
-            ></input>
-          </label>
+              <label>
+                Лучший игрок
+                <input
+                  type="checkbox"
+                  checked={checkedUnit7BestPlayer}
+                  onChange={() =>
+                    setCheckedUnit7BestPlayer(!checkedUnit7BestPlayer)
+                  }
+                ></input>
+              </label>
+            </fieldset>
+            <fieldset className="form__units">
+              <h3>Игрок 8</h3>
+              <label>
+                Ник игрока
+                <select value={unit8Id} onChange={handleInputUnit8IdChange}>
+                  <option></option>
+                  {units.map((unit) => {
+                    return (
+                      <OptionUnit
+                        name={unit.name}
+                        key={unit._id}
+                        unitId={unit._id}
+                      />
+                    );
+                  })}
+                  <option>...добавить игрока</option>
+                </select>
+              </label>
+              <label>
+                Роль в игре
+                <select value={unit8Role} onChange={handleInputUnit8RoleChange}>
+                  <option></option>
+                  <option value="мирный">мирный</option>
+                  <option value="мафия">мафия</option>
+                  <option value="дон">дон</option>
+                  <option value="шериф">шериф</option>
+                </select>
+              </label>
 
-          <label>
-            Лучший игрок
-            <input
-              type="checkbox"
-              checked={checkedUnit7BestPlayer}
-              onChange={() =>
-                setCheckedUnit7BestPlayer(!checkedUnit7BestPlayer)
-              }
-            ></input>
-          </label>
-        </fieldset>
-        <fieldset className="form__units">
-          <h3>Игрок 8</h3>
-          <label>
-            Ник игрока
-            <select value={unit8Id} onChange={handleInputUnit8IdChange}>
-              {units.map((unit) => {
-                return (
-                  <OptionUnit
-                    name={unit.name}
-                    key={unit._id}
-                    unitId={unit._id}
-                  />
-                );
-              })}
-            </select>
-          </label>
-          <label>
-            Роль в игре
-            <select value={unit8Role} onChange={handleInputUnit8RoleChange}>
-              <option value="мирный">мирный</option>
-              <option value="мафия">мафия</option>
-              <option value="дон">дон</option>
-              <option value="шериф">шериф</option>
-            </select>
-          </label>
+              <label>
+                Модкилл в игре
+                <input
+                  type="checkbox"
+                  checked={checkedUnit8ModKill}
+                  onChange={() => setCheckedUnit3ModKill(!checkedUnit8ModKill)}
+                ></input>
+              </label>
 
-          <label>
-            Модкилл в игре
-            <input
-              type="checkbox"
-              checked={checkedUnit8ModKill}
-              onChange={() => setCheckedUnit3ModKill(!checkedUnit8ModKill)}
-            ></input>
-          </label>
+              <label>
+                Лучший игрок
+                <input
+                  type="checkbox"
+                  checked={checkedUnit8BestPlayer}
+                  onChange={() =>
+                    setCheckedUnit8BestPlayer(!checkedUnit8BestPlayer)
+                  }
+                ></input>
+              </label>
+            </fieldset>
+            <fieldset className="form__units">
+              <h3>Игрок 9</h3>
+              <label>
+                Ник игрока
+                <select value={unit9Id} onChange={handleInputUnit9IdChange}>
+                  <option></option>
+                  {units.map((unit) => {
+                    return (
+                      <OptionUnit
+                        name={unit.name}
+                        key={unit._id}
+                        unitId={unit._id}
+                      />
+                    );
+                  })}
+                  <option>...добавить игрока</option>
+                </select>
+              </label>
+              <label>
+                Роль в игре
+                <select value={unit9Role} onChange={handleInputUnit9RoleChange}>
+                  <option></option>
+                  <option value="мирный">мирный</option>
+                  <option value="мафия">мафия</option>
+                  <option value="дон">дон</option>
+                  <option value="шериф">шериф</option>
+                </select>
+              </label>
 
-          <label>
-            Лучший игрок
-            <input
-              type="checkbox"
-              checked={checkedUnit8BestPlayer}
-              onChange={() =>
-                setCheckedUnit8BestPlayer(!checkedUnit8BestPlayer)
-              }
-            ></input>
-          </label>
-        </fieldset>
-        <fieldset className="form__units">
-          <h3>Игрок 9</h3>
-          <label>
-            Ник игрока
-            <select value={unit9Id} onChange={handleInputUnit9IdChange}>
-              {units.map((unit) => {
-                return (
-                  <OptionUnit
-                    name={unit.name}
-                    key={unit._id}
-                    unitId={unit._id}
-                  />
-                );
-              })}
-            </select>
-          </label>
-          <label>
-            Роль в игре
-            <select value={unit9Role} onChange={handleInputUnit9RoleChange}>
-              <option value="мирный">мирный</option>
-              <option value="мафия">мафия</option>
-              <option value="дон">дон</option>
-              <option value="шериф">шериф</option>
-            </select>
-          </label>
+              <label>
+                Модкилл в игре
+                <input
+                  type="checkbox"
+                  checked={checkedUnit9ModKill}
+                  onChange={() => setCheckedUnit9ModKill(!checkedUnit9ModKill)}
+                ></input>
+              </label>
 
-          <label>
-            Модкилл в игре
-            <input
-              type="checkbox"
-              checked={checkedUnit9ModKill}
-              onChange={() => setCheckedUnit9ModKill(!checkedUnit9ModKill)}
-            ></input>
-          </label>
+              <label>
+                Лучший игрок
+                <input
+                  type="checkbox"
+                  checked={checkedUnit9BestPlayer}
+                  onChange={() =>
+                    setCheckedUnit9BestPlayer(!checkedUnit9BestPlayer)
+                  }
+                ></input>
+              </label>
+            </fieldset>
 
-          <label>
-            Лучший игрок
-            <input
-              type="checkbox"
-              checked={checkedUnit9BestPlayer}
-              onChange={() =>
-                setCheckedUnit9BestPlayer(!checkedUnit9BestPlayer)
-              }
-            ></input>
-          </label>
-        </fieldset>
+            <fieldset className="form__units">
+              <h3>Игрок 10</h3>
+              <label>
+                Ник игрока
+                <select value={unit10Id} onChange={handleInputUnit10IdChange}>
+                  <option></option>
+                  {units.map((unit) => {
+                    return (
+                      <OptionUnit
+                        name={unit.name}
+                        key={unit._id}
+                        unitId={unit._id}
+                      />
+                    );
+                  })}
+                  <option>...добавить игрока</option>
+                </select>
+              </label>
+              <label>
+                Роль в игре
+                <select
+                  value={unit10Role}
+                  onChange={handleInputUnit10RoleChange}
+                >
+                  <option></option>
+                  <option value="мирный">мирный</option>
+                  <option value="мафия">мафия</option>
+                  <option value="дон">дон</option>
+                  <option value="шериф">шериф</option>
+                </select>
+              </label>
 
-        <fieldset className="form__units">
-          <h3>Игрок 10</h3>
-          <label>
-            Ник игрока
-            <select value={unit10Id} onChange={handleInputUnit10IdChange}>
-              {units.map((unit) => {
-                return (
-                  <OptionUnit
-                    name={unit.name}
-                    key={unit._id}
-                    unitId={unit._id}
-                  />
-                );
-              })}
-            </select>
-          </label>
-          <label>
-            Роль в игре
-            <select value={unit10Role} onChange={handleInputUnit10RoleChange}>
-              <option value="мирный">мирный</option>
-              <option value="мафия">мафия</option>
-              <option value="дон">дон</option>
-              <option value="шериф">шериф</option>
-            </select>
-          </label>
+              <label>
+                Модкилл в игре
+                <input
+                  type="checkbox"
+                  checked={checkedUnit10ModKill}
+                  onChange={() =>
+                    setCheckedUnit10ModKill(!checkedUnit10ModKill)
+                  }
+                ></input>
+              </label>
 
-          <label>
-            Модкилл в игре
-            <input
-              type="checkbox"
-              checked={checkedUnit10ModKill}
-              onChange={() => setCheckedUnit10ModKill(!checkedUnit10ModKill)}
-            ></input>
-          </label>
+              <label>
+                Лучший игрок
+                <input
+                  type="checkbox"
+                  checked={checkedUnit10BestPlayer}
+                  onChange={() =>
+                    setCheckedUnit10BestPlayer(!checkedUnit10BestPlayer)
+                  }
+                ></input>
+              </label>
+            </fieldset>
+          </div>
+        </div>
 
-          <label>
-            Лучший игрок
-            <input
-              type="checkbox"
-              checked={checkedUnit10BestPlayer}
-              onChange={() =>
-                setCheckedUnit10BestPlayer(!checkedUnit10BestPlayer)
-              }
-            ></input>
-          </label>
-        </fieldset>
         <button className="form__submit" type="submit" value="Сохранить">
           Сохранить
         </button>

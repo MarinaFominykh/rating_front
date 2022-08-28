@@ -48,6 +48,19 @@ export const addUnitsInMatch = (id, array) => {
     }).then(checkResponse)
 }
 
+export const createUnit = (name) => {
+    return fetch(`${BASE_URL}/units`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+
+        },
+        body: JSON.stringify({
+            name
+        })
+    }).then(checkResponse)
+}
+
 const checkResponse = (res) => {
     if (res.ok) {
         return res.json();
