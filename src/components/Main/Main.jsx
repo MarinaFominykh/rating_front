@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { getMatches, getUnits } from "../../utils/Api.js";
 import Unit from "../Unit/Unit.jsx";
 
-function Main({ onClickAddMatch, onClickAddUnits }) {
+function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitButton,
+  onClickEditUnitButton, onUpdateUnit }) {
   const [matches, setMatches] = useState([]);
   const [units, setUnits] = useState([]);
   const [rating, setRating] = useState(0);
@@ -190,6 +191,14 @@ function Main({ onClickAddMatch, onClickAddUnits }) {
     return matchesArray.length;
   }
 
+  function onClickDelete(unit) {
+    onClickDeleteUnitButton(unit)
+  }
+
+  function onClickEdit(unit) {
+    onClickEditUnitButton(unit)
+  }
+
   useEffect(() => {
     getInitialMatches();
   }, []);
@@ -218,7 +227,7 @@ function Main({ onClickAddMatch, onClickAddUnits }) {
           </tr>
         </thead>
         <tbody>
-          {units
+          {allUnits
             .map((unit) => {
               return (
                 <Unit
@@ -235,6 +244,10 @@ function Main({ onClickAddMatch, onClickAddUnits }) {
                   don={countDonRole(matches, unit)}
                   donVictory={countDonVictory(matches, unit)}
                   unit={unit}
+                  onClickDeleteUnitButton={onClickDeleteUnitButton}
+                  // onClickEditUnitButton={onClickEdit(unit)}
+                   onClickEditUnitButton={onClickEditUnitButton}
+                   onUpdateUnit={onUpdateUnit}
                 ></Unit>
               );
             })

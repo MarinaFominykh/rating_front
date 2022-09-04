@@ -5,20 +5,30 @@ import {
   getUnits,
   addNewMatch,
   addUnitsInMatch,
-  createUnit
+  createUnit,
+  updateUnit,
 } from "../../utils/Api.js";
 import Main from "../Main/Main.jsx";
 import AddMatchesForm from "../AddMatchesForm/AddMatchesForm.jsx";
 import AddUnitsForm from "../AddUnitsForm/AddUnitsForm.jsx";
 import AddUnitForm from "../AddUnitForm/AddUnitForm.jsx";
+import UpdateUnitForm from "../UpdateUnitForm/UpdateUnitForm.jsx";
 
 function App() {
+  const [units, setUnits] = useState([]);
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false);
   const [isFormWithUnitsPopupOpen, setIsFormWithUnitsPopupOpen] =
     useState(false);
-    const [isFormWithUnitPopupOpen, setIsFormWithUnitPopupOpen] = useState(false);
+  const [isFormWithUnitPopupOpen, setIsFormWithUnitPopupOpen] = useState(false);
+  const [isFormWithUpdateUnitPopupOpen, setIsFormWithUpdateUnitPopupOpen] =
+    useState(false);
   const [matches, setMatches] = useState([]);
 
+  function getInitialUnits() {
+    getUnits().then((dataUnits) => {
+      setUnits(dataUnits);
+    });
+  }
   function getInitialMatches() {
     getMatches().then((dataMatches) => {
       setMatches(dataMatches);
@@ -37,6 +47,10 @@ function App() {
     setIsFormWithUnitPopupOpen(true);
   }
 
+  function handleUpdateUnitsClick() {
+    setIsFormWithUpdateUnitPopupOpen(true);
+  }
+
   function addMatch(title, gameMaster, date, result) {
     addNewMatch(title, gameMaster, date, result)
       .then(() => closePopup())
@@ -44,26 +58,46 @@ function App() {
   }
 
   function addUnits(id, array) {
-   
     addUnitsInMatch(id, array)
       .then(() => closePopup())
       .catch((err) => console.log(err));
   }
 
   function addUnit(name) {
-       createUnit(name)
-      .then(() => closePopup())
+    createUnit(name)
+      .then((newUnit) => {
+        setUnits([...units, newUnit]);
+        console.log(newUnit);
+        closePopupAddUnit();
+      })
+
+      .then(() => console.log(units))
       .catch((err) => console.log(err));
+  }
+
+  function updateName(unit, newUnit) {
+    console.log(unit, newUnit)
+    updateUnit(unit, newUnit)
+    .catch((err) => console.log(err));
+
+  }
+
+  function closePopupAddUnit() {
+    setIsFormWithUnitPopupOpen(false);
   }
 
   function closePopup() {
     setIsFormPopupOpen(false);
     setIsFormWithUnitsPopupOpen(false);
-    setIsFormWithUnitPopupOpen(false)
+    setIsFormWithUpdateUnitPopupOpen(false);
   }
 
   useEffect(() => {
     getInitialMatches();
+  }, []);
+
+  useEffect(() => {
+    getInitialUnits();
   }, []);
 
   useEffect(() => {
@@ -80,6 +114,11 @@ function App() {
       <Main
         onClickAddMatch={handleAddMatchClick}
         onClickAddUnits={handleAddUnitsClick}
+        allUnits={units}
+        onClickDeleteUnitButton={handleUpdateUnitsClick}
+        // onClickEditUnitButton={handleUpdateUnitsClick}
+        onClickEditUnitButton={handleUpdateUnitsClick}
+        onUpdateUnit={updateName}
       />
       <AddMatchesForm
         isOpen={isFormPopupOpen}
@@ -91,10 +130,20 @@ function App() {
         isOpen={isFormWithUnitsPopupOpen}
         onClose={closePopup}
         allMatches={matches}
+        allUnits={units}
         onAddUnits={addUnits}
+        onClick={handleAddUnitClick}
       />
-      <AddUnitForm isOpen={isFormWithUnitPopupOpen} onClose={closePopup} onAddUnit={addUnit} />
-        
+      <AddUnitForm
+        isOpen={isFormWithUnitPopupOpen}
+        onClose={closePopupAddUnit}
+        onAddUnit={addUnit}
+      />
+      <UpdateUnitForm
+        isOpen={isFormWithUpdateUnitPopupOpen}
+        onClose={closePopup}
+        onUpdateUnit={updateName}
+      />
     </div>
   );
 }

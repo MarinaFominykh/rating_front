@@ -22,9 +22,9 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick }) {
   }
 
   function handleInputGameMasterChange(e) {
-    if(e.target.value === "newItem" )
-    {onClick()}
-    setGameMaster(e.target.value);
+    e.target.value === "newItem"
+  ? onClick()
+  :  setGameMaster(e.target.value);
   }
 
   function handleInputDateChange(e) {

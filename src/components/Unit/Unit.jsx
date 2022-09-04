@@ -1,4 +1,6 @@
 import "./Unit.css";
+import React from "react";
+import { useState, useContext, useEffect } from "react";
 
 function Unit({
   name,
@@ -12,10 +14,64 @@ function Unit({
   redVictory,
   sheriffVictory,
   donVictory,
+  onClickDeleteUnitButton,
+  onUpdateUnit,
 }) {
+  const [isClicked, setIsClicked] = useState(false);
+  const [unitName, setUnitName] = useState(name);
+  const saveButtonClassName = `${
+    isClicked ? "table__save-button_visible" : "table__save-button_hidden"
+  }`;
+
+  function handleEditButton() {
+    setIsClicked(true);
+  }
+
+  // function handleBlurInput() {
+  //   setIsClicked(false);
+  // }
+
+  function handleInputNameChange(e) {
+    setUnitName(e.target.value);
+  }
+
+  function handleSubmit(e) {
+     e.preventDefault();
+     onUpdateUnit(name, unitName);
+     setIsClicked(false);
+    
+  }
+
   return (
     <tr className="table__row unit">
-      <td className="table__cell unit__name">{name}</td>
+      <td className="table__cell unit__name">
+        <form onSubmit={handleSubmit}>
+          <input
+            value={unitName}
+            className="table__input-name"
+            disabled={!isClicked ? true : false}
+            // onBlur={handleBlurInput}
+            onChange={handleInputNameChange}
+            required
+          ></input>
+          <button type="submit" className={saveButtonClassName}>
+            Сохранить
+          </button>
+        </form>
+
+        <div className="table__button-container">
+          <button
+            onClick={onClickDeleteUnitButton}
+            className="table__delete-button tooltip"
+            data-tooltip="Удалить игрока"
+          ></button>
+          <button
+            onClick={handleEditButton}
+            className="table__edit-button tooltip"
+            data-tooltip="Изменить ник"
+          ></button>
+        </div>
+      </td>
       <td className="table__cell unit__rating">{matches}</td>
       <td className="table__cell unit__black">{black}</td>
       <td className="table__cell unit__black-victory">{blackVictory}</td>

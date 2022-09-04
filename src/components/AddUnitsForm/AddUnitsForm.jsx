@@ -5,8 +5,8 @@ import { getMatches, getUnits } from "../../utils/Api.js";
 import OptionUnit from "../OptionUnit/OptionUnit.jsx";
 import OptionMatch from "../OptionMatch/OptionMatch.jsx";
 
-function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
-  const [units, setUnits] = useState([]);
+function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits, onClick, allUnits }) {
+ 
   const [matchId, setMatchId] = useState("");
   const [unit1Id, setUnit1Id] = useState("");
   const [unit1Role, setUnit1Role] = useState("");
@@ -49,11 +49,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
   const [checkedUnit10ModKill, setCheckedUnit10ModKill] = useState(false);
   const [checkedUnit10BestPlayer, setCheckedUnit10BestPlayer] = useState(false);
 
-  function getInitialUnits() {
-    getUnits().then((dataUnits) => {
-      setUnits(dataUnits);
-    });
-  }
+
 
   function handleInputMatchIdChange(e) {
     setMatchId(e.target.value);
@@ -61,7 +57,9 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
 
   //1
   function handleInputUnit1IdChange(e) {
-    setUnit1Id(e.target.value);
+    e.target.value === "newItem"
+  ? onClick()
+  :  setUnit1Id(e.target.value);
   }
 
   function handleInputUnit1RoleChange(e) {
@@ -70,6 +68,9 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
 
   //2
   function handleInputUnit2IdChange(e) {
+    e.target.value === "newItem"
+    ? onClick()
+    :  
     setUnit2Id(e.target.value);
   }
 
@@ -80,6 +81,9 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
   //3
 
   function handleInputUnit3IdChange(e) {
+    e.target.value === "newItem"
+    ? onClick()
+    :  
     setUnit3Id(e.target.value);
   }
 
@@ -90,6 +94,9 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
   //4
 
   function handleInputUnit4IdChange(e) {
+    e.target.value === "newItem"
+    ? onClick()
+    :  
     setUnit4Id(e.target.value);
   }
 
@@ -100,6 +107,9 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
   //5
 
   function handleInputUnit5IdChange(e) {
+    e.target.value === "newItem"
+    ? onClick()
+    :  
     setUnit5Id(e.target.value);
   }
 
@@ -109,15 +119,24 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
 
   //6
   function handleInputUnit6IdChange(e) {
+    e.target.value === "newItem"
+    ? onClick()
+    :  
     setUnit6Id(e.target.value);
   }
 
   function handleInputUnit6RoleChange(e) {
+    e.target.value === "newItem"
+    ? onClick()
+    :  
     setUnit6Role(e.target.value);
   }
 
   //7
   function handleInputUnit7IdChange(e) {
+    e.target.value === "newItem"
+    ? onClick()
+    :  
     setUnit7Id(e.target.value);
   }
 
@@ -127,6 +146,9 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
 
   //8
   function handleInputUnit8IdChange(e) {
+    e.target.value === "newItem"
+    ? onClick()
+    :  
     setUnit8Id(e.target.value);
   }
 
@@ -136,6 +158,9 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
 
   //9
   function handleInputUnit9IdChange(e) {
+    e.target.value === "newItem"
+    ? onClick()
+    :  
     setUnit9Id(e.target.value);
   }
 
@@ -145,6 +170,9 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
 
   //10
   function handleInputUnit10IdChange(e) {
+    e.target.value === "newItem"
+    ? onClick()
+    :  
     setUnit10Id(e.target.value);
   }
 
@@ -218,9 +246,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
     ];
     onAddUnits(matchId, Array);
   }
-  useEffect(() => {
-    getInitialUnits();
-  }, []);
+
   return (
     <section className={`popup ${isOpen && "popup_opened"}`}>
       <form className="form" onSubmit={handleSubmit}>
@@ -243,7 +269,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                 />
               );
             })}
-            <option>...добавить игру</option>
+          
           </select>
         </label>
         <div className="form__columns">
@@ -254,7 +280,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                 Ник игрока
                 <select value={unit1Id} onChange={handleInputUnit1IdChange}>
                   <option></option>
-                  {units.map((unit) => {
+                  {allUnits.map((unit) => {
                     return (
                       <OptionUnit
                         name={unit.name}
@@ -263,7 +289,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                       />
                     );
                   })}
-                  <option>...добавить игрока</option>
+                  <option value="newItem">...добавить игрока</option>
                 </select>
               </label>
               <label>
@@ -304,7 +330,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                 Ник игрока
                 <select value={unit2Id} onChange={handleInputUnit2IdChange}>
                   <option></option>
-                  {units.map((unit) => {
+                  {allUnits.map((unit) => {
                     return (
                       <OptionUnit
                         name={unit.name}
@@ -313,7 +339,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                       />
                     );
                   })}
-                  <option>...добавить игрока</option>
+                  <option value="newItem">...добавить игрока</option>
                 </select>
               </label>
               <label>
@@ -353,7 +379,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                 Ник игрока
                 <select value={unit3Id} onChange={handleInputUnit3IdChange}>
                   <option></option>
-                  {units.map((unit) => {
+                  {allUnits.map((unit) => {
                     return (
                       <OptionUnit
                         name={unit.name}
@@ -362,7 +388,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                       />
                     );
                   })}
-                  <option>...добавить игрока</option>
+                  <option value="newItem">...добавить игрока</option>
                 </select>
               </label>
               <label>
@@ -402,7 +428,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                 Ник игрока
                 <select value={unit4Id} onChange={handleInputUnit4IdChange}>
                   <option></option>
-                  {units.map((unit) => {
+                  {allUnits.map((unit) => {
                     return (
                       <OptionUnit
                         name={unit.name}
@@ -411,7 +437,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                       />
                     );
                   })}
-                  <option>...добавить игрока</option>
+                  <option value="newItem">...добавить игрока</option>
                 </select>
               </label>
               <label>
@@ -451,7 +477,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                 Ник игрока
                 <select value={unit5Id} onChange={handleInputUnit5IdChange}>
                   <option></option>
-                  {units.map((unit) => {
+                  {allUnits.map((unit) => {
                     return (
                       <OptionUnit
                         name={unit.name}
@@ -460,7 +486,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                       />
                     );
                   })}
-                  <option>...добавить игрока</option>
+                  <option value="newItem">...добавить игрока</option>
                 </select>
               </label>
               <label>
@@ -502,7 +528,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                 Ник игрока
                 <select value={unit6Id} onChange={handleInputUnit6IdChange}>
                   <option></option>
-                  {units.map((unit) => {
+                  {allUnits.map((unit) => {
                     return (
                       <OptionUnit
                         name={unit.name}
@@ -511,7 +537,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                       />
                     );
                   })}
-                  <option>...добавить игрока</option>
+                  <option value="newItem">...добавить игрока</option>
                 </select>
               </label>
               <label>
@@ -551,7 +577,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                 Ник игрока
                 <select value={unit7Id} onChange={handleInputUnit7IdChange}>
                   <option></option>
-                  {units.map((unit) => {
+                  {allUnits.map((unit) => {
                     return (
                       <OptionUnit
                         name={unit.name}
@@ -560,7 +586,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                       />
                     );
                   })}
-                  <option>...добавить игрока</option>
+                  <option value="newItem">...добавить игрока</option>
                 </select>
               </label>
               <label>
@@ -600,7 +626,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                 Ник игрока
                 <select value={unit8Id} onChange={handleInputUnit8IdChange}>
                   <option></option>
-                  {units.map((unit) => {
+                  {allUnits.map((unit) => {
                     return (
                       <OptionUnit
                         name={unit.name}
@@ -609,7 +635,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                       />
                     );
                   })}
-                  <option>...добавить игрока</option>
+                  <option value="newItem">...добавить игрока</option>
                 </select>
               </label>
               <label>
@@ -649,7 +675,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                 Ник игрока
                 <select value={unit9Id} onChange={handleInputUnit9IdChange}>
                   <option></option>
-                  {units.map((unit) => {
+                  {allUnits.map((unit) => {
                     return (
                       <OptionUnit
                         name={unit.name}
@@ -658,7 +684,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                       />
                     );
                   })}
-                  <option>...добавить игрока</option>
+                  <option value="newItem">...добавить игрока</option>
                 </select>
               </label>
               <label>
@@ -699,7 +725,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                 Ник игрока
                 <select value={unit10Id} onChange={handleInputUnit10IdChange}>
                   <option></option>
-                  {units.map((unit) => {
+                  {allUnits.map((unit) => {
                     return (
                       <OptionUnit
                         name={unit.name}
@@ -708,7 +734,7 @@ function AddUnitsForm({ isOpen, onClose, allMatches, onAddUnits }) {
                       />
                     );
                   })}
-                  <option>...добавить игрока</option>
+                  <option value="newItem">...добавить игрока</option>
                 </select>
               </label>
               <label>

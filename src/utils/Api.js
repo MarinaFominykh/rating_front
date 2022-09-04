@@ -61,6 +61,20 @@ export const createUnit = (name) => {
     }).then(checkResponse)
 }
 
+export const updateUnit = (unit, newUnit) => {
+    return fetch(`${BASE_URL}/units`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+
+        },
+        body: JSON.stringify({
+            unit,
+            newUnit
+        })
+    }).then(checkResponse)
+}
+
 const checkResponse = (res) => {
     if (res.ok) {
         return res.json();

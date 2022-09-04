@@ -1,20 +1,26 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import "./AddUnitForm.css";
-import { getMatches, getUnits } from "../../utils/Api.js";
-import OptionUnit from "../OptionUnit/OptionUnit.jsx";
-function AddUnitForm({isOpen, onClose, onAddUnit}) {
+import "./UpdateUnitForm.css";
+
+function UpdateUnitForm({isOpen, onClose, onUpdateUnit, unit, currentName, currentUnitId}) {
     const [name, setName] = useState("")
+    const[unitId, setUnitId] = useState('')
 
     function handleInputNameChange(e) {
         setName(e.target.value);
       }
     function handleSubmit(e) {
         e.preventDefault();
-        onAddUnit(name);
+        onUpdateUnit(name, unit);
         setName("")
       }
-  return (
+
+      // useEffect(() => {
+      //   setName(currentName);
+      //   setUnitId(currentUnitId);
+      // }, [isOpen]);
+  
+      return (
     <section className={`popup ${isOpen && "popup_opened"}`}>
       <form className="form" onSubmit={handleSubmit}>
         <button
@@ -22,7 +28,7 @@ function AddUnitForm({isOpen, onClose, onAddUnit}) {
           type="button"
           onClick={onClose}
         ></button>
-        <h2 className="form__title">Новый игрок</h2>
+        <h2 className="form__title">Редактировать данные игрока</h2>
         <fieldset className="form__unit">
           
             <input
@@ -44,4 +50,4 @@ function AddUnitForm({isOpen, onClose, onAddUnit}) {
   );
 }
 
-export default AddUnitForm;
+export default UpdateUnitForm;
