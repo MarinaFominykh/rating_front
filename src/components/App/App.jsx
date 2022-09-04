@@ -7,6 +7,7 @@ import {
   addUnitsInMatch,
   createUnit,
   updateUnit,
+  removeUnit
 } from "../../utils/Api.js";
 import Main from "../Main/Main.jsx";
 import AddMatchesForm from "../AddMatchesForm/AddMatchesForm.jsx";
@@ -27,6 +28,7 @@ function App() {
   function getInitialUnits() {
     getUnits().then((dataUnits) => {
       setUnits(dataUnits);
+      console.log(dataUnits)
     });
   }
   function getInitialMatches() {
@@ -82,6 +84,14 @@ function App() {
 
   }
 
+  function handleUnitDelete(unit) {
+    removeUnit(unit._id)
+    .then(() => {
+      setUnits((state) => state.filter((c) => c._id !== unit._id));
+    })
+    .catch((err) => console.log(err));
+  }
+
   function closePopupAddUnit() {
     setIsFormWithUnitPopupOpen(false);
   }
@@ -119,6 +129,7 @@ function App() {
         // onClickEditUnitButton={handleUpdateUnitsClick}
         onClickEditUnitButton={handleUpdateUnitsClick}
         onUpdateUnit={updateName}
+        onUnitDelete={handleUnitDelete}
       />
       <AddMatchesForm
         isOpen={isFormPopupOpen}

@@ -75,6 +75,16 @@ export const updateUnit = (unit, newUnit) => {
     }).then(checkResponse)
 }
 
+export const removeUnit = (id) => {
+    return fetch(`${BASE_URL}/units/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+
+        },
+    }).then(checkResponse)
+}
+
 const checkResponse = (res) => {
     if (res.ok) {
         return res.json();

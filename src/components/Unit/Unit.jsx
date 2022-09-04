@@ -14,8 +14,9 @@ function Unit({
   redVictory,
   sheriffVictory,
   donVictory,
-  onClickDeleteUnitButton,
+  onUnitDelete,
   onUpdateUnit,
+  unit
 }) {
   const [isClicked, setIsClicked] = useState(false);
   const [unitName, setUnitName] = useState(name);
@@ -24,7 +25,8 @@ function Unit({
   }`;
 
   function handleEditButton() {
-    setIsClicked(true);
+    
+    setIsClicked(!isClicked);
   }
 
   // function handleBlurInput() {
@@ -41,6 +43,10 @@ function Unit({
      setIsClicked(false);
     
   }
+
+  function handleUnitDelete() {
+    onUnitDelete(unit);
+}
 
   return (
     <tr className="table__row unit">
@@ -61,7 +67,7 @@ function Unit({
 
         <div className="table__button-container">
           <button
-            onClick={onClickDeleteUnitButton}
+            onClick={handleUnitDelete}
             className="table__delete-button tooltip"
             data-tooltip="Удалить игрока"
           ></button>

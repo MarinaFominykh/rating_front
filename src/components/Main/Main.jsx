@@ -4,7 +4,7 @@ import { getMatches, getUnits } from "../../utils/Api.js";
 import Unit from "../Unit/Unit.jsx";
 
 function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitButton,
-  onClickEditUnitButton, onUpdateUnit }) {
+  onClickEditUnitButton, onUpdateUnit, sortData, onUnitDelete }) {
   const [matches, setMatches] = useState([]);
   const [units, setUnits] = useState([]);
   const [rating, setRating] = useState(0);
@@ -191,14 +191,6 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
     return matchesArray.length;
   }
 
-  function onClickDelete(unit) {
-    onClickDeleteUnitButton(unit)
-  }
-
-  function onClickEdit(unit) {
-    onClickEditUnitButton(unit)
-  }
-
   useEffect(() => {
     getInitialMatches();
   }, []);
@@ -223,7 +215,7 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
             <th className="table__cell">Побед за шерифа</th>
             <th className="table__cell">Количество игр за дона</th>
             <th className="table__cell">Побед за дона</th>
-            <th className="table__cell">Рейтинг</th>
+            <th className="table__cell" onClick={() => {sortData("")}}>Рейтинг</th>
           </tr>
         </thead>
         <tbody>
@@ -244,7 +236,7 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
                   don={countDonRole(matches, unit)}
                   donVictory={countDonVictory(matches, unit)}
                   unit={unit}
-                  onClickDeleteUnitButton={onClickDeleteUnitButton}
+                  onUnitDelete={onUnitDelete}
                   // onClickEditUnitButton={onClickEdit(unit)}
                    onClickEditUnitButton={onClickEditUnitButton}
                    onUpdateUnit={onUpdateUnit}
