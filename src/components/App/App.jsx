@@ -1,19 +1,27 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import {
+  Route,
+  Switch,
+  Redirect,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
+import {
   getMatches,
   getUnits,
   addNewMatch,
   addUnitsInMatch,
   createUnit,
   updateUnit,
-  removeUnit
+  removeUnit,
 } from "../../utils/Api.js";
 import Main from "../Main/Main.jsx";
 import AddMatchesForm from "../AddMatchesForm/AddMatchesForm.jsx";
 import AddUnitsForm from "../AddUnitsForm/AddUnitsForm.jsx";
 import AddUnitForm from "../AddUnitForm/AddUnitForm.jsx";
 import UpdateUnitForm from "../UpdateUnitForm/UpdateUnitForm.jsx";
+import Header from "../Header/Header.jsx";
 
 function App() {
   const [units, setUnits] = useState([]);
@@ -28,7 +36,7 @@ function App() {
   function getInitialUnits() {
     getUnits().then((dataUnits) => {
       setUnits(dataUnits);
-      console.log(dataUnits)
+      console.log(dataUnits);
     });
   }
   function getInitialMatches() {
@@ -78,18 +86,16 @@ function App() {
   }
 
   function updateName(unit, newUnit) {
-    console.log(unit, newUnit)
-    updateUnit(unit, newUnit)
-    .catch((err) => console.log(err));
-
+    console.log(unit, newUnit);
+    updateUnit(unit, newUnit).catch((err) => console.log(err));
   }
 
   function handleUnitDelete(unit) {
     removeUnit(unit._id)
-    .then(() => {
-      setUnits((state) => state.filter((c) => c._id !== unit._id));
-    })
-    .catch((err) => console.log(err));
+      .then(() => {
+        setUnits((state) => state.filter((c) => c._id !== unit._id));
+      })
+      .catch((err) => console.log(err));
   }
 
   function closePopupAddUnit() {
@@ -121,16 +127,24 @@ function App() {
   }, []);
   return (
     <div className="page">
-      <Main
-        onClickAddMatch={handleAddMatchClick}
-        onClickAddUnits={handleAddUnitsClick}
-        allUnits={units}
-        onClickDeleteUnitButton={handleUpdateUnitsClick}
-        // onClickEditUnitButton={handleUpdateUnitsClick}
-        onClickEditUnitButton={handleUpdateUnitsClick}
-        onUpdateUnit={updateName}
-        onUnitDelete={handleUnitDelete}
-      />
+        <Header />
+      <Switch>
+        <Route exact path="/">
+      
+          <Main
+            onClickAddMatch={handleAddMatchClick}
+            onClickAddUnits={handleAddUnitsClick}
+            allUnits={units}
+            onClickDeleteUnitButton={handleUpdateUnitsClick}
+            // onClickEditUnitButton={handleUpdateUnitsClick}
+            onClickEditUnitButton={handleUpdateUnitsClick}
+            onUpdateUnit={updateName}
+            onUnitDelete={handleUnitDelete}
+          />
+        </Route>
+       
+      </Switch>
+
       <AddMatchesForm
         isOpen={isFormPopupOpen}
         onClose={closePopup}

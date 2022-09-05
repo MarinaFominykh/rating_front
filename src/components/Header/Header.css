@@ -1,0 +1,22 @@
+.header {
+    display: flex;
+    justify-content: end;
+}
+
+.header__nav-container {}
+
+.header__nav-list {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+}
+
+.header__link {
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    cursor: pointer;
+    color: #fff;
+}
