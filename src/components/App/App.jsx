@@ -22,7 +22,7 @@ import AddUnitsForm from "../AddUnitsForm/AddUnitsForm.jsx";
 import AddUnitForm from "../AddUnitForm/AddUnitForm.jsx";
 import UpdateUnitForm from "../UpdateUnitForm/UpdateUnitForm.jsx";
 import Header from "../Header/Header.jsx";
-
+import Matches from "../Matches/Matches.jsx";
 function App() {
   const [units, setUnits] = useState([]);
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false);
@@ -36,12 +36,12 @@ function App() {
   function getInitialUnits() {
     getUnits().then((dataUnits) => {
       setUnits(dataUnits);
-      console.log(dataUnits);
     });
   }
   function getInitialMatches() {
     getMatches().then((dataMatches) => {
       setMatches(dataMatches);
+      console.log(dataMatches);
     });
   }
   function handleAddMatchClick() {
@@ -127,10 +127,9 @@ function App() {
   }, []);
   return (
     <div className="page">
-        <Header />
+      <Header />
       <Switch>
         <Route exact path="/">
-      
           <Main
             onClickAddMatch={handleAddMatchClick}
             onClickAddUnits={handleAddUnitsClick}
@@ -140,9 +139,12 @@ function App() {
             onClickEditUnitButton={handleUpdateUnitsClick}
             onUpdateUnit={updateName}
             onUnitDelete={handleUnitDelete}
+            matches={matches}
           />
         </Route>
-       
+        <Route exact path="/matches">
+          <Matches allMatches={matches}></Matches>
+        </Route>
       </Switch>
 
       <AddMatchesForm

@@ -3,23 +3,32 @@ import { useEffect, useState } from "react";
 import { getMatches, getUnits } from "../../utils/Api.js";
 import Unit from "../Unit/Unit.jsx";
 
-function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitButton,
-  onClickEditUnitButton, onUpdateUnit, sortData, onUnitDelete }) {
-  const [matches, setMatches] = useState([]);
+function Main({
+  onClickAddMatch,
+  onClickAddUnits,
+  allUnits,
+  onClickDeleteUnitButton,
+  onClickEditUnitButton,
+  onUpdateUnit,
+  sortData,
+  onUnitDelete,
+  matches,
+}) {
+  // const [matches, setMatches] = useState([]);
   const [units, setUnits] = useState([]);
   const [rating, setRating] = useState(0);
 
-  function getInitialMatches() {
-    getMatches().then((dataMatches) => {
-      setMatches(dataMatches);
-    });
-  }
+  // function getInitialMatches() {
+  //   getMatches().then((dataMatches) => {
+  //     setMatches(dataMatches);
+  //   });
+  // }
 
-  function getInitialUnits() {
-    getUnits().then((dataUnits) => {
-      setUnits(dataUnits);
-    });
-  }
+  // function getInitialUnits() {
+  //   getUnits().then((dataUnits) => {
+  //     setUnits(dataUnits);
+  //   });
+  // }
 
   function countRating(array, unit) {
     let rating = 0;
@@ -27,7 +36,7 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
       return (
         element.units.some(
           (item) =>
-            item.unit === unit._id &&
+            item.unit._id === unit._id &&
             (item.role === "мафия" || item.role === "дон")
         ) && element.result === "Победа мафии"
       );
@@ -36,7 +45,7 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
       return (
         element.units.some(
           (item) =>
-            item.unit === unit._id &&
+            item.unit._id === unit._id &&
             (item.role === "мафия" || item.role === "дон")
         ) && element.result === "Победа города"
       );
@@ -45,7 +54,7 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
     const matchesArrayRed = array.filter((element) => {
       return (
         element.units.some(
-          (item) => item.unit === unit._id && item.role === "мирный"
+          (item) => item.unit._id === unit._id && item.role === "мирный"
         ) && element.result === "Победа города"
       );
     });
@@ -53,7 +62,7 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
     const matchesArraySheriffVictory = array.filter((element) => {
       return (
         element.units.some(
-          (item) => item.unit === unit._id && item.role === "шериф"
+          (item) => item.unit._id === unit._id && item.role === "шериф"
         ) && element.result === "Победа города"
       );
     });
@@ -61,20 +70,20 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
     const matchesArraySheriffLoose = array.filter((element) => {
       return (
         element.units.some(
-          (item) => item.unit === unit._id && item.role === "шериф"
+          (item) => item.unit._id === unit._id && item.role === "шериф"
         ) && element.result === "Победа мафии"
       );
     });
 
     const matchesArrayBestPlayer = array.filter((element) => {
       return element.units.some(
-        (item) => item.unit === unit._id && item.bestPlayer
+        (item) => item.unit._id === unit._id && item.bestPlayer
       );
     });
 
     const matchesArrayModKill = array.filter((element) => {
       return element.units.some(
-        (item) => item.unit === unit._id && item.modKill
+        (item) => item.unit._id === unit._id && item.modKill
       );
     });
 
@@ -97,7 +106,7 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
 
   function countMatches(array, unit) {
     const matchesArray = array.filter((element) => {
-      return element.units.some((item) => item.unit === unit._id);
+      return element.units.some((item) => item.unit._id === unit._id);
     });
 
     return matchesArray.length;
@@ -107,7 +116,7 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
     const matchesArray = array.filter((element) => {
       return element.units.some(
         (item) =>
-          item.unit === unit._id &&
+          item.unit._id === unit._id &&
           (item.role === "мафия" || item.role === "дон")
       );
     });
@@ -119,7 +128,7 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
       return (
         element.units.some(
           (item) =>
-            item.unit === unit._id &&
+            item.unit._id === unit._id &&
             (item.role === "мафия" || item.role === "дон")
         ) && element.result === "Победа мафии"
       );
@@ -131,7 +140,7 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
     const matchesArray = array.filter((element) => {
       return element.units.some(
         (item) =>
-          item.unit === unit._id &&
+          item.unit._id === unit._id &&
           (item.role === "мирный" || item.role === "шериф")
       );
     });
@@ -143,7 +152,7 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
       return (
         element.units.some(
           (item) =>
-            item.unit === unit._id &&
+            item.unit._id === unit._id &&
             (item.role === "мирный" || item.role === "шериф")
         ) && element.result === "Победа города"
       );
@@ -154,7 +163,7 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
   function countSheriffRole(array, unit) {
     const matchesArray = array.filter((element) => {
       return element.units.some(
-        (item) => item.unit === unit._id && item.role === "шериф"
+        (item) => item.unit._id === unit._id && item.role === "шериф"
       );
     });
     return matchesArray.length;
@@ -164,7 +173,7 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
     const matchesArray = array.filter((element) => {
       return (
         element.units.some(
-          (item) => item.unit === unit._id && item.role === "шериф"
+          (item) => item.unit._id === unit._id && item.role === "шериф"
         ) && element.result === "Победа города"
       );
     });
@@ -174,7 +183,7 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
   function countDonRole(array, unit) {
     const matchesArray = array.filter((element) => {
       return element.units.some(
-        (item) => item.unit === unit._id && item.role === "дон"
+        (item) => item.unit._id === unit._id && item.role === "дон"
       );
     });
     return matchesArray.length;
@@ -184,20 +193,20 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
     const matchesArray = array.filter((element) => {
       return (
         element.units.some(
-          (item) => item.unit === unit._id && item.role === "дон"
+          (item) => item.unit._id === unit._id && item.role === "дон"
         ) && element.result === "Победа мафии"
       );
     });
     return matchesArray.length;
   }
 
-  useEffect(() => {
-    getInitialMatches();
-  }, []);
+  // useEffect(() => {
+  //   getInitialMatches();
+  // }, []);
 
-  useEffect(() => {
-    getInitialUnits();
-  }, []);
+  // useEffect(() => {
+  //   getInitialUnits();
+  // }, []);
 
   return (
     <main className="main">
@@ -215,7 +224,14 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
             <th className="table__cell">Побед за шерифа</th>
             <th className="table__cell">Количество игр за дона</th>
             <th className="table__cell">Побед за дона</th>
-            <th className="table__cell" onClick={() => {sortData("")}}>Рейтинг</th>
+            <th
+              className="table__cell"
+              onClick={() => {
+                sortData("");
+              }}
+            >
+              Рейтинг
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -238,8 +254,8 @@ function Main({ onClickAddMatch, onClickAddUnits, allUnits,  onClickDeleteUnitBu
                   unit={unit}
                   onUnitDelete={onUnitDelete}
                   // onClickEditUnitButton={onClickEdit(unit)}
-                   onClickEditUnitButton={onClickEditUnitButton}
-                   onUpdateUnit={onUpdateUnit}
+                  onClickEditUnitButton={onClickEditUnitButton}
+                  onUpdateUnit={onUpdateUnit}
                 ></Unit>
               );
             })

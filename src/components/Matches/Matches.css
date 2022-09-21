@@ -1,0 +1,21 @@
+.table{
+    border: 1px solid #fff;
+    margin-bottom: 30px;
+}
+
+.table__cell{
+    border: 1px solid #fff;
+    padding: 5px;
+}
+
+.table__cell_result {
+ border: none
+}
+
+.table__cell_color_red {
+    background-color: red;
+}
+
+.table__cell_color_black {
+    background-color: blue;
+}
