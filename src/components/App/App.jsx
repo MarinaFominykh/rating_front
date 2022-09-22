@@ -131,11 +131,8 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Main
-            onClickAddMatch={handleAddMatchClick}
-            onClickAddUnits={handleAddUnitsClick}
             allUnits={units}
             onClickDeleteUnitButton={handleUpdateUnitsClick}
-            // onClickEditUnitButton={handleUpdateUnitsClick}
             onClickEditUnitButton={handleUpdateUnitsClick}
             onUpdateUnit={updateName}
             onUnitDelete={handleUnitDelete}
@@ -143,7 +140,11 @@ function App() {
           />
         </Route>
         <Route exact path="/matches">
-          <Matches allMatches={matches}></Matches>
+          <Matches
+            allMatches={matches}
+            onClickAddMatch={handleAddMatchClick}
+            onClickAddUnits={handleAddUnitsClick}
+          ></Matches>
         </Route>
       </Switch>
 

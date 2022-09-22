@@ -4,10 +4,7 @@ import { getMatches, getUnits } from "../../utils/Api.js";
 import Unit from "../Unit/Unit.jsx";
 
 function Main({
-  onClickAddMatch,
-  onClickAddUnits,
   allUnits,
-  onClickDeleteUnitButton,
   onClickEditUnitButton,
   onUpdateUnit,
   sortData,
@@ -264,8 +261,6 @@ function Main({
             })}
         </tbody>
       </table>
-      <button onClick={onClickAddMatch}>Добавить игру</button>
-      <button onClick={onClickAddUnits}>Добавить игроков</button>
     </main>
   );
 }

@@ -3,11 +3,14 @@ import "./Matches.css";
 import Match from "../Match/Match.jsx";
 import { getUnit } from "../../utils/Api.js";
 
-function Matches({ allMatches }) {
+function Matches({ allMatches, onClickAddMatch, onClickAddUnits }) {
   console.log(allMatches);
   return (
     <main className="main">
       <h1>Игры</h1>
+      <button className="button" onClick={onClickAddMatch}>
+        Добавить игру
+      </button>
       {allMatches.map((match) => {
         return (
           <table className="table" key={match._id}>
@@ -16,6 +19,16 @@ function Matches({ allMatches }) {
               <tr>
                 <td colSpan="4" className="table__cell">
                   Ведущий: {match.gameMaster.name}
+                </td>
+              </tr>
+              <tr>
+                <td colSpan="4" className="table__cell">
+                  <button
+                    className="button table__add-button"
+                    onClick={onClickAddUnits}
+                  >
+                    Добавить игроков
+                  </button>
                 </td>
               </tr>
               <tr className="table__row table__row_result">
