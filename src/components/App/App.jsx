@@ -15,6 +15,7 @@ import {
   createUnit,
   updateUnit,
   removeUnit,
+  removeMatch,
 } from "../../utils/Api.js";
 import Main from "../Main/Main.jsx";
 import AddMatchesForm from "../AddMatchesForm/AddMatchesForm.jsx";
@@ -63,7 +64,11 @@ function App() {
 
   function addMatch(title, gameMaster, date, result) {
     addNewMatch(title, gameMaster, date, result)
-      .then(() => closePopup())
+      .then((newMatch) => {
+        setMatches([...matches, newMatch]);
+        closePopup();
+      })
+
       .catch((err) => console.log(err));
   }
 
@@ -96,6 +101,15 @@ function App() {
         setUnits((state) => state.filter((c) => c._id !== unit._id));
       })
       .catch((err) => console.log(err));
+  }
+
+  function handleDeleteMatch(match) {
+    removeMatch(match._id)
+      .then(() => {
+        setMatches((state) => state.filter((c) => c._id !== match._id));
+      })
+      .catch((err) => console.log(err));
+    console.log(match._id);
   }
 
   function closePopupAddUnit() {
@@ -144,6 +158,7 @@ function App() {
             allMatches={matches}
             onClickAddMatch={handleAddMatchClick}
             onClickAddUnits={handleAddUnitsClick}
+            onMatchDelete={handleDeleteMatch}
           ></Matches>
         </Route>
       </Switch>

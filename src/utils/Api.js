@@ -85,6 +85,16 @@ export const removeUnit = (id) => {
     }).then(checkResponse)
 }
 
+export const removeMatch = (id) => {
+    return fetch(`${BASE_URL}/matches/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+
+        },
+    }).then(checkResponse)
+}
+
 const checkResponse = (res) => {
     if (res.ok) {
         return res.json();
