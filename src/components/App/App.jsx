@@ -24,6 +24,7 @@ import AddUnitForm from "../AddUnitForm/AddUnitForm.jsx";
 import UpdateUnitForm from "../UpdateUnitForm/UpdateUnitForm.jsx";
 import Header from "../Header/Header.jsx";
 import Matches from "../Matches/Matches.jsx";
+import ConfirmForm from "../ConfirmForm/ConfirmForm.jsx";
 function App() {
   const [units, setUnits] = useState([]);
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false);
@@ -32,6 +33,7 @@ function App() {
   const [isFormWithUnitPopupOpen, setIsFormWithUnitPopupOpen] = useState(false);
   const [isFormWithUpdateUnitPopupOpen, setIsFormWithUpdateUnitPopupOpen] =
     useState(false);
+  const [isFormWithConfirmation, setIsFormWithConfirmation] = useState(false);
   const [matches, setMatches] = useState([]);
 
   function getInitialUnits() {
@@ -47,6 +49,10 @@ function App() {
   }
   function handleAddMatchClick() {
     setIsFormPopupOpen(true);
+  }
+
+  function handleDeleteMatchClick() {
+    setIsFormWithConfirmation(true);
   }
 
   function handleAddUnitsClick() {
@@ -107,6 +113,7 @@ function App() {
     removeMatch(match._id)
       .then(() => {
         setMatches((state) => state.filter((c) => c._id !== match._id));
+        setIsFormWithConfirmation(false);
       })
       .catch((err) => console.log(err));
     console.log(match._id);
@@ -120,6 +127,7 @@ function App() {
     setIsFormPopupOpen(false);
     setIsFormWithUnitsPopupOpen(false);
     setIsFormWithUpdateUnitPopupOpen(false);
+    setIsFormWithConfirmation(false);
   }
 
   useEffect(() => {
@@ -159,6 +167,9 @@ function App() {
             onClickAddMatch={handleAddMatchClick}
             onClickAddUnits={handleAddUnitsClick}
             onMatchDelete={handleDeleteMatch}
+            onClose={closePopup}
+            isOpen={isFormWithConfirmation}
+            onClickDeleteButton={handleDeleteMatchClick}
           ></Matches>
         </Route>
       </Switch>

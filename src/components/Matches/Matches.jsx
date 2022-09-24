@@ -8,6 +8,9 @@ function Matches({
   onClickAddMatch,
   onClickAddUnits,
   onMatchDelete,
+  onClose,
+  isOpen,
+  onClickDeleteButton,
 }) {
   return (
     <main className="main">
@@ -24,6 +27,9 @@ function Matches({
             match={match}
             gameMaster={match.gameMaster.name}
             onClickAddUnits={onClickAddUnits}
+            onClose={onClose}
+            isOpen={isOpen}
+            onClickDeleteButton={onClickDeleteButton}
           ></Match>
           // <table className="table" key={match._id}>
           //   <caption>
