@@ -13,7 +13,7 @@ function Match({ title, onMatchDelete, match, gameMaster, onClickAddUnits }) {
           <button
             onClick={handleMatchDelete}
             className="table__delete-button tooltip"
-            data-tooltip="Удалить игрока"
+            data-tooltip="Удалить игру"
           ></button>
         </div>
       </caption>
