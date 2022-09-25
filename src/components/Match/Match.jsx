@@ -1,6 +1,9 @@
 import React from "react";
+import { useState, useContext, useEffect } from "react";
 import "./Match.css";
 import ConfirmForm from "../ConfirmForm/ConfirmForm.jsx";
+import OptionUnit from "../OptionUnit/OptionUnit.jsx";
+import UpdateGameMasterForm from "../UpdateGameMasterForm/UpdateGameMasterForm.jsx";
 
 function Match({
   title,
@@ -9,13 +12,16 @@ function Match({
   gameMaster,
   onClickAddUnits,
   onClose,
-  isOpen,
+  isOpenConfirmForm,
   onClickDeleteButton,
+  onUpdateGameMaster,
+  units,
+  onClickEditGameMasterButton,
+  isOpenUpdateGameMasterForm,
+  addUnit,
 }) {
-  // function handleMatchDelete() {
-  //   onMatchDelete(match);
-  // }
-  return (
+ 
+ return (
     <>
       <table className="table">
         <caption>
@@ -23,7 +29,6 @@ function Match({
             <h2>{title}</h2>
             <button
               onClick={onClickDeleteButton}
-              // onClick={handleMatchDelete}
               className="table__delete-button tooltip"
               data-tooltip="Удалить игру"
             ></button>
@@ -32,7 +37,12 @@ function Match({
         <thead>
           <tr>
             <td colSpan="4" className="table__cell">
-              Ведущий: {gameMaster}
+            Ведущий: {gameMaster}
+              <button
+                onClick={onClickEditGameMasterButton}
+                className="table__edit-button tooltip"
+                data-tooltip="Изменить ведущего"
+              ></button>
             </td>
           </tr>
           <tr>
@@ -87,8 +97,16 @@ function Match({
         onMatchDelete={onMatchDelete}
         match={match}
         onClose={onClose}
-        isOpen={isOpen}
+        isOpen={isOpenConfirmForm}
       ></ConfirmForm>
+      <UpdateGameMasterForm
+        onUpdateGameMaster={onUpdateGameMaster}
+        onClose={onClose}
+        isOpen={isOpenUpdateGameMasterForm}
+        match={match}
+        units={units}
+        onClick={addUnit}
+      ></UpdateGameMasterForm>
     </>
   );
 }

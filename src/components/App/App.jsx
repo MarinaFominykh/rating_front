@@ -16,6 +16,7 @@ import {
   updateUnit,
   removeUnit,
   removeMatch,
+  updateGameMaster,
 } from "../../utils/Api.js";
 import Main from "../Main/Main.jsx";
 import AddMatchesForm from "../AddMatchesForm/AddMatchesForm.jsx";
@@ -24,7 +25,7 @@ import AddUnitForm from "../AddUnitForm/AddUnitForm.jsx";
 import UpdateUnitForm from "../UpdateUnitForm/UpdateUnitForm.jsx";
 import Header from "../Header/Header.jsx";
 import Matches from "../Matches/Matches.jsx";
-import ConfirmForm from "../ConfirmForm/ConfirmForm.jsx";
+import UpdateGameMasterForm from "../UpdateGameMasterForm/UpdateGameMasterForm.jsx";
 function App() {
   const [units, setUnits] = useState([]);
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false);
@@ -34,6 +35,7 @@ function App() {
   const [isFormWithUpdateUnitPopupOpen, setIsFormWithUpdateUnitPopupOpen] =
     useState(false);
   const [isFormWithConfirmation, setIsFormWithConfirmation] = useState(false);
+  const [isFormWithUpdateGameMaster, setUpdateGameMaster] = useState(false);
   const [matches, setMatches] = useState([]);
 
   function getInitialUnits() {
@@ -68,9 +70,14 @@ function App() {
     setIsFormWithUpdateUnitPopupOpen(true);
   }
 
+  function handleUpdateGameMaster() {
+    setUpdateGameMaster(true);
+  }
+
   function addMatch(title, gameMaster, date, result) {
     addNewMatch(title, gameMaster, date, result)
       .then((newMatch) => {
+        console.log(newMatch)
         setMatches([...matches, newMatch]);
         closePopup();
       })
@@ -97,8 +104,16 @@ function App() {
   }
 
   function updateName(unit, newUnit) {
-    console.log(unit, newUnit);
-    updateUnit(unit, newUnit).catch((err) => console.log(err));
+   updateUnit(unit, newUnit).catch((err) => console.log(err));
+  }
+
+  function updateGameMasterName(match, gameMaster) {
+    updateGameMaster(match, gameMaster)
+    .then(() => {
+      getInitialMatches();
+      setUpdateGameMaster(false);
+    })
+    .catch((err) => console.log(err));
   }
 
   function handleUnitDelete(unit) {
@@ -116,7 +131,7 @@ function App() {
         setIsFormWithConfirmation(false);
       })
       .catch((err) => console.log(err));
-    console.log(match._id);
+    
   }
 
   function closePopupAddUnit() {
@@ -128,6 +143,7 @@ function App() {
     setIsFormWithUnitsPopupOpen(false);
     setIsFormWithUpdateUnitPopupOpen(false);
     setIsFormWithConfirmation(false);
+    setUpdateGameMaster(false);
   }
 
   useEffect(() => {
@@ -168,8 +184,13 @@ function App() {
             onClickAddUnits={handleAddUnitsClick}
             onMatchDelete={handleDeleteMatch}
             onClose={closePopup}
-            isOpen={isFormWithConfirmation}
+            isOpenConfirmForm={isFormWithConfirmation}
             onClickDeleteButton={handleDeleteMatchClick}
+            onUpdateGameMaster={updateGameMasterName}
+            units={units}
+            onClickEditGameMasterButton={handleUpdateGameMaster}
+            addUnit={handleAddUnitClick}
+            isOpenUpdateGameMasterForm={isFormWithUpdateGameMaster}
           ></Matches>
         </Route>
       </Switch>
@@ -198,6 +219,13 @@ function App() {
         onClose={closePopup}
         onUpdateUnit={updateName}
       />
+      {/* <UpdateGameMasterForm
+        onUpdateGameMaster={updateGameMasterName}
+        isOpen={isFormWithUpdateGameMaster}
+        onClose={closePopup}
+        units={units}
+        onClick={handleAddUnitClick}
+      /> */}
     </div>
   );
 }
