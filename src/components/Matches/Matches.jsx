@@ -32,6 +32,7 @@ function Matches({
             onMatchDelete={onMatchDelete}
             match={match}
             gameMaster={match.gameMaster.name}
+            
             onClickAddUnits={onClickAddUnits}
             onClose={onClose}
             isOpenConfirmForm={isOpenConfirmForm}

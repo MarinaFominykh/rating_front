@@ -76,18 +76,25 @@ function App() {
 
   function addMatch(title, gameMaster, date, result) {
     addNewMatch(title, gameMaster, date, result)
-      .then((newMatch) => {
-        console.log(newMatch)
-        setMatches([...matches, newMatch]);
-        closePopup();
-      })
+     // Необходим рефакторинг для оптимизации, чтобы избавиться от избыточных запросов к серверу: 
+    .then(() => getInitialMatches())
+    closePopup()
+   
+      // .then((newMatch) => {
+      //   console.log(newMatch)
+      //   setMatches([...matches, newMatch]);
+      //   closePopup();
+      // })
 
       .catch((err) => console.log(err));
   }
 
   function addUnits(id, array) {
     addUnitsInMatch(id, array)
-      .then(() => closePopup())
+     // Необходим рефакторинг для оптимизации, чтобы избавиться от избыточных запросов к серверу:
+    .then(() => getInitialMatches())
+    closePopup()
+      // .then(() => closePopup())
       .catch((err) => console.log(err));
   }
 
