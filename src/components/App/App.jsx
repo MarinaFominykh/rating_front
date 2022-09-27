@@ -17,6 +17,7 @@ import {
   removeUnit,
   removeMatch,
   updateGameMaster,
+  updateTitle,
 } from "../../utils/Api.js";
 import Main from "../Main/Main.jsx";
 import AddMatchesForm from "../AddMatchesForm/AddMatchesForm.jsx";
@@ -36,6 +37,7 @@ function App() {
     useState(false);
   const [isFormWithConfirmation, setIsFormWithConfirmation] = useState(false);
   const [isFormWithUpdateGameMaster, setUpdateGameMaster] = useState(false);
+  const [isFormWithUpdateTitle, setFormWithUpdateTitle] = useState(false);
   const [matches, setMatches] = useState([]);
 
   function getInitialUnits() {
@@ -74,12 +76,15 @@ function App() {
     setUpdateGameMaster(true);
   }
 
+  function handleUpdateTitle() {
+    setFormWithUpdateTitle(true);
+  }
+
   function addMatch(title, gameMaster, date, result) {
     addNewMatch(title, gameMaster, date, result)
-     // Необходим рефакторинг для оптимизации, чтобы избавиться от избыточных запросов к серверу: 
-    .then(() => getInitialMatches())
+      // Необходим рефакторинг для оптимизации, чтобы избавиться от избыточных запросов к серверу:
+      .then(() => getInitialMatches());
     closePopup()
-   
       // .then((newMatch) => {
       //   console.log(newMatch)
       //   setMatches([...matches, newMatch]);
@@ -91,8 +96,8 @@ function App() {
 
   function addUnits(id, array) {
     addUnitsInMatch(id, array)
-     // Необходим рефакторинг для оптимизации, чтобы избавиться от избыточных запросов к серверу:
-    .then(() => getInitialMatches())
+      // Необходим рефакторинг для оптимизации, чтобы избавиться от избыточных запросов к серверу:
+      .then(() => getInitialMatches());
     closePopup()
       // .then(() => closePopup())
       .catch((err) => console.log(err));
@@ -111,16 +116,26 @@ function App() {
   }
 
   function updateName(unit, newUnit) {
-   updateUnit(unit, newUnit).catch((err) => console.log(err));
+    updateUnit(unit, newUnit).catch((err) => console.log(err));
   }
 
   function updateGameMasterName(match, gameMaster) {
     updateGameMaster(match, gameMaster)
-    .then(() => {
-      getInitialMatches();
-      setUpdateGameMaster(false);
-    })
-    .catch((err) => console.log(err));
+      .then(() => {
+        getInitialMatches();
+        setUpdateGameMaster(false);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function updateTitleMatch(match, title) {
+    updateTitle(match, title)
+      .then(() => {
+        getInitialMatches();
+        setFormWithUpdateTitle(false);
+        closePopup();
+      })
+      .catch((err) => console.log(err));
   }
 
   function handleUnitDelete(unit) {
@@ -138,7 +153,6 @@ function App() {
         setIsFormWithConfirmation(false);
       })
       .catch((err) => console.log(err));
-    
   }
 
   function closePopupAddUnit() {
@@ -151,6 +165,7 @@ function App() {
     setIsFormWithUpdateUnitPopupOpen(false);
     setIsFormWithConfirmation(false);
     setUpdateGameMaster(false);
+    setFormWithUpdateTitle(false);
   }
 
   useEffect(() => {
@@ -198,6 +213,9 @@ function App() {
             onClickEditGameMasterButton={handleUpdateGameMaster}
             addUnit={handleAddUnitClick}
             isOpenUpdateGameMasterForm={isFormWithUpdateGameMaster}
+            onUpdateTitle={updateTitleMatch}
+            isOpenUpdateTitle={isFormWithUpdateTitle}
+            onClickEditTitleButton={handleUpdateTitle}
           ></Matches>
         </Route>
       </Switch>

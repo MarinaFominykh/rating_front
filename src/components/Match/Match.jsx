@@ -4,6 +4,7 @@ import "./Match.css";
 import ConfirmForm from "../ConfirmForm/ConfirmForm.jsx";
 import OptionUnit from "../OptionUnit/OptionUnit.jsx";
 import UpdateGameMasterForm from "../UpdateGameMasterForm/UpdateGameMasterForm.jsx";
+import UpdateTitleForm from "../UpdateTitleForm/UpdateTitleForm.jsx";
 
 function Match({
   title,
@@ -19,9 +20,11 @@ function Match({
   onClickEditGameMasterButton,
   isOpenUpdateGameMasterForm,
   addUnit,
+  onUpdateTitle,
+  isOpenUpdateTitle,
+  onClickEditTitleButton,
 }) {
- 
- return (
+  return (
     <>
       <table className="table">
         <caption>
@@ -32,12 +35,17 @@ function Match({
               className="table__delete-button tooltip"
               data-tooltip="Удалить игру"
             ></button>
+            <button
+              onClick={onClickEditTitleButton}
+              className="table__edit-button tooltip"
+              data-tooltip="Редактировать название"
+            ></button>
           </div>
         </caption>
         <thead>
           <tr>
             <td colSpan="4" className="table__cell">
-            Ведущий: {gameMaster}
+              Ведущий: {gameMaster}
               <button
                 onClick={onClickEditGameMasterButton}
                 className="table__edit-button tooltip"
@@ -107,6 +115,12 @@ function Match({
         units={units}
         onClick={addUnit}
       ></UpdateGameMasterForm>
+      <UpdateTitleForm
+        onUpdateTitle={onUpdateTitle}
+        onClose={onClose}
+        isOpen={isOpenUpdateTitle}
+        match={match}
+      ></UpdateTitleForm>
     </>
   );
 }

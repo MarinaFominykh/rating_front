@@ -109,6 +109,20 @@ export const updateGameMaster = (match, gameMaster) => {
     }).then(checkResponse)
 }
 
+export const updateTitle = (match, title) => {
+    return fetch(`${BASE_URL}/matches/title`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+
+        },
+        body: JSON.stringify({
+            match,
+            title
+        })
+    }).then(checkResponse)
+}
+
 const checkResponse = (res) => {
     if (res.ok) {
         return res.json();
