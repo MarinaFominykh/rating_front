@@ -10,7 +10,7 @@ function Matches({
   onMatchDelete,
   onClose,
   isOpenConfirmForm,
-  onClickDeleteButton,
+  
   onUpdateGameMaster,
   units,
   onClickEditGameMasterButton,
@@ -20,6 +20,9 @@ function Matches({
   onUpdateTitle,
   isOpenUpdateTitle,
   onClickEditTitleButton,
+  onReplaceUnit,
+  isOpenReplaceUnit,
+  onClickReplaceUnitButton,
 }) {
   return (
     <main className="main">
@@ -38,7 +41,7 @@ function Matches({
             onClickAddUnits={onClickAddUnits}
             onClose={onClose}
             isOpenConfirmForm={isOpenConfirmForm}
-            onClickDeleteButton={onClickDeleteButton}
+           
             onUpdateGameMaster={onUpdateGameMaster}
             units={units}
             onClickEditGameMasterButton={onClickEditGameMasterButton}
@@ -48,6 +51,9 @@ function Matches({
             onUpdateTitle={onUpdateTitle}
             isOpenUpdateTitle={isOpenUpdateTitle}
             onClickEditTitleButton={onClickEditTitleButton}
+            onReplaceUnit={onReplaceUnit}
+            isOpenReplaceUnit={isOpenReplaceUnit}
+            onClickReplaceUnitButton={onClickReplaceUnitButton}
           ></Match>
         );
       })}

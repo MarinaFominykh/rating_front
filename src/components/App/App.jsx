@@ -18,6 +18,7 @@ import {
   removeMatch,
   updateGameMaster,
   updateTitle,
+  updateUnitInMatch,
 } from "../../utils/Api.js";
 import Main from "../Main/Main.jsx";
 import AddMatchesForm from "../AddMatchesForm/AddMatchesForm.jsx";
@@ -27,6 +28,7 @@ import UpdateUnitForm from "../UpdateUnitForm/UpdateUnitForm.jsx";
 import Header from "../Header/Header.jsx";
 import Matches from "../Matches/Matches.jsx";
 import UpdateGameMasterForm from "../UpdateGameMasterForm/UpdateGameMasterForm.jsx";
+import ConfirmForm from "../ConfirmForm/ConfirmForm.jsx";
 function App() {
   const [units, setUnits] = useState([]);
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false);
@@ -38,7 +40,9 @@ function App() {
   const [isFormWithConfirmation, setIsFormWithConfirmation] = useState(false);
   const [isFormWithUpdateGameMaster, setUpdateGameMaster] = useState(false);
   const [isFormWithUpdateTitle, setFormWithUpdateTitle] = useState(false);
+  const [isFormWithReplaceUnit, setIsFormWithReplaceUnit] = useState(false);
   const [matches, setMatches] = useState([]);
+  const [matchDelete, setMatchDelete] = useState({});
 
   function getInitialUnits() {
     getUnits().then((dataUnits) => {
@@ -55,7 +59,8 @@ function App() {
     setIsFormPopupOpen(true);
   }
 
-  function handleDeleteMatchClick() {
+  function handleDeleteMatchClick(data) {
+    setMatchDelete(data);
     setIsFormWithConfirmation(true);
   }
 
@@ -78,6 +83,10 @@ function App() {
 
   function handleUpdateTitle() {
     setFormWithUpdateTitle(true);
+  }
+
+  function handleReplaceUnit() {
+    setIsFormWithReplaceUnit(true);
   }
 
   function addMatch(title, gameMaster, date, result) {
@@ -138,6 +147,16 @@ function App() {
       .catch((err) => console.log(err));
   }
 
+  function replaceUnit(match, unit) {
+    updateUnitInMatch(match, unit)
+      .then(() => {
+        getInitialMatches();
+        setIsFormWithReplaceUnit(false);
+        closePopup();
+      })
+      .catch((err) => console.log(err));
+  }
+
   function handleUnitDelete(unit) {
     removeUnit(unit._id)
       .then(() => {
@@ -146,10 +165,10 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function handleDeleteMatch(match) {
-    removeMatch(match._id)
+  function handleDeleteMatch() {
+    removeMatch(matchDelete)
       .then(() => {
-        setMatches((state) => state.filter((c) => c._id !== match._id));
+        setMatches((state) => state.filter((c) => c._id !== matchDelete._id));
         setIsFormWithConfirmation(false);
       })
       .catch((err) => console.log(err));
@@ -166,6 +185,7 @@ function App() {
     setIsFormWithConfirmation(false);
     setUpdateGameMaster(false);
     setFormWithUpdateTitle(false);
+    setIsFormWithReplaceUnit(false);
   }
 
   useEffect(() => {
@@ -204,10 +224,10 @@ function App() {
             allMatches={matches}
             onClickAddMatch={handleAddMatchClick}
             onClickAddUnits={handleAddUnitsClick}
-            onMatchDelete={handleDeleteMatch}
+            onMatchDelete={handleDeleteMatchClick}
             onClose={closePopup}
             isOpenConfirmForm={isFormWithConfirmation}
-            onClickDeleteButton={handleDeleteMatchClick}
+           
             onUpdateGameMaster={updateGameMasterName}
             units={units}
             onClickEditGameMasterButton={handleUpdateGameMaster}
@@ -216,6 +236,9 @@ function App() {
             onUpdateTitle={updateTitleMatch}
             isOpenUpdateTitle={isFormWithUpdateTitle}
             onClickEditTitleButton={handleUpdateTitle}
+            onReplaceUnit={replaceUnit}
+            isOpenReplaceUnit={isFormWithReplaceUnit}
+            onClickReplaceUnitButton={handleReplaceUnit}
           ></Matches>
         </Route>
       </Switch>
@@ -243,6 +266,12 @@ function App() {
         isOpen={isFormWithUpdateUnitPopupOpen}
         onClose={closePopup}
         onUpdateUnit={updateName}
+      />
+
+<ConfirmForm
+        onMatchDelete={handleDeleteMatch}
+        onClose={closePopup}
+        isOpen={isFormWithConfirmation}
       />
       {/* <UpdateGameMasterForm
         onUpdateGameMaster={updateGameMasterName}

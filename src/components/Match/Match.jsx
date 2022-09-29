@@ -5,6 +5,7 @@ import ConfirmForm from "../ConfirmForm/ConfirmForm.jsx";
 import OptionUnit from "../OptionUnit/OptionUnit.jsx";
 import UpdateGameMasterForm from "../UpdateGameMasterForm/UpdateGameMasterForm.jsx";
 import UpdateTitleForm from "../UpdateTitleForm/UpdateTitleForm.jsx";
+import ReplaceUnitForm from "../ReplaceUnitForm/ReplaceUnitForm.jsx";
 
 function Match({
   title,
@@ -23,7 +24,14 @@ function Match({
   onUpdateTitle,
   isOpenUpdateTitle,
   onClickEditTitleButton,
+  onReplaceUnit,
+  isOpenReplaceUnit,
+  onClickReplaceUnitButton,
 }) {
+
+  function handleDeleteMatch () {
+    onMatchDelete(match)
+  }
   return (
     <>
       <table className="table">
@@ -31,7 +39,7 @@ function Match({
           <div className="table__match-title-container">
             <h2>{title}</h2>
             <button
-              onClick={onClickDeleteButton}
+              onClick={handleDeleteMatch}
               className="table__delete-button tooltip"
               data-tooltip="Удалить игру"
             ></button>
@@ -91,8 +99,15 @@ function Match({
           {match.units.map((unit) => {
             return (
               <tr key={unit._id}>
-                <td className="table__cell">{unit.unit.name}</td>
-                {/* <td className="table__cell">{unit.name}</td> */}
+                <td className="table__cell">
+                  {unit.unit.name}
+                  {/* <button
+                    onClick={onClickReplaceUnitButton}
+                    className="table__edit-button tooltip"
+                    data-tooltip="Заменить игрока"
+                  ></button> */}
+                </td>
+
                 <td className="table__cell">{unit.role}</td>
                 <td className="table__cell">{unit.modKill}</td>
                 <td className="table__cell">{unit.bestPlayer}</td>
@@ -101,12 +116,11 @@ function Match({
           })}
         </tbody>
       </table>
-      <ConfirmForm
+      {/* <ConfirmForm
         onMatchDelete={onMatchDelete}
-        match={match}
         onClose={onClose}
         isOpen={isOpenConfirmForm}
-      ></ConfirmForm>
+      ></ConfirmForm> */}
       <UpdateGameMasterForm
         onUpdateGameMaster={onUpdateGameMaster}
         onClose={onClose}
@@ -121,6 +135,13 @@ function Match({
         isOpen={isOpenUpdateTitle}
         match={match}
       ></UpdateTitleForm>
+      <ReplaceUnitForm
+        onReplaceUnit={onReplaceUnit}
+        onClose={onClose}
+        isOpen={isOpenReplaceUnit}
+        match={match}
+        units={units}
+      ></ReplaceUnitForm>
     </>
   );
 }

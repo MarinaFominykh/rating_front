@@ -85,8 +85,8 @@ export const removeUnit = (id) => {
     }).then(checkResponse)
 }
 
-export const removeMatch = (id) => {
-    return fetch(`${BASE_URL}/matches/${id}`, {
+export const removeMatch = (match) => {
+    return fetch(`${BASE_URL}/matches/${match._id}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"
@@ -119,6 +119,20 @@ export const updateTitle = (match, title) => {
         body: JSON.stringify({
             match,
             title
+        })
+    }).then(checkResponse)
+}
+
+export const updateUnitInMatch = (match, unit) => {
+    return fetch(`${BASE_URL}/matches/unit`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+
+        },
+        body: JSON.stringify({
+            match,
+            unit
         })
     }).then(checkResponse)
 }
