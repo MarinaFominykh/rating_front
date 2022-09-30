@@ -10,7 +10,7 @@ function UpdateGameMasterForm({
   isOpen,
   units,
   onClick,
-  match
+  
 }) {
   const [gameMaster, setGameMaster] = useState("");
   function handleInputGameMasterChange(e) {
@@ -18,7 +18,7 @@ function UpdateGameMasterForm({
   }
   function handleSubmit(e) {
     e.preventDefault();
-    onUpdateGameMaster(match, gameMaster);
+    onUpdateGameMaster(gameMaster);
   }
   return (
     <Form

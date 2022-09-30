@@ -14,23 +14,23 @@ function Match({
   gameMaster,
   onClickAddUnits,
   onClose,
-  isOpenConfirmForm,
-  onClickDeleteButton,
-  onUpdateGameMaster,
   units,
-  onClickEditGameMasterButton,
-  isOpenUpdateGameMasterForm,
   addUnit,
-  onUpdateTitle,
-  isOpenUpdateTitle,
-  onClickEditTitleButton,
+  onEditTitle,
   onReplaceUnit,
   isOpenReplaceUnit,
-  onClickReplaceUnitButton,
+  onEditGameMatch,
 }) {
+  function handleDeleteMatch() {
+    onMatchDelete(match);
+  }
 
-  function handleDeleteMatch () {
-    onMatchDelete(match)
+  function handleEditMatch() {
+    onEditTitle(match);
+  }
+
+  function handleEditGameMasterButton() {
+    onEditGameMatch(match);
   }
   return (
     <>
@@ -44,7 +44,7 @@ function Match({
               data-tooltip="Удалить игру"
             ></button>
             <button
-              onClick={onClickEditTitleButton}
+              onClick={handleEditMatch}
               className="table__edit-button tooltip"
               data-tooltip="Редактировать название"
             ></button>
@@ -55,7 +55,7 @@ function Match({
             <td colSpan="4" className="table__cell">
               Ведущий: {gameMaster}
               <button
-                onClick={onClickEditGameMasterButton}
+                onClick={handleEditGameMasterButton}
                 className="table__edit-button tooltip"
                 data-tooltip="Изменить ведущего"
               ></button>
@@ -121,20 +121,20 @@ function Match({
         onClose={onClose}
         isOpen={isOpenConfirmForm}
       ></ConfirmForm> */}
-      <UpdateGameMasterForm
+      {/* <UpdateGameMasterForm
         onUpdateGameMaster={onUpdateGameMaster}
         onClose={onClose}
         isOpen={isOpenUpdateGameMasterForm}
         match={match}
         units={units}
         onClick={addUnit}
-      ></UpdateGameMasterForm>
-      <UpdateTitleForm
+      ></UpdateGameMasterForm> */}
+      {/* <UpdateTitleForm
         onUpdateTitle={onUpdateTitle}
         onClose={onClose}
         isOpen={isOpenUpdateTitle}
         match={match}
-      ></UpdateTitleForm>
+      ></UpdateTitleForm> */}
       <ReplaceUnitForm
         onReplaceUnit={onReplaceUnit}
         onClose={onClose}

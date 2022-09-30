@@ -9,20 +9,16 @@ function Matches({
   onClickAddUnits,
   onMatchDelete,
   onClose,
-  isOpenConfirmForm,
-  
-  onUpdateGameMaster,
   units,
-  onClickEditGameMasterButton,
   addUnit,
-  onClickUpdateGameMasterButton,
-  isOpenUpdateGameMasterForm,
   onUpdateTitle,
   isOpenUpdateTitle,
   onClickEditTitleButton,
   onReplaceUnit,
   isOpenReplaceUnit,
   onClickReplaceUnitButton,
+  onEditTitle,
+  onEditGameMatch,
 }) {
   return (
     <main className="main">
@@ -40,20 +36,16 @@ function Matches({
             gameMaster={match.gameMaster.name}
             onClickAddUnits={onClickAddUnits}
             onClose={onClose}
-            isOpenConfirmForm={isOpenConfirmForm}
-           
-            onUpdateGameMaster={onUpdateGameMaster}
             units={units}
-            onClickEditGameMasterButton={onClickEditGameMasterButton}
             addUnit={addUnit}
-            onClickUpdateGameMasterButton={onClickUpdateGameMasterButton}
-            isOpenUpdateGameMasterForm={isOpenUpdateGameMasterForm}
             onUpdateTitle={onUpdateTitle}
             isOpenUpdateTitle={isOpenUpdateTitle}
             onClickEditTitleButton={onClickEditTitleButton}
             onReplaceUnit={onReplaceUnit}
             isOpenReplaceUnit={isOpenReplaceUnit}
             onClickReplaceUnitButton={onClickReplaceUnitButton}
+            onEditTitle={onEditTitle}
+            onEditGameMatch={onEditGameMatch}
           ></Match>
         );
       })}

@@ -7,8 +7,7 @@ import OptionUnit from "../OptionUnit/OptionUnit.jsx";
 function UpdateTitleForm({
   onUpdateTitle,
   onClose,
-  isOpen,
-  match
+  isOpen
 }) {
   const [title, setTitle] = useState("");
   function handleInputTitleChange(e) {
@@ -16,7 +15,7 @@ function UpdateTitleForm({
   }
   function handleSubmit(e) {
     e.preventDefault();
-    onUpdateTitle(match, title);
+    onUpdateTitle(title);
   }
   return (
     <Form

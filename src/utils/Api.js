@@ -117,8 +117,8 @@ export const updateTitle = (match, title) => {
 
         },
         body: JSON.stringify({
-            match,
-            title
+            match, title
+          
         })
     }).then(checkResponse)
 }

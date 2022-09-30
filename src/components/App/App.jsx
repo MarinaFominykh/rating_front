@@ -29,6 +29,8 @@ import Header from "../Header/Header.jsx";
 import Matches from "../Matches/Matches.jsx";
 import UpdateGameMasterForm from "../UpdateGameMasterForm/UpdateGameMasterForm.jsx";
 import ConfirmForm from "../ConfirmForm/ConfirmForm.jsx";
+import UpdateTitleForm from "../UpdateTitleForm/UpdateTitleForm.jsx";
+
 function App() {
   const [units, setUnits] = useState([]);
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false);
@@ -38,11 +40,14 @@ function App() {
   const [isFormWithUpdateUnitPopupOpen, setIsFormWithUpdateUnitPopupOpen] =
     useState(false);
   const [isFormWithConfirmation, setIsFormWithConfirmation] = useState(false);
-  const [isFormWithUpdateGameMaster, setUpdateGameMaster] = useState(false);
+  const [isFormWithUpdateGameMaster, setFormWithUpdateGameMaster] =
+    useState(false);
   const [isFormWithUpdateTitle, setFormWithUpdateTitle] = useState(false);
   const [isFormWithReplaceUnit, setIsFormWithReplaceUnit] = useState(false);
   const [matches, setMatches] = useState([]);
   const [matchDelete, setMatchDelete] = useState({});
+  const [editTitle, setEditTitle] = useState({});
+  const [editGameMaster, setEditGameMaster] = useState({});
 
   function getInitialUnits() {
     getUnits().then((dataUnits) => {
@@ -77,11 +82,13 @@ function App() {
     setIsFormWithUpdateUnitPopupOpen(true);
   }
 
-  function handleUpdateGameMaster() {
-    setUpdateGameMaster(true);
+  function handleUpdateGameMasterClick(data) {
+    setEditGameMaster(data);
+    setFormWithUpdateGameMaster(true);
   }
 
-  function handleUpdateTitle() {
+  function handleUpdateTitleClick(data) {
+    setEditTitle(data);
     setFormWithUpdateTitle(true);
   }
 
@@ -128,17 +135,17 @@ function App() {
     updateUnit(unit, newUnit).catch((err) => console.log(err));
   }
 
-  function updateGameMasterName(match, gameMaster) {
-    updateGameMaster(match, gameMaster)
+  function updateGameMasterName(gameMaster) {
+    updateGameMaster(editGameMaster, gameMaster)
       .then(() => {
         getInitialMatches();
-        setUpdateGameMaster(false);
+        setFormWithUpdateGameMaster(false);
       })
       .catch((err) => console.log(err));
   }
 
-  function updateTitleMatch(match, title) {
-    updateTitle(match, title)
+  function updateTitleMatch(title) {
+    updateTitle(editTitle, title)
       .then(() => {
         getInitialMatches();
         setFormWithUpdateTitle(false);
@@ -183,7 +190,7 @@ function App() {
     setIsFormWithUnitsPopupOpen(false);
     setIsFormWithUpdateUnitPopupOpen(false);
     setIsFormWithConfirmation(false);
-    setUpdateGameMaster(false);
+    setFormWithUpdateGameMaster(false);
     setFormWithUpdateTitle(false);
     setIsFormWithReplaceUnit(false);
   }
@@ -225,17 +232,18 @@ function App() {
             onClickAddMatch={handleAddMatchClick}
             onClickAddUnits={handleAddUnitsClick}
             onMatchDelete={handleDeleteMatchClick}
+            onEditTitle={handleUpdateTitleClick}
+            onEditGameMatch={handleUpdateGameMasterClick}
             onClose={closePopup}
-            isOpenConfirmForm={isFormWithConfirmation}
-           
-            onUpdateGameMaster={updateGameMasterName}
+            // isOpenConfirmForm={isFormWithConfirmation}
+
+            // onUpdateGameMaster={updateGameMasterName}
             units={units}
-            onClickEditGameMasterButton={handleUpdateGameMaster}
             addUnit={handleAddUnitClick}
             isOpenUpdateGameMasterForm={isFormWithUpdateGameMaster}
-            onUpdateTitle={updateTitleMatch}
-            isOpenUpdateTitle={isFormWithUpdateTitle}
-            onClickEditTitleButton={handleUpdateTitle}
+            // onUpdateTitle={updateTitleMatch}
+            // isOpenUpdateTitle={isFormWithUpdateTitle}
+            // onClickEditTitleButton={handleUpdateTitle}
             onReplaceUnit={replaceUnit}
             isOpenReplaceUnit={isFormWithReplaceUnit}
             onClickReplaceUnitButton={handleReplaceUnit}
@@ -268,18 +276,23 @@ function App() {
         onUpdateUnit={updateName}
       />
 
-<ConfirmForm
+      <ConfirmForm
         onMatchDelete={handleDeleteMatch}
         onClose={closePopup}
         isOpen={isFormWithConfirmation}
       />
-      {/* <UpdateGameMasterForm
+      <UpdateTitleForm
+        onUpdateTitle={updateTitleMatch}
+        onClose={closePopup}
+        isOpen={isFormWithUpdateTitle}
+      />
+      <UpdateGameMasterForm
         onUpdateGameMaster={updateGameMasterName}
         isOpen={isFormWithUpdateGameMaster}
         onClose={closePopup}
         units={units}
         onClick={handleAddUnitClick}
-      /> */}
+      />
     </div>
   );
 }
