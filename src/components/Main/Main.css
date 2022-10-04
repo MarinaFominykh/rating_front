@@ -8,3 +8,19 @@
     width: 100px;
     min-height: 30px;
 }
+
+.main__nav-list {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+}
+
+.main__link {
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    cursor: pointer;
+    color: #fff;
+}

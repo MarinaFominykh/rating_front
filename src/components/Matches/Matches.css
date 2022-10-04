@@ -1,3 +1,9 @@
+.match {
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
 .table {
     border: 1px solid #fff;
     border-spacing: 0;

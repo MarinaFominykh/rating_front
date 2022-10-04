@@ -6,7 +6,6 @@ import OptionUnit from "../OptionUnit/OptionUnit.jsx";
 import UpdateGameMasterForm from "../UpdateGameMasterForm/UpdateGameMasterForm.jsx";
 import UpdateTitleForm from "../UpdateTitleForm/UpdateTitleForm.jsx";
 
-
 function Match({
   title,
   onMatchDelete,
@@ -20,8 +19,10 @@ function Match({
   onReplaceUnit,
   isOpenReplaceUnit,
   onEditGameMatch,
-  onEditUnit
+  onEditUnit,
 }) {
+  const is = "&#10004;";
+  const isNot = "";
   function handleDeleteMatch() {
     onMatchDelete(match);
   }
@@ -103,19 +104,21 @@ function Match({
         <tbody>
           {match.units.map((unit) => {
             return (
-              <tr key={unit._id}>
-                <td className="table__cell">
+              <tr className="table__row" key={unit._id}>
+                <td className="table__cell unit__name">
                   {unit.unit.name}
                   <button
                     onClick={handleEditUnitButton}
                     className="table__edit-button tooltip"
-                    data-tooltip="Заменить игрока"
+                    data-tooltip="Редактировать данные игрока"
                   ></button>
                 </td>
 
                 <td className="table__cell">{unit.role}</td>
-                <td className="table__cell">{unit.modKill}</td>
-                <td className="table__cell">{unit.bestPlayer}</td>
+                <td className="table__cell cell-boolean">{unit.modKill}</td>
+                <td className="table__cell cell-boolean">
+                  {unit.bestPlayer ? "V" : ""}
+                </td>
               </tr>
             );
           })}
@@ -140,7 +143,6 @@ function Match({
         isOpen={isOpenUpdateTitle}
         match={match}
       ></UpdateTitleForm> */}
-      
     </>
   );
 }

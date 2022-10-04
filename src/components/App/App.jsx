@@ -37,14 +37,16 @@ function App() {
   const [isFormWithUnitsPopupOpen, setIsFormWithUnitsPopupOpen] =
     useState(false);
   const [isFormWithUnitPopupOpen, setIsFormWithUnitPopupOpen] = useState(false);
-  const [isFormWithUpdateUnit, setIsFormWithUpdateUnit] =
-    useState(false);
+  const [isFormWithUpdateUnit, setIsFormWithUpdateUnit] = useState(false);
   const [isFormWithConfirmation, setIsFormWithConfirmation] = useState(false);
   const [isFormWithUpdateGameMaster, setFormWithUpdateGameMaster] =
     useState(false);
   const [isFormWithUpdateTitle, setFormWithUpdateTitle] = useState(false);
   const [isFormWithReplaceUnit, setIsFormWithReplaceUnit] = useState(false);
   const [matches, setMatches] = useState([]);
+  const [matches2020, setMatches2020] = useState([]);
+  const [matches2021, setMatches2021] = useState([]);
+  const [matches2022, setMatches2022] = useState([]);
   const [matchDelete, setMatchDelete] = useState({});
   const [editTitle, setEditTitle] = useState({});
   const [editGameMaster, setEditGameMaster] = useState({});
@@ -61,6 +63,37 @@ function App() {
       console.log(dataMatches);
     });
   }
+
+  function getInitialMatches2020() {
+    getMatches().then((dataMatches) => {
+      setMatches2020(
+        dataMatches.filter((match) => {
+          return match.date.includes("2020");
+        })
+      );
+    });
+  }
+
+  function getInitialMatches2021() {
+    getMatches().then((dataMatches) => {
+      setMatches2021(
+        dataMatches.filter((match) => {
+          return match.date.includes("2021");
+        })
+      );
+    });
+  }
+
+  function getInitialMatches2022() {
+    getMatches().then((dataMatches) => {
+      setMatches2022(
+        dataMatches.filter((match) => {
+          return match.date.includes("2022");
+        })
+      );
+    });
+  }
+
   function handleAddMatchClick() {
     setIsFormPopupOpen(true);
   }
@@ -80,7 +113,7 @@ function App() {
   }
 
   function handleUpdateUnitsClick(data) {
-    setCurrentUnit(data)
+    setCurrentUnit(data);
     setIsFormWithUpdateUnit(true);
   }
 
@@ -101,7 +134,12 @@ function App() {
   function addMatch(title, gameMaster, date, result) {
     addNewMatch(title, gameMaster, date, result)
       // Необходим рефакторинг для оптимизации, чтобы избавиться от избыточных запросов к серверу:
-      .then(() => getInitialMatches());
+      .then(() => {
+        getInitialMatches();
+        getInitialMatches2020();
+        getInitialMatches2021();
+        getInitialMatches2022();
+      });
     closePopup()
       // .then((newMatch) => {
       //   console.log(newMatch)
@@ -137,7 +175,7 @@ function App() {
     updateUnit(currentUnit, name)
       .then(() => {
         getInitialUnits();
-        closePopup();    
+        closePopup();
       })
       .catch((err) => console.log(err));
   }
@@ -204,6 +242,9 @@ function App() {
 
   useEffect(() => {
     getInitialMatches();
+    getInitialMatches2020();
+    getInitialMatches2021();
+    getInitialMatches2022();
   }, []);
 
   useEffect(() => {
@@ -226,16 +267,42 @@ function App() {
         <Route exact path="/">
           <Main
             allUnits={units}
-            
-           onUpdateUnit={handleUpdateUnitsClick}
-            // onUpdateUnit={updateName}
+            onUpdateUnit={handleUpdateUnitsClick}
             onUnitDelete={handleUnitDelete}
             matches={matches}
+
+            // matches={matches2022}
           />
         </Route>
+        <Route path="/2020">
+          <Main
+            allUnits={units}
+            onUpdateUnit={handleUpdateUnitsClick}
+            onUnitDelete={handleUnitDelete}
+            matches={matches2020}
+          />
+        </Route>
+        <Route path="/2021">
+          <Main
+            allUnits={units}
+            onUpdateUnit={handleUpdateUnitsClick}
+            onUnitDelete={handleUnitDelete}
+            matches={matches2021}
+          />
+        </Route>
+        <Route path="/2022">
+          <Main
+            allUnits={units}
+            onUpdateUnit={handleUpdateUnitsClick}
+            onUnitDelete={handleUnitDelete}
+            matches={matches2022}
+          />
+        </Route>
+
         <Route exact path="/matches">
           <Matches
             allMatches={matches}
+            // allMatches={matches2022}
             onClickAddMatch={handleAddMatchClick}
             onClickAddUnits={handleAddUnitsClick}
             onMatchDelete={handleDeleteMatchClick}
@@ -301,14 +368,17 @@ function App() {
         units={units}
         onClick={handleAddUnitClick}
       />
-      <EditUnitInMatchForm  isOpen={isFormWithReplaceUnit}
+      <EditUnitInMatchForm
+        isOpen={isFormWithReplaceUnit}
         onClose={closePopup}
-        units={units}/>
-        <UpdateUnitForm   isOpen={isFormWithUpdateUnit}
+        units={units}
+      />
+      <UpdateUnitForm
+        isOpen={isFormWithUpdateUnit}
         onClose={closePopup}
         onUpdateUnit={updateName}
         onClick={handleAddUnitClick}
-        />
+      />
     </div>
   );
 }

@@ -33,7 +33,7 @@ function EditUnitInMatchForm({
       onSubmit={handleSubmit}
       onClose={onClose}
       isOpen={isOpen}
-      title="Изменить данные игрока"
+      title="Редактировать данные игрока"
       button="Сохранить"
     >
         <label>
