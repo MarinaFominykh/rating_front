@@ -625,7 +625,7 @@ function AddUnitsForm({
               <input
                 type="checkbox"
                 checked={checkedUnit8ModKill}
-                onChange={() => setCheckedUnit3ModKill(!checkedUnit8ModKill)}
+                onChange={() => setCheckedUnit8ModKill(!checkedUnit8ModKill)}
               ></input>
             </label>
 

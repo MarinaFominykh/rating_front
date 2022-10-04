@@ -37,21 +37,27 @@ function Unit({
     setUnitName(e.target.value);
   }
 
-  function handleSubmit(e) {
-     e.preventDefault();
-     onUpdateUnit(name, unitName);
-     setIsClicked(false);
+  // function handleSubmit(e) {
+  //    e.preventDefault();
+  //    onUpdateUnit(name, unitName);
+  //    setIsClicked(false);
     
+  // }
+  function handleUpdateUnith() {
+    onUpdateUnit(unit)
   }
-
-  function handleUnitDelete() {
-    onUnitDelete(unit);
-}
 
   return (
     <tr className="table__row unit">
       <td className="table__cell unit__name">
-        <form onSubmit={handleSubmit}>
+        <p>  {name}</p>
+      
+        <button
+              onClick={handleUpdateUnith}
+              className="table__edit-button tooltip"
+              data-tooltip="Редактировать название"
+            ></button>
+        {/* <form onSubmit={handleSubmit}>
           <input
             value={unitName}
             className="table__input-name"
@@ -76,7 +82,7 @@ function Unit({
             className="table__edit-button tooltip"
             data-tooltip="Изменить ник"
           ></button>
-        </div>
+        </div> */}
       </td>
       <td className="table__cell unit__rating">{matches}</td>
       <td className="table__cell unit__black">{black}</td>

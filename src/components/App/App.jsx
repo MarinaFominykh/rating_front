@@ -30,14 +30,14 @@ import Matches from "../Matches/Matches.jsx";
 import UpdateGameMasterForm from "../UpdateGameMasterForm/UpdateGameMasterForm.jsx";
 import ConfirmForm from "../ConfirmForm/ConfirmForm.jsx";
 import UpdateTitleForm from "../UpdateTitleForm/UpdateTitleForm.jsx";
-
+import EditUnitInMatchForm from "../EditUnitInMatchForm/EditUnitInMatchForm.jsx";
 function App() {
   const [units, setUnits] = useState([]);
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false);
   const [isFormWithUnitsPopupOpen, setIsFormWithUnitsPopupOpen] =
     useState(false);
   const [isFormWithUnitPopupOpen, setIsFormWithUnitPopupOpen] = useState(false);
-  const [isFormWithUpdateUnitPopupOpen, setIsFormWithUpdateUnitPopupOpen] =
+  const [isFormWithUpdateUnit, setIsFormWithUpdateUnit] =
     useState(false);
   const [isFormWithConfirmation, setIsFormWithConfirmation] = useState(false);
   const [isFormWithUpdateGameMaster, setFormWithUpdateGameMaster] =
@@ -48,6 +48,7 @@ function App() {
   const [matchDelete, setMatchDelete] = useState({});
   const [editTitle, setEditTitle] = useState({});
   const [editGameMaster, setEditGameMaster] = useState({});
+  const [currentUnit, setCurrentUnit] = useState({});
 
   function getInitialUnits() {
     getUnits().then((dataUnits) => {
@@ -78,8 +79,9 @@ function App() {
     setIsFormWithUnitPopupOpen(true);
   }
 
-  function handleUpdateUnitsClick() {
-    setIsFormWithUpdateUnitPopupOpen(true);
+  function handleUpdateUnitsClick(data) {
+    setCurrentUnit(data)
+    setIsFormWithUpdateUnit(true);
   }
 
   function handleUpdateGameMasterClick(data) {
@@ -92,7 +94,7 @@ function App() {
     setFormWithUpdateTitle(true);
   }
 
-  function handleReplaceUnit() {
+  function handleReplaceUnitClick() {
     setIsFormWithReplaceUnit(true);
   }
 
@@ -131,8 +133,13 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function updateName(unit, newUnit) {
-    updateUnit(unit, newUnit).catch((err) => console.log(err));
+  function updateName(name) {
+    updateUnit(currentUnit, name)
+      .then(() => {
+        getInitialUnits();
+        closePopup();    
+      })
+      .catch((err) => console.log(err));
   }
 
   function updateGameMasterName(gameMaster) {
@@ -188,7 +195,7 @@ function App() {
   function closePopup() {
     setIsFormPopupOpen(false);
     setIsFormWithUnitsPopupOpen(false);
-    setIsFormWithUpdateUnitPopupOpen(false);
+    setIsFormWithUpdateUnit(false);
     setIsFormWithConfirmation(false);
     setFormWithUpdateGameMaster(false);
     setFormWithUpdateTitle(false);
@@ -219,9 +226,9 @@ function App() {
         <Route exact path="/">
           <Main
             allUnits={units}
-            onClickDeleteUnitButton={handleUpdateUnitsClick}
-            onClickEditUnitButton={handleUpdateUnitsClick}
-            onUpdateUnit={updateName}
+            
+           onUpdateUnit={handleUpdateUnitsClick}
+            // onUpdateUnit={updateName}
             onUnitDelete={handleUnitDelete}
             matches={matches}
           />
@@ -234,6 +241,7 @@ function App() {
             onMatchDelete={handleDeleteMatchClick}
             onEditTitle={handleUpdateTitleClick}
             onEditGameMatch={handleUpdateGameMasterClick}
+            onEditUnit={handleReplaceUnitClick}
             onClose={closePopup}
             // isOpenConfirmForm={isFormWithConfirmation}
 
@@ -246,7 +254,7 @@ function App() {
             // onClickEditTitleButton={handleUpdateTitle}
             onReplaceUnit={replaceUnit}
             isOpenReplaceUnit={isFormWithReplaceUnit}
-            onClickReplaceUnitButton={handleReplaceUnit}
+            // onClickReplaceUnitButton={handleReplaceUnit}
           ></Matches>
         </Route>
       </Switch>
@@ -270,11 +278,11 @@ function App() {
         onClose={closePopupAddUnit}
         onAddUnit={addUnit}
       />
-      <UpdateUnitForm
+      {/* <UpdateUnitForm
         isOpen={isFormWithUpdateUnitPopupOpen}
         onClose={closePopup}
         onUpdateUnit={updateName}
-      />
+      /> */}
 
       <ConfirmForm
         onMatchDelete={handleDeleteMatch}
@@ -293,6 +301,14 @@ function App() {
         units={units}
         onClick={handleAddUnitClick}
       />
+      <EditUnitInMatchForm  isOpen={isFormWithReplaceUnit}
+        onClose={closePopup}
+        units={units}/>
+        <UpdateUnitForm   isOpen={isFormWithUpdateUnit}
+        onClose={closePopup}
+        onUpdateUnit={updateName}
+        onClick={handleAddUnitClick}
+        />
     </div>
   );
 }

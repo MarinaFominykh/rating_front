@@ -1,6 +1,8 @@
 
 .unit__name{
     width: 200px;
+    display: flex;
+    flex-direction: row;
 }
 
 .table__input-name {
@@ -104,6 +106,7 @@
 
 .unit__name {
     display: flex;
-    flex-direction: column;
+    
     gap: 5px;
+    justify-content: space-between;
 }

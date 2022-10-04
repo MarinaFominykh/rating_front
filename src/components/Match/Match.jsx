@@ -5,7 +5,7 @@ import ConfirmForm from "../ConfirmForm/ConfirmForm.jsx";
 import OptionUnit from "../OptionUnit/OptionUnit.jsx";
 import UpdateGameMasterForm from "../UpdateGameMasterForm/UpdateGameMasterForm.jsx";
 import UpdateTitleForm from "../UpdateTitleForm/UpdateTitleForm.jsx";
-import ReplaceUnitForm from "../ReplaceUnitForm/ReplaceUnitForm.jsx";
+
 
 function Match({
   title,
@@ -20,6 +20,7 @@ function Match({
   onReplaceUnit,
   isOpenReplaceUnit,
   onEditGameMatch,
+  onEditUnit
 }) {
   function handleDeleteMatch() {
     onMatchDelete(match);
@@ -31,6 +32,10 @@ function Match({
 
   function handleEditGameMasterButton() {
     onEditGameMatch(match);
+  }
+
+  function handleEditUnitButton() {
+    onEditUnit(match);
   }
   return (
     <>
@@ -101,11 +106,11 @@ function Match({
               <tr key={unit._id}>
                 <td className="table__cell">
                   {unit.unit.name}
-                  {/* <button
-                    onClick={onClickReplaceUnitButton}
+                  <button
+                    onClick={handleEditUnitButton}
                     className="table__edit-button tooltip"
                     data-tooltip="Заменить игрока"
-                  ></button> */}
+                  ></button>
                 </td>
 
                 <td className="table__cell">{unit.role}</td>
@@ -135,13 +140,7 @@ function Match({
         isOpen={isOpenUpdateTitle}
         match={match}
       ></UpdateTitleForm> */}
-      <ReplaceUnitForm
-        onReplaceUnit={onReplaceUnit}
-        onClose={onClose}
-        isOpen={isOpenReplaceUnit}
-        match={match}
-        units={units}
-      ></ReplaceUnitForm>
+      
     </>
   );
 }

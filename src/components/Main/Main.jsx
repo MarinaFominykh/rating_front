@@ -251,7 +251,7 @@ function Main({
                   unit={unit}
                   onUnitDelete={onUnitDelete}
                   // onClickEditUnitButton={onClickEdit(unit)}
-                  onClickEditUnitButton={onClickEditUnitButton}
+                  // onClickEditUnitButton={onClickEditUnitButton}
                   onUpdateUnit={onUpdateUnit}
                 ></Unit>
               );

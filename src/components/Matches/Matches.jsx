@@ -19,6 +19,7 @@ function Matches({
   onClickReplaceUnitButton,
   onEditTitle,
   onEditGameMatch,
+  onEditUnit
 }) {
   return (
     <main className="main">
@@ -46,6 +47,7 @@ function Matches({
             onClickReplaceUnitButton={onClickReplaceUnitButton}
             onEditTitle={onEditTitle}
             onEditGameMatch={onEditGameMatch}
+            onEditUnit={onEditUnit}
           ></Match>
         );
       })}
