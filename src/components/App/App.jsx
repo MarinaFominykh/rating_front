@@ -302,26 +302,51 @@ function App() {
         <Route exact path="/matches">
           <Matches
             allMatches={matches}
-            // allMatches={matches2022}
             onClickAddMatch={handleAddMatchClick}
             onClickAddUnits={handleAddUnitsClick}
             onMatchDelete={handleDeleteMatchClick}
             onEditTitle={handleUpdateTitleClick}
             onEditGameMatch={handleUpdateGameMasterClick}
             onEditUnit={handleReplaceUnitClick}
-            onClose={closePopup}
-            // isOpenConfirmForm={isFormWithConfirmation}
-
-            // onUpdateGameMaster={updateGameMasterName}
-            units={units}
-            addUnit={handleAddUnitClick}
-            isOpenUpdateGameMasterForm={isFormWithUpdateGameMaster}
-            // onUpdateTitle={updateTitleMatch}
-            // isOpenUpdateTitle={isFormWithUpdateTitle}
-            // onClickEditTitleButton={handleUpdateTitle}
-            onReplaceUnit={replaceUnit}
-            isOpenReplaceUnit={isFormWithReplaceUnit}
-            // onClickReplaceUnitButton={handleReplaceUnit}
+            // onClose={closePopup}
+            // units={units}
+            // addUnit={handleAddUnitClick}
+            // isOpenUpdateGameMasterForm={isFormWithUpdateGameMaster}
+            // onReplaceUnit={replaceUnit}
+            // isOpenReplaceUnit={isFormWithReplaceUnit}
+          ></Matches>
+        </Route>
+        <Route exact path="/matches/2020">
+          <Matches
+            allMatches={matches2020}
+            onClickAddMatch={handleAddMatchClick}
+            onClickAddUnits={handleAddUnitsClick}
+            onMatchDelete={handleDeleteMatchClick}
+            onEditTitle={handleUpdateTitleClick}
+            onEditGameMatch={handleUpdateGameMasterClick}
+            onEditUnit={handleReplaceUnitClick}
+          ></Matches>
+        </Route>
+        <Route exact path="/matches/2021">
+          <Matches
+            allMatches={matches2021}
+            onClickAddMatch={handleAddMatchClick}
+            onClickAddUnits={handleAddUnitsClick}
+            onMatchDelete={handleDeleteMatchClick}
+            onEditTitle={handleUpdateTitleClick}
+            onEditGameMatch={handleUpdateGameMasterClick}
+            onEditUnit={handleReplaceUnitClick}
+          ></Matches>
+        </Route>
+        <Route exact path="/matches/2022">
+          <Matches
+            allMatches={matches2022}
+            onClickAddMatch={handleAddMatchClick}
+            onClickAddUnits={handleAddUnitsClick}
+            onMatchDelete={handleDeleteMatchClick}
+            onEditTitle={handleUpdateTitleClick}
+            onEditGameMatch={handleUpdateGameMasterClick}
+            onEditUnit={handleReplaceUnitClick}
           ></Matches>
         </Route>
       </Switch>
