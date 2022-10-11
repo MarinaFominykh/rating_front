@@ -13,16 +13,28 @@ function Match({
   gameMaster,
   onClickAddUnits,
   // onClose,
-  // units,
+  units,
   // addUnit,
   onEditTitle,
   // onReplaceUnit,
   // isOpenReplaceUnit,
   onEditGameMatch,
   onEditUnit,
+  // stationSubmit,
+  isSubmited,
 }) {
   const is = "&#10004;";
   const isNot = "";
+  // const [isSubmited, setIsSubmited] = useState(stationSubmit);
+
+  // function getStationSubmitButtun() {
+  //   setIsSubmited(stationSubmit);
+  // }
+
+  const addUnitsButtonClassName = `button ${
+    isSubmited ? "table__add-button_hidden" : "table__add-button"
+  }`;
+
   function handleDeleteMatch() {
     onMatchDelete(match);
   }
@@ -35,9 +47,17 @@ function Match({
     onEditGameMatch(match);
   }
 
-  function handleEditUnitButton() {
-    onEditUnit(match);
+  // function handleEditUnitButton() {
+  //   onEditUnit(match);
+  // }
+
+  function handleAddUnits() {
+    onClickAddUnits();
   }
+
+  // useEffect(() => {
+  //   getStationSubmitButtun();
+  // }, [units]);
   return (
     <>
       <table className="table">
@@ -70,8 +90,8 @@ function Match({
           <tr>
             <td colSpan="4" className="table__cell">
               <button
-                className="button table__add-button"
-                onClick={onClickAddUnits}
+                className={addUnitsButtonClassName}
+                onClick={handleAddUnits}
               >
                 Добавить игроков
               </button>
@@ -108,7 +128,9 @@ function Match({
                 <td className="table__cell unit__name">
                   {unit.unit.name}
                   <button
-                    onClick={handleEditUnitButton}
+                    onClick={() => {
+                      onEditUnit(unit, match);
+                    }}
                     className="table__edit-button tooltip"
                     data-tooltip="Редактировать данные игрока"
                   ></button>

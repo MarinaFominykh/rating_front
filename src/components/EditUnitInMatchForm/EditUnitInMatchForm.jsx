@@ -10,7 +10,6 @@ function EditUnitInMatchForm({
   isOpen,
   units,
   onClick,
-  
 }) {
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
@@ -21,9 +20,14 @@ function EditUnitInMatchForm({
   }
   function handleSubmit(e) {
     e.preventDefault();
-    onEditUnitInMatch(name, role, checkedModKill, checkedBestPlayer);
+    // onEditUnitInMatch(name, role, checkedModKill, checkedBestPlayer);
+    onEditUnitInMatch({
+      unit: name,
+      role: role,
+      modKill: checkedModKill,
+      bestPlayer: checkedBestPlayer,
+    });
   }
- 
 
   function handleInputUnitRoleChange(e) {
     setRole(e.target.value);
@@ -36,48 +40,46 @@ function EditUnitInMatchForm({
       title="Редактировать данные игрока"
       button="Сохранить"
     >
-        <label>
-            Ник игрока
-            <select value={name} onChange={handleInputEditUnitChange}>
-        <option></option>
-        {units.map((unit) => {
-          return (
-            <OptionUnit name={unit.name} key={unit._id} unitId={unit._id} />
-          );
-        })}
-        <option value="newItem">...добавить игрока</option>
-      </select>
-        </label>
-    
       <label>
-              Роль в игре
-              <select value={role} onChange={handleInputUnitRoleChange}>
-                <option></option>
-                <option value="мирный">мирный</option>
-                <option value="мафия">мафия</option>
-                <option value="дон">дон</option>
-                <option value="шериф">шериф</option>
-              </select>
-            </label>
-            <label>
-              Модкилл в игре
-              <input
-                type="checkbox"
-                checked={checkedModKill}
-                onChange={() => setCheckedModKill(!checkedModKill)}
-              ></input>
-            </label>
+        Ник игрока
+        <select value={name} onChange={handleInputEditUnitChange}>
+          <option></option>
+          {units.map((unit) => {
+            return (
+              <OptionUnit name={unit.name} key={unit._id} unitId={unit._id} />
+            );
+          })}
+          <option value="newItem">...добавить игрока</option>
+        </select>
+      </label>
 
-            <label>
-              Лучший игрок
-              <input
-                type="checkbox"
-                checked={checkedBestPlayer}
-                onChange={() =>
-                  setCheckedBestPlayer(!checkedBestPlayer)
-                }
-              ></input>
-            </label>
+      <label>
+        Роль в игре
+        <select value={role} onChange={handleInputUnitRoleChange}>
+          <option></option>
+          <option value="мирный">мирный</option>
+          <option value="мафия">мафия</option>
+          <option value="дон">дон</option>
+          <option value="шериф">шериф</option>
+        </select>
+      </label>
+      <label>
+        Модкилл в игре
+        <input
+          type="checkbox"
+          checked={checkedModKill}
+          onChange={() => setCheckedModKill(!checkedModKill)}
+        ></input>
+      </label>
+
+      <label>
+        Лучший игрок
+        <input
+          type="checkbox"
+          checked={checkedBestPlayer}
+          onChange={() => setCheckedBestPlayer(!checkedBestPlayer)}
+        ></input>
+      </label>
     </Form>
   );
 }

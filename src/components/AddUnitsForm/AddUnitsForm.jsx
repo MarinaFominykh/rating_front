@@ -55,6 +55,7 @@ function AddUnitsForm({
   const [unit10Role, setUnit10Role] = useState("");
   const [checkedUnit10ModKill, setCheckedUnit10ModKill] = useState(false);
   const [checkedUnit10BestPlayer, setCheckedUnit10BestPlayer] = useState(false);
+  const [submitClick, isSubmitClick] = useState(false);
 
   function handleInputMatchIdChange(e) {
     setMatchId(e.target.value);
@@ -218,6 +219,7 @@ function AddUnitsForm({
       },
     ];
     onAddUnits(matchId, Array);
+    isSubmitClick(false);
   }
 
   return (

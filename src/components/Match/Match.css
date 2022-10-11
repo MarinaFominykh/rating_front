@@ -2,3 +2,7 @@
     color: rgb(12, 230, 12);
     font-size: 22px;
 }
+
+.table__add-button_hidden {
+    display: none;
+}

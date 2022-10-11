@@ -30,6 +30,7 @@ export const addNewMatch = (title, gameMaster, date, result) => {
             gameMaster,
             date,
             result
+
         })
     }).then(checkResponse)
 }
@@ -117,13 +118,14 @@ export const updateTitle = (match, title) => {
 
         },
         body: JSON.stringify({
-            match, title
-          
+            match,
+            title
+
         })
     }).then(checkResponse)
 }
 
-export const updateUnitInMatch = (match, unit) => {
+export const updateUnitInMatch = (unit, role, modKill, bestPlayer, match, currentUnit) => {
     return fetch(`${BASE_URL}/matches/unit`, {
         method: "PATCH",
         headers: {
@@ -131,8 +133,7 @@ export const updateUnitInMatch = (match, unit) => {
 
         },
         body: JSON.stringify({
-            match,
-            unit
+            unit, role, modKill, bestPlayer, match, currentUnit
         })
     }).then(checkResponse)
 }

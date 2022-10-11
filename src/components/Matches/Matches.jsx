@@ -10,7 +10,7 @@ function Matches({
   onClickAddUnits,
   onMatchDelete,
   // onClose,
-  // units,
+  units,
   // addUnit,
   // onUpdateTitle,
   // isOpenUpdateTitle,
@@ -21,10 +21,11 @@ function Matches({
   onEditTitle,
   onEditGameMatch,
   onEditUnit,
+  // stationSubmit,
 }) {
   return (
     <main className="matches">
-       <nav className="matches__nav-container">
+      <nav className="matches__nav-container">
         <ul className="matches__nav-list">
           <NavLink
             exact
@@ -75,7 +76,7 @@ function Matches({
               gameMaster={match.gameMaster.name}
               onClickAddUnits={onClickAddUnits}
               // onClose={onClose}
-              // units={units}
+              units={units}
               // addUnit={addUnit}
               // onUpdateTitle={onUpdateTitle}
               // isOpenUpdateTitle={isOpenUpdateTitle}
@@ -86,6 +87,7 @@ function Matches({
               onEditTitle={onEditTitle}
               onEditGameMatch={onEditGameMatch}
               onEditUnit={onEditUnit}
+              // stationSubmit={stationSubmit}
             ></Match>
           );
         })}

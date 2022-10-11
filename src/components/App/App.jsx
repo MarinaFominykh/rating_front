@@ -51,6 +51,9 @@ function App() {
   const [editTitle, setEditTitle] = useState({});
   const [editGameMaster, setEditGameMaster] = useState({});
   const [currentUnit, setCurrentUnit] = useState({});
+  const [unitData, setUnitData] = useState({});
+  const [editUnitMatch, setEditUnitMatch] = useState({});
+  // const [stationSubmitAddUtits, setStationSubmitAddUtits] = useState(false);
 
   function getInitialUnits() {
     getUnits().then((dataUnits) => {
@@ -127,7 +130,9 @@ function App() {
     setFormWithUpdateTitle(true);
   }
 
-  function handleReplaceUnitClick() {
+  function handleReplaceUnitClick(unit, match) {
+    setUnitData(unit);
+    setEditUnitMatch(match);
     setIsFormWithReplaceUnit(true);
   }
 
@@ -151,10 +156,15 @@ function App() {
   }
 
   function addUnits(id, array) {
+    console.log(array);
     addUnitsInMatch(id, array)
       // Необходим рефакторинг для оптимизации, чтобы избавиться от избыточных запросов к серверу:
-      .then(() => getInitialMatches());
-    closePopup()
+      .then(() => {
+        getInitialMatches();
+        // setStationSubmitAddUtits(true);
+        closePopup();
+      })
+
       // .then(() => closePopup())
       .catch((err) => console.log(err));
   }
@@ -199,9 +209,17 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function replaceUnit(match, unit) {
-    updateUnitInMatch(match, unit)
-      .then(() => {
+  function replaceUnit(data) {
+    
+    const { unit, role, modKill, bestPlayer } = data;
+    //    const array = editUnitMatch.units.filter((el) => {
+    //   return el.unit._id !== unitData.unit._id;
+    // }).push(data)
+
+   console.log("unitData", unitData)
+      updateUnitInMatch(unit, role, modKill, bestPlayer, editUnitMatch, unitData)
+
+       .then(() => {
         getInitialMatches();
         setIsFormWithReplaceUnit(false);
         closePopup();
@@ -308,8 +326,9 @@ function App() {
             onEditTitle={handleUpdateTitleClick}
             onEditGameMatch={handleUpdateGameMasterClick}
             onEditUnit={handleReplaceUnitClick}
+            // stationSubmit={stationSubmitAddUtits}
             // onClose={closePopup}
-            // units={units}
+            units={units}
             // addUnit={handleAddUnitClick}
             // isOpenUpdateGameMasterForm={isFormWithUpdateGameMaster}
             // onReplaceUnit={replaceUnit}
@@ -397,6 +416,8 @@ function App() {
         isOpen={isFormWithReplaceUnit}
         onClose={closePopup}
         units={units}
+        onClick={handleAddUnitClick}
+        onEditUnitInMatch={replaceUnit}
       />
       <UpdateUnitForm
         isOpen={isFormWithUpdateUnit}
