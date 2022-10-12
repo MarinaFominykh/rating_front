@@ -18,6 +18,7 @@ import {
   removeMatch,
   updateGameMaster,
   updateTitle,
+  updateResult,
   updateUnitInMatch,
 } from "../../utils/Api.js";
 import Main from "../Main/Main.jsx";
@@ -30,6 +31,7 @@ import Matches from "../Matches/Matches.jsx";
 import UpdateGameMasterForm from "../UpdateGameMasterForm/UpdateGameMasterForm.jsx";
 import ConfirmForm from "../ConfirmForm/ConfirmForm.jsx";
 import UpdateTitleForm from "../UpdateTitleForm/UpdateTitleForm.jsx";
+import UpdateResultForm from "../UpdateResultForm/UpdateResultForm.jsx";
 import EditUnitInMatchForm from "../EditUnitInMatchForm/EditUnitInMatchForm.jsx";
 function App() {
   const [units, setUnits] = useState([]);
@@ -43,6 +45,7 @@ function App() {
     useState(false);
   const [isFormWithUpdateTitle, setFormWithUpdateTitle] = useState(false);
   const [isFormWithReplaceUnit, setIsFormWithReplaceUnit] = useState(false);
+  const [isFormWithUpdateResult, setFormWithUpdateResult] = useState(false);
   const [matches, setMatches] = useState([]);
   const [matches2020, setMatches2020] = useState([]);
   const [matches2021, setMatches2021] = useState([]);
@@ -53,6 +56,7 @@ function App() {
   const [currentUnit, setCurrentUnit] = useState({});
   const [unitData, setUnitData] = useState({});
   const [editUnitMatch, setEditUnitMatch] = useState({});
+  const [editResultMatch, setEditResultMatch] = useState({});
   // const [stationSubmitAddUtits, setStationSubmitAddUtits] = useState(false);
 
   function getInitialUnits() {
@@ -128,6 +132,11 @@ function App() {
   function handleUpdateTitleClick(data) {
     setEditTitle(data);
     setFormWithUpdateTitle(true);
+  }
+
+  function handleUpdateResultClick(data) {
+    setEditResultMatch(data);
+    setFormWithUpdateResult(true);
   }
 
   function handleReplaceUnitClick(unit, match) {
@@ -209,17 +218,25 @@ function App() {
       .catch((err) => console.log(err));
   }
 
+  function updateResultMatch(result) {
+    updateResult(editResultMatch, result)
+      .then(() => {
+        getInitialMatches();
+        setFormWithUpdateResult(false);
+        closePopup();
+      })
+      .catch((err) => console.log(err));
+  }
+
   function replaceUnit(data) {
-    
     const { unit, role, modKill, bestPlayer } = data;
     //    const array = editUnitMatch.units.filter((el) => {
     //   return el.unit._id !== unitData.unit._id;
     // }).push(data)
 
-   console.log("unitData", unitData)
-      updateUnitInMatch(unit, role, modKill, bestPlayer, editUnitMatch, unitData)
-
-       .then(() => {
+    console.log("unitData", unitData);
+    updateUnitInMatch(unit, role, modKill, bestPlayer, editUnitMatch, unitData)
+      .then(() => {
         getInitialMatches();
         setIsFormWithReplaceUnit(false);
         closePopup();
@@ -326,13 +343,8 @@ function App() {
             onEditTitle={handleUpdateTitleClick}
             onEditGameMatch={handleUpdateGameMasterClick}
             onEditUnit={handleReplaceUnitClick}
-            // stationSubmit={stationSubmitAddUtits}
-            // onClose={closePopup}
             units={units}
-            // addUnit={handleAddUnitClick}
-            // isOpenUpdateGameMasterForm={isFormWithUpdateGameMaster}
-            // onReplaceUnit={replaceUnit}
-            // isOpenReplaceUnit={isFormWithReplaceUnit}
+            onEditResult={handleUpdateResultClick}
           ></Matches>
         </Route>
         <Route exact path="/matches/2020">
@@ -424,6 +436,12 @@ function App() {
         onClose={closePopup}
         onUpdateUnit={updateName}
         onClick={handleAddUnitClick}
+      />
+
+      <UpdateResultForm
+        isOpen={isFormWithUpdateResult}
+        onClose={closePopup}
+        onUpdateResult={updateResultMatch}
       />
     </div>
   );

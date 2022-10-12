@@ -125,6 +125,21 @@ export const updateTitle = (match, title) => {
     }).then(checkResponse)
 }
 
+export const updateResult = (match, result) => {
+    return fetch(`${BASE_URL}/matches/result`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+
+        },
+        body: JSON.stringify({
+            match,
+            result
+
+        })
+    }).then(checkResponse)
+}
+
 export const updateUnitInMatch = (unit, role, modKill, bestPlayer, match, currentUnit) => {
     return fetch(`${BASE_URL}/matches/unit`, {
         method: "PATCH",

@@ -1,10 +1,4 @@
 import React from "react";
-import { useState, useContext, useEffect } from "react";
-import "./Match.css";
-import ConfirmForm from "../ConfirmForm/ConfirmForm.jsx";
-import OptionUnit from "../OptionUnit/OptionUnit.jsx";
-import UpdateGameMasterForm from "../UpdateGameMasterForm/UpdateGameMasterForm.jsx";
-import UpdateTitleForm from "../UpdateTitleForm/UpdateTitleForm.jsx";
 
 function Match({
   title,
@@ -12,25 +6,13 @@ function Match({
   match,
   gameMaster,
   onClickAddUnits,
-  // onClose,
   units,
-  // addUnit,
   onEditTitle,
-  // onReplaceUnit,
-  // isOpenReplaceUnit,
   onEditGameMatch,
   onEditUnit,
-  // stationSubmit,
+  onEditResult,
   isSubmited,
 }) {
-  const is = "&#10004;";
-  const isNot = "";
-  // const [isSubmited, setIsSubmited] = useState(stationSubmit);
-
-  // function getStationSubmitButtun() {
-  //   setIsSubmited(stationSubmit);
-  // }
-
   const addUnitsButtonClassName = `button ${
     isSubmited ? "table__add-button_hidden" : "table__add-button"
   }`;
@@ -47,17 +29,14 @@ function Match({
     onEditGameMatch(match);
   }
 
-  // function handleEditUnitButton() {
-  //   onEditUnit(match);
-  // }
+  function handleEditResultButton() {
+    onEditResult(match);
+  }
 
   function handleAddUnits() {
     onClickAddUnits();
   }
 
-  // useEffect(() => {
-  //   getStationSubmitButtun();
-  // }, [units]);
   return (
     <>
       <table className="table">
@@ -83,7 +62,7 @@ function Match({
               <button
                 onClick={handleEditGameMasterButton}
                 className="table__edit-button tooltip"
-                data-tooltip="Изменить ведущего"
+                data-tooltip="Редактировать данные ведущего"
               ></button>
             </td>
           </tr>
@@ -98,7 +77,14 @@ function Match({
             </td>
           </tr>
           <tr className="table__row table__row_result">
-            <td className="table__cell table__cell_result">{match.result}</td>
+            <td className="table__cell table__cell_result">
+              {match.result}
+              <button
+                onClick={handleEditResultButton}
+                className="table__edit-button tooltip"
+                data-tooltip="Редактировать результат игры"
+              ></button>
+            </td>
             <td className="table__cell table__cell_result"></td>
             <td className="table__cell table__cell_result"></td>
             <td
@@ -137,8 +123,10 @@ function Match({
                 </td>
 
                 <td className="table__cell">{unit.role}</td>
-                <td className="table__cell cell-boolean">{unit.modKill}</td>
-                <td className="table__cell cell-boolean">
+                <td className="table__cell cell-modKill">
+                  {unit.modKill ? "X" : ""}
+                </td>
+                <td className="table__cell cell-bestPlayer">
                   {unit.bestPlayer ? "V" : ""}
                 </td>
               </tr>
@@ -146,25 +134,6 @@ function Match({
           })}
         </tbody>
       </table>
-      {/* <ConfirmForm
-        onMatchDelete={onMatchDelete}
-        onClose={onClose}
-        isOpen={isOpenConfirmForm}
-      ></ConfirmForm> */}
-      {/* <UpdateGameMasterForm
-        onUpdateGameMaster={onUpdateGameMaster}
-        onClose={onClose}
-        isOpen={isOpenUpdateGameMasterForm}
-        match={match}
-        units={units}
-        onClick={addUnit}
-      ></UpdateGameMasterForm> */}
-      {/* <UpdateTitleForm
-        onUpdateTitle={onUpdateTitle}
-        onClose={onClose}
-        isOpen={isOpenUpdateTitle}
-        match={match}
-      ></UpdateTitleForm> */}
     </>
   );
 }

@@ -1,5 +1,9 @@
-.cell-boolean {
+.cell-bestPlayer {
     color: rgb(12, 230, 12);
+    font-size: 22px;
+}
+.cell-modKill {
+    color: rgb(242, 16, 8);
     font-size: 22px;
 }
 

@@ -21,6 +21,7 @@ function Matches({
   onEditTitle,
   onEditGameMatch,
   onEditUnit,
+  onEditResult,
   // stationSubmit,
 }) {
   return (
@@ -87,6 +88,7 @@ function Matches({
               onEditTitle={onEditTitle}
               onEditGameMatch={onEditGameMatch}
               onEditUnit={onEditUnit}
+              onEditResult={onEditResult}
               // stationSubmit={stationSubmit}
             ></Match>
           );
