@@ -223,9 +223,7 @@ function RatingTable({ allUnits, onUpdateUnit, sortData, matches }) {
               ></Unit>
             );
           })
-          .sort((a, b) => {
-            return b - a;
-          })}
+          .sort()}
       </tbody>
     </table>
   );

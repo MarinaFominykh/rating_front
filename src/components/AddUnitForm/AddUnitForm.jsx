@@ -1,20 +1,23 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
 import "./AddUnitForm.css";
-import { getMatches, getUnits } from "../../utils/Api.js";
-import OptionUnit from "../OptionUnit/OptionUnit.jsx";
 import Form from "../Form/Form.jsx";
+import Error from "../Error/Error.jsx";
+import {
+  useFormWithValidation,
+  useForm,
+} from "../../hooks/UseFormValidation.js";
 function AddUnitForm({ isOpen, onClose, onAddUnit }) {
-  const [name, setName] = useState("");
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation();
 
-  function handleInputNameChange(e) {
-    setName(e.target.value);
-  }
   function handleSubmit(e) {
     e.preventDefault();
-    onAddUnit(name);
-    setName("");
+    onAddUnit(values.nameAddUnit);
   }
+  useEffect(() => {
+    resetForm();
+  }, [isOpen, resetForm]);
   return (
     <Form
       onSubmit={handleSubmit}
@@ -22,15 +25,20 @@ function AddUnitForm({ isOpen, onClose, onAddUnit }) {
       isOpen={isOpen}
       title="Новый игрок"
       button="Сохранить"
+      isDisabled={!isValid}
     >
-      <input
-        id="title"
-        type="text"
-        placeholder="Ник игрока"
-        value={name}
-        onChange={handleInputNameChange}
-        required
-      ></input>
+      <label>
+        <input
+          name="nameAddUnit"
+          type="text"
+          placeholder="Ник игрока"
+          value={values.nameAddUnit || ""}
+          onChange={handleChange}
+          required
+        ></input>
+        <Error error={errors.nameAddUnit} />
+        {/* <span>{errors.nameAddUnit || ""}</span> */}
+      </label>
     </Form>
   );
 }

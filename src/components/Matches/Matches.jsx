@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import "./Matches.css";
 import Match from "../Match/Match.jsx";
-import { getUnit } from "../../utils/Api.js";
+import UserCurrentWidth from "../../hooks/useCurrentWidth.js";
+import { getLoadStep, getInitialCount } from "../../utils/getLoadStep.js";
 
 function Matches({
   allMatches,
@@ -24,6 +25,12 @@ function Matches({
   onEditResult,
   // stationSubmit,
 }) {
+  const width = UserCurrentWidth();
+  const [count, setCount] = useState(getInitialCount(width));
+
+  function handleLoadMore() {
+    setCount((prevCount) => prevCount + getLoadStep(width));
+  }
   return (
     <main className="matches">
       <nav className="matches__nav-container">
@@ -67,7 +74,7 @@ function Matches({
         Добавить игру
       </button>
       <section className="match">
-        {allMatches.map((match) => {
+        {allMatches.slice(0, count).map((match) => {
           return (
             <Match
               key={match._id}
@@ -94,6 +101,11 @@ function Matches({
           );
         })}
       </section>
+      {allMatches.length > count && (
+        <button className="button button__load-more" onClick={handleLoadMore}>
+          Загрузить ещё
+        </button>
+      )}
     </main>
   );
 }

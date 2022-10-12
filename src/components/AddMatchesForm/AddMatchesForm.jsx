@@ -4,6 +4,7 @@ import "./AddMatchesForm.css";
 import { getMatches, getUnits } from "../../utils/Api.js";
 import OptionUnit from "../OptionUnit/OptionUnit.jsx";
 import Form from "../Form/Form.jsx";
+import useFormWithValidation from "../../hooks/UseFormValidation.js";
 
 function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick }) {
   const [units, setUnits] = useState([]);
@@ -42,6 +43,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick }) {
   useEffect(() => {
     getInitialUnits();
   }, []);
+
   return (
     <Form
       onSubmit={handleSubmit}
@@ -57,6 +59,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick }) {
           type="text"
           placeholder="Название игры"
           value={title}
+          // value={values.title || ""}
           onChange={handleInputTitleChange}
           required
         ></input>

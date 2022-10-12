@@ -2,6 +2,7 @@
     color: rgb(12, 230, 12);
     font-size: 22px;
 }
+
 .cell-modKill {
     color: rgb(242, 16, 8);
     font-size: 22px;
@@ -9,4 +10,11 @@
 
 .table__add-button_hidden {
     display: none;
+}
+
+.button__load-more {
+    width: 100%;
+    margin-bottom: 20px;
+    line-height: 40px;
+    background-color: blue;
 }

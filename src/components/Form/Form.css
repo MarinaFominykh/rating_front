@@ -80,6 +80,15 @@
     opacity: 0.6;
 }
 
+.form__save:disabled {
+    background-color: rgb(180, 191, 191);
+    cursor: default;
+}
+
+.form__save:disabled:hover {
+    opacity: 1;
+}
+
 
 @media screen and (max-width: 960px) {
     .form__container {
