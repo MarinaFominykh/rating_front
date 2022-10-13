@@ -7,9 +7,12 @@ function Form({
   children,
   button,
   isDisabled,
+  className,
 }) {
   return (
-    <section className={`popup ${isOpen && "popup_opened"}`}>
+    <section
+      className={`popup popup_type_${className} ${isOpen && "popup_opened"}`}
+    >
       <form className="form" onSubmit={onSubmit} noValidate>
         <button type="button" className="form__close" onClick={onClose} />
         <h2 className="form__title">{title}</h2>

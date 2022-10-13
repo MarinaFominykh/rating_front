@@ -4,45 +4,29 @@ import "./AddMatchesForm.css";
 import { getMatches, getUnits } from "../../utils/Api.js";
 import OptionUnit from "../OptionUnit/OptionUnit.jsx";
 import Form from "../Form/Form.jsx";
-import useFormWithValidation from "../../hooks/UseFormValidation.js";
+import Error from "../Error/Error.jsx";
+import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 
-function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick }) {
-  const [units, setUnits] = useState([]);
-  const [title, setTitle] = useState("");
-  const [gameMaster, setGameMaster] = useState("");
-  const [date, setDate] = useState("");
-  const [result, setResult] = useState("");
+function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation();
 
-  function getInitialUnits() {
-    getUnits().then((dataUnits) => {
-      setUnits(dataUnits);
-    });
-  }
-
-  function handleInputTitleChange(e) {
-    setTitle(e.target.value);
-  }
-
+  useEffect(() => {
+    resetForm();
+  }, [isOpen, resetForm]);
   function handleInputGameMasterChange(e) {
-    e.target.value === "newItem" ? onClick() : setGameMaster(e.target.value);
-  }
-
-  function handleInputDateChange(e) {
-    setDate(e.target.value);
-  }
-
-  function handleInputResultChange(e) {
-    setResult(e.target.value);
+    e.target.value === "newItem" ? onClick() : handleChange(e);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    onAddMatch(title, gameMaster, date, result);
+    onAddMatch({
+      title: values.titleAddMatchForm,
+      gameMaster: values.gameMasterAddMatchForm,
+      date: values.dateMasterAddMatchForm,
+      result: values.resultAddMatchForm,
+    });
   }
-
-  useEffect(() => {
-    getInitialUnits();
-  }, []);
 
   return (
     <Form
@@ -51,22 +35,29 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick }) {
       isOpen={isOpen}
       title="Новая игра"
       button="Сохранить"
+      isDisabled={!isValid}
     >
       <label>
         Название игры
         <input
-          id="title"
+          name="titleAddMatchForm"
           type="text"
           placeholder="Название игры"
-          value={title}
-          // value={values.title || ""}
-          onChange={handleInputTitleChange}
+          // value={title}
+          value={values.titleAddMatchForm || ""}
+          onChange={handleChange}
           required
         ></input>
+        <Error error={errors.titleAddMatchForm} />
       </label>
       <label>
         Ведущий
-        <select value={gameMaster} onChange={handleInputGameMasterChange}>
+        <select
+          name="gameMasterAddMatchForm"
+          value={values.gameMasterAddMatchForm}
+          onChange={handleInputGameMasterChange}
+          required
+        >
           <option></option>
           {units.map((unit) => {
             return (
@@ -75,134 +66,39 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick }) {
           })}
           <option value="newItem">...добавить игрока</option>
         </select>
+        <Error error={errors.gameMasterAddMatchForm} />
       </label>
       <label>
         Дата окончания игры
         <input
-          id="title"
+          name="dateMasterAddMatchForm"
           type="date"
           placeholder="Дата окончания игры"
-          value={date}
-          onChange={handleInputDateChange}
+          value={values.dateMasterAddMatchForm || ""}
+          onChange={handleChange}
           required
         ></input>
+        <Error error={errors.dateMasterAddMatchForm} />
       </label>
       <div className="form__result">
-        <h3 className="form__result-title">Результат игры</h3>
-        <label htmlFor="red">Победа города</label>
-        <input
-          type="radio"
-          name="result"
-          id="Победа города"
-          value="Победа города"
-          onChange={handleInputResultChange}
-          checked={result === "Победа города" ? true : false}
-        ></input>
-        <label htmlFor="black">Победа мафии</label>
-        <input
-          type="radio"
-          name="result"
-          id="black"
-          value="Победа мафии"
-          onChange={handleInputResultChange}
-          checked={result === "Победа мафии" ? true : false}
-        ></input>
-        <label htmlFor="draw">Ничья</label>
-        <input
-          type="radio"
-          name="result"
-          id="draw"
-          value="Ничья"
-          onChange={handleInputResultChange}
-          checked={result === "Ничья" ? true : false}
-        ></input>
+        <label>
+          Результат игры
+          <select
+            name="resultAddMatchForm"
+            value={values.resultAddMatchForm || ""}
+            onChange={handleChange}
+            required
+          >
+            <option></option>
+            <option value="Победа города">победа города</option>
+            <option value="Победа мафии">победа мафии</option>
+            <option value="Ничья">ничья</option>
+          </select>
+          <Error error={errors.resultAddMatchForm} />
+        </label>
       </div>
     </Form>
   );
 }
 
 export default AddMatchesForm;
-// <section className={`popup ${isOpen && "popup_opened"}`}>
-//   <form className="form" onSubmit={handleSubmit}>
-//     <button
-//       className="form__close"
-//       type="button"
-//       onClick={onClose}
-//     ></button>
-//     <h2 className="form__title">Новая игра</h2>
-//     <fieldset className="form__match">
-//       <label>
-//         Название игры
-//         <input
-//           id="title"
-//           type="text"
-//           placeholder="Название игры"
-//           value={title}
-//           onChange={handleInputTitleChange}
-//           required
-//         ></input>
-//       </label>
-//       <label>
-//         Ведущий
-//         <select value={gameMaster} onChange={handleInputGameMasterChange}>
-//           <option></option>
-//           {units.map((unit) => {
-//             return (
-//               <OptionUnit
-//                 name={unit.name}
-//                 key={unit._id}
-//                 unitId={unit._id}
-//               />
-//             );
-//           })}
-//           <option value="newItem">...добавить игрока</option>
-//         </select>
-//       </label>
-//       <label>
-//         Дата окончания игры
-//         <input
-//           id="title"
-//           type="date"
-//           placeholder="Дата окончания игры"
-//           value={date}
-//           onChange={handleInputDateChange}
-//           required
-//         ></input>
-//       </label>
-//       <div className="form__result">
-//         <h3 className="form__result-title">Результат игры</h3>
-//         <label htmlFor="red">Победа города</label>
-//         <input
-//           type="radio"
-//           name="result"
-//           id="Победа города"
-//           value="Победа города"
-//           onChange={handleInputResultChange}
-//           checked={result === "Победа города" ? true : false}
-//         ></input>
-//         <label htmlFor="black">Победа мафии</label>
-//         <input
-//           type="radio"
-//           name="result"
-//           id="black"
-//           value="Победа мафии"
-//           onChange={handleInputResultChange}
-//           checked={result === "Победа мафии" ? true : false}
-//         ></input>
-//         <label htmlFor="draw">Ничья</label>
-//         <input
-//           type="radio"
-//           name="result"
-//           id="draw"
-//           value="Ничья"
-//           onChange={handleInputResultChange}
-//           checked={result === "Ничья" ? true : false}
-//         ></input>
-//       </div>
-//     </fieldset>
-
-//     <button className="form__submit" type="submit" value="Сохранить">
-//       Сохранить
-//     </button>
-//   </form>
-// </section>

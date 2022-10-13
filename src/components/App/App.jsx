@@ -145,7 +145,8 @@ function App() {
     setIsFormWithReplaceUnit(true);
   }
 
-  function addMatch(title, gameMaster, date, result) {
+  function addMatch(data) {
+    const { title, gameMaster, date, result } = data;
     addNewMatch(title, gameMaster, date, result)
       // Необходим рефакторинг для оптимизации, чтобы избавиться от избыточных запросов к серверу:
       .then(() => {
@@ -199,6 +200,7 @@ function App() {
       .catch((err) => console.log(err));
   }
 
+  //Измененные данные ведущего видны только после перезагрузки. Необходим рефакторинг
   function updateGameMasterName(gameMaster) {
     updateGameMaster(editGameMaster, gameMaster)
       .then(() => {
@@ -385,6 +387,7 @@ function App() {
       <AddMatchesForm
         isOpen={isFormPopupOpen}
         onClose={closePopup}
+        units={units}
         onAddMatch={addMatch}
         onClick={handleAddUnitClick}
       />

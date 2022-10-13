@@ -2,20 +2,24 @@ import React from "react";
 import { useState, useContext, useEffect } from "react";
 import "./UpdateTitleForm.css";
 import Form from "../Form/Form.jsx";
-import OptionUnit from "../OptionUnit/OptionUnit.jsx";
+import Error from "../Error/Error.jsx";
+import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 
-function UpdateTitleForm({
-  onUpdateTitle,
-  onClose,
-  isOpen
-}) {
+function UpdateTitleForm({ onUpdateTitle, onClose, isOpen }) {
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation();
   const [title, setTitle] = useState("");
+
+  useEffect(() => {
+    resetForm();
+  }, [isOpen, resetForm]);
+
   function handleInputTitleChange(e) {
-   setTitle(e.target.value);
+    setTitle(e.target.value);
   }
   function handleSubmit(e) {
     e.preventDefault();
-    onUpdateTitle(title);
+    onUpdateTitle(values.updateTitleForm);
   }
   return (
     <Form
@@ -24,11 +28,18 @@ function UpdateTitleForm({
       isOpen={isOpen}
       title="Редактировать название"
       button="Сохранить"
+      isDisabled={!isValid}
     >
-      
-      <input value={title} onChange={handleInputTitleChange}>
- 
-      </input>
+      <label>
+        Редактировать название
+        <input
+          name="updateTitleForm"
+          value={values.updateTitleForm || ""}
+          onChange={handleChange}
+          required
+        ></input>
+        <Error error={errors.updateTitleForm} />
+      </label>
     </Form>
   );
 }

@@ -3,10 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import "./AddUnitForm.css";
 import Form from "../Form/Form.jsx";
 import Error from "../Error/Error.jsx";
-import {
-  useFormWithValidation,
-  useForm,
-} from "../../hooks/UseFormValidation.js";
+import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 function AddUnitForm({ isOpen, onClose, onAddUnit }) {
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
@@ -26,6 +23,7 @@ function AddUnitForm({ isOpen, onClose, onAddUnit }) {
       title="Новый игрок"
       button="Сохранить"
       isDisabled={!isValid}
+      className="add-unit"
     >
       <label>
         <input
@@ -37,37 +35,9 @@ function AddUnitForm({ isOpen, onClose, onAddUnit }) {
           required
         ></input>
         <Error error={errors.nameAddUnit} />
-        {/* <span>{errors.nameAddUnit || ""}</span> */}
       </label>
     </Form>
   );
 }
 
 export default AddUnitForm;
-
-// <section className={`popup ${isOpen && "popup_opened"}`}>
-//   <form className="form" onSubmit={handleSubmit}>
-//     <button
-//       className="form__close"
-//       type="button"
-//       onClick={onClose}
-//     ></button>
-//     <h2 className="form__title">Новый игрок</h2>
-//     <fieldset className="form__unit">
-
-//         <input
-//           id="title"
-//           type="text"
-//           placeholder="Ник игрока"
-//           value={name}
-//           onChange={handleInputNameChange}
-//           required
-//         ></input>
-
-//     </fieldset>
-
-//     <button className="form__submit" type="submit" value="Сохранить">
-//       Сохранить
-//     </button>
-//   </form>
-// </section>

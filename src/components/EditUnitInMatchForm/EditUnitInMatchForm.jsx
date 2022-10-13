@@ -3,6 +3,8 @@ import { useState, useContext, useEffect } from "react";
 import "./EditUnitInMatchForm.css";
 import Form from "../Form/Form.jsx";
 import OptionUnit from "../OptionUnit/OptionUnit.jsx";
+import Error from "../Error/Error.jsx";
+import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 
 function EditUnitInMatchForm({
   onEditUnitInMatch,
@@ -11,19 +13,26 @@ function EditUnitInMatchForm({
   units,
   onClick,
 }) {
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation();
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [checkedModKill, setCheckedModKill] = useState(false);
   const [checkedBestPlayer, setCheckedBestPlayer] = useState(false);
+
+  useEffect(() => {
+    resetForm();
+  }, [isOpen, resetForm]);
+
   function handleInputEditUnitChange(e) {
-    e.target.value === "newItem" ? onClick() : setName(e.target.value);
+    e.target.value === "newItem" ? onClick() : handleChange(e);
   }
   function handleSubmit(e) {
     e.preventDefault();
     // onEditUnitInMatch(name, role, checkedModKill, checkedBestPlayer);
     onEditUnitInMatch({
-      unit: name,
-      role: role,
+      unit: values.nameEditUnitInMatchForm,
+      role: values.roleEditUnitInMatch,
       modKill: checkedModKill,
       bestPlayer: checkedBestPlayer,
     });
@@ -39,11 +48,20 @@ function EditUnitInMatchForm({
       isOpen={isOpen}
       title="Редактировать данные игрока"
       button="Сохранить"
+      className="edit-unit"
+      isDisabled={!isValid}
     >
       <label>
         Ник игрока
-        <select value={name} onChange={handleInputEditUnitChange}>
-          <option></option>
+        <select
+          name="nameEditUnitInMatchForm"
+          // value={name}
+          onChange={handleInputEditUnitChange}
+          value={values.nameEditUnitInMatchForm || ""}
+          // onChange={handleChange}
+          required
+        >
+          <option value={null}></option>
           {units.map((unit) => {
             return (
               <OptionUnit name={unit.name} key={unit._id} unitId={unit._id} />
@@ -51,21 +69,32 @@ function EditUnitInMatchForm({
           })}
           <option value="newItem">...добавить игрока</option>
         </select>
+        {/* Спан с ошибкой появляется только после повторного выбора пустого поля. Нужен рефакторинг */}
+        <Error error={errors.nameEditUnitInMatchForm} />
       </label>
 
       <label>
         Роль в игре
-        <select value={role} onChange={handleInputUnitRoleChange}>
+        <select
+          name="roleEditUnitInMatch"
+          // value={role}
+          // onChange={handleInputUnitRoleChange}
+          value={values.roleEditUnitInMatch || ""}
+          onChange={handleChange}
+          required
+        >
           <option></option>
           <option value="мирный">мирный</option>
           <option value="мафия">мафия</option>
           <option value="дон">дон</option>
           <option value="шериф">шериф</option>
         </select>
+        <Error error={errors.roleEditUnitInMatch} />
       </label>
       <label>
         Модкилл в игре
         <input
+          name="modKillEditUnitInMatch"
           type="checkbox"
           checked={checkedModKill}
           onChange={() => setCheckedModKill(!checkedModKill)}
