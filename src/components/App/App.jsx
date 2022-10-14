@@ -62,12 +62,13 @@ function App() {
   function getInitialUnits() {
     getUnits().then((dataUnits) => {
       setUnits(dataUnits);
+      console.log(dataUnits);
     });
   }
   function getInitialMatches() {
     getMatches().then((dataMatches) => {
       setMatches(dataMatches);
-      console.log(dataMatches);
+      // console.log(dataMatches);
     });
   }
 

@@ -4,9 +4,28 @@ import { getMatches, getUnits } from "../../utils/Api.js";
 import Unit from "../Unit/Unit.jsx";
 
 function RatingTable({ allUnits, onUpdateUnit, sortData, matches }) {
-  const [units, setUnits] = useState([]);
+  const [dataUnits, setDataUnits] = useState(allUnits);
+  const [order, setOrder] = useState("ASC");
   const [rating, setRating] = useState(0);
 
+  function sorting(col) {
+    if (order === "ASC") {
+      const sorted = [...dataUnits].sort((a, b) =>
+        a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+      );
+      setDataUnits(sorted);
+      setOrder("DSC");
+    }
+    if (order === "DSC") {
+      const sorted = [...dataUnits].sort((a, b) =>
+        a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+      );
+      setDataUnits(sorted);
+      setOrder("ASC");
+    } else {
+      console.log("фиг");
+    }
+  }
   function countRating(array, unit) {
     let rating = 0;
     const matchesArrayBlackVictory = array.filter((element) => {
@@ -81,6 +100,7 @@ function RatingTable({ allUnits, onUpdateUnit, sortData, matches }) {
     return rating;
   }
 
+  //Добавить в аргументы результат и роль, и свести все функции в одну.
   function countMatches(array, unit) {
     const matchesArray = array.filter((element) => {
       return element.units.some((item) => item.unit._id === unit._id);
@@ -181,7 +201,9 @@ function RatingTable({ allUnits, onUpdateUnit, sortData, matches }) {
     <table className="table">
       <thead>
         <tr className="table__row">
-          <th className="table__cell">Ник игрока</th>
+          <th className="table__cell" onClick={() => sorting("key")}>
+            Ник игрока
+          </th>
           <th className="table__cell">Количество игр</th>
           <th className="table__cell">Количество игр за мафию</th>
           <th className="table__cell">Побед за мафию</th>
@@ -191,12 +213,7 @@ function RatingTable({ allUnits, onUpdateUnit, sortData, matches }) {
           <th className="table__cell">Побед за шерифа</th>
           <th className="table__cell">Количество игр за дона</th>
           <th className="table__cell">Побед за дона</th>
-          <th
-            className="table__cell"
-            onClick={() => {
-              sortData("");
-            }}
-          >
+          <th className="table__cell" onClick={() => sorting("rating")}>
             Рейтинг
           </th>
         </tr>
@@ -223,7 +240,9 @@ function RatingTable({ allUnits, onUpdateUnit, sortData, matches }) {
               ></Unit>
             );
           })
-          .sort()}
+          .sort(function (a, b) {
+            return a.props.rating < b.props.rating ? 1 : -1;
+          })}
       </tbody>
     </table>
   );
