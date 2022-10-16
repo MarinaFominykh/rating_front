@@ -156,7 +156,7 @@ function AddUnitsForm({
 
   function handleSubmit(e) {
     e.preventDefault();
-    const Array = [
+    const array = [
       {
         unit: unit1Id,
         role: unit1Role,
@@ -218,7 +218,7 @@ function AddUnitsForm({
         bestPlayer: checkedUnit10BestPlayer,
       },
     ];
-    onAddUnits(matchId, Array);
+    onAddUnits(array);
     isSubmitClick(false);
   }
 
@@ -230,7 +230,7 @@ function AddUnitsForm({
       title="Список игроков"
       button="Сохранить"
     >
-      <label>
+      {/* <label>
         Название игры
         <select value={matchId} onChange={handleInputMatchIdChange}>
           <option></option>
@@ -244,7 +244,7 @@ function AddUnitsForm({
             );
           })}
         </select>
-      </label>
+      </label> */}
       <div className="form__columns">
         <div className="form__column">
           <fieldset className="form__units">

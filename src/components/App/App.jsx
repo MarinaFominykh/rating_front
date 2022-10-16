@@ -57,12 +57,13 @@ function App() {
   const [unitData, setUnitData] = useState({});
   const [editUnitMatch, setEditUnitMatch] = useState({});
   const [editResultMatch, setEditResultMatch] = useState({});
+  const [addUnitsMatch, setAddUnitsMatch] = useState({});
   // const [stationSubmitAddUtits, setStationSubmitAddUtits] = useState(false);
 
   function getInitialUnits() {
     getUnits().then((dataUnits) => {
       setUnits(dataUnits);
-      console.log(dataUnits);
+      // console.log(dataUnits);
     });
   }
   function getInitialMatches() {
@@ -111,7 +112,8 @@ function App() {
     setIsFormWithConfirmation(true);
   }
 
-  function handleAddUnitsClick() {
+  function handleAddUnitsClick(data) {
+    setAddUnitsMatch(data);
     setIsFormWithUnitsPopupOpen(true);
   }
 
@@ -166,9 +168,13 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function addUnits(id, array) {
-    console.log(array);
-    addUnitsInMatch(id, array)
+  function addUnits(array) {
+    console.log(addUnitsMatch)
+    if(addUnitsMatch.units.length > 1) {
+      console.log("Сюда нельзя больше добавлять игроков.")
+      return;
+    }
+    addUnitsInMatch(addUnitsMatch, array)
       // Необходим рефакторинг для оптимизации, чтобы избавиться от избыточных запросов к серверу:
       .then(() => {
         getInitialMatches();

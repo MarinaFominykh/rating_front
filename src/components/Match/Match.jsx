@@ -35,7 +35,7 @@ function Match({
   }
 
   function handleAddUnits() {
-    onClickAddUnits();
+    onClickAddUnits(match);
   }
 
   return (

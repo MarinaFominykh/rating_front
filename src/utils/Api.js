@@ -35,15 +35,15 @@ export const addNewMatch = (title, gameMaster, date, result) => {
     }).then(checkResponse)
 }
 
-export const addUnitsInMatch = (id, array) => {
-    return fetch(`${BASE_URL}/matches/${id}`, {
+export const addUnitsInMatch = (match, array) => {
+    return fetch(`${BASE_URL}/matches/${match._id}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
 
         },
         body: JSON.stringify({
-            id,
+            match,
             array
         })
     }).then(checkResponse)
@@ -148,7 +148,12 @@ export const updateUnitInMatch = (unit, role, modKill, bestPlayer, match, curren
 
         },
         body: JSON.stringify({
-            unit, role, modKill, bestPlayer, match, currentUnit
+            unit,
+            role,
+            modKill,
+            bestPlayer,
+            match,
+            currentUnit
         })
     }).then(checkResponse)
 }
