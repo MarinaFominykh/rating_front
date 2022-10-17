@@ -3,6 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import "./AddUnitForm.css";
 import Form from "../Form/Form.jsx";
 import Error from "../Error/Error.jsx";
+import InfoTooltip from "../InfoTooltip/InfoTooltip.jsx";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 function AddUnitForm({ isOpen, onClose, onAddUnit }) {
   const { values, handleChange, errors, isValid, resetForm } =
@@ -16,7 +17,8 @@ function AddUnitForm({ isOpen, onClose, onAddUnit }) {
     resetForm();
   }, [isOpen, resetForm]);
   return (
-    <Form
+    <>
+     <Form
       onSubmit={handleSubmit}
       onClose={onClose}
       isOpen={isOpen}
@@ -24,6 +26,7 @@ function AddUnitForm({ isOpen, onClose, onAddUnit }) {
       button="Сохранить"
       isDisabled={!isValid}
       className="add-unit"
+      
     >
       <label>
         <input
@@ -35,8 +38,13 @@ function AddUnitForm({ isOpen, onClose, onAddUnit }) {
           required
         ></input>
         <Error error={errors.nameAddUnit} />
+       
       </label>
+     
     </Form>
+    
+    </>
+   
   );
 }
 

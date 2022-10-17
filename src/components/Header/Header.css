@@ -20,3 +20,7 @@
     cursor: pointer;
     color: #fff;
 }
+
+.header__link-active {
+    background: blue;
+}

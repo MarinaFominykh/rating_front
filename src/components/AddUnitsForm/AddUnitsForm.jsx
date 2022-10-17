@@ -5,6 +5,8 @@ import { getMatches, getUnits } from "../../utils/Api.js";
 import OptionUnit from "../OptionUnit/OptionUnit.jsx";
 import OptionMatch from "../OptionMatch/OptionMatch.jsx";
 import Form from "../Form/Form.jsx";
+import Error from "../Error/Error.jsx";
+import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 
 function AddUnitsForm({
   isOpen,
@@ -13,7 +15,10 @@ function AddUnitsForm({
   onAddUnits,
   onClick,
   allUnits,
+  message,
 }) {
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation();
   const [matchId, setMatchId] = useState("");
   const [unit1Id, setUnit1Id] = useState("");
   const [unit1Role, setUnit1Role] = useState("");
@@ -63,7 +68,7 @@ function AddUnitsForm({
 
   //1
   function handleInputUnit1IdChange(e) {
-    e.target.value === "newItem" ? onClick() : setUnit1Id(e.target.value);
+    e.target.value === "newItem" ? onClick() : handleChange(e);
   }
 
   function handleInputUnit1RoleChange(e) {
@@ -158,7 +163,7 @@ function AddUnitsForm({
     e.preventDefault();
     const array = [
       {
-        unit: unit1Id,
+        unit: values.name1AddUnitsForm,
         role: unit1Role,
         modKill: checkedUnit1ModKill,
         bestPlayer: checkedUnit1BestPlayer,
@@ -219,7 +224,6 @@ function AddUnitsForm({
       },
     ];
     onAddUnits(array);
-    isSubmitClick(false);
   }
 
   return (
@@ -229,6 +233,8 @@ function AddUnitsForm({
       isOpen={isOpen}
       title="Список игроков"
       button="Сохранить"
+      isDisabled={!isValid}
+      message={message}
     >
       {/* <label>
         Название игры
@@ -251,7 +257,12 @@ function AddUnitsForm({
             <h3>Игрок 1</h3>
             <label>
               Ник игрока
-              <select value={unit1Id} onChange={handleInputUnit1IdChange}>
+              <select
+                name="name1AddUnitsForm"
+                value={values.name1AddUnitsForm}
+                onChange={handleInputUnit1IdChange}
+                required
+              >
                 <option></option>
                 {allUnits.map((unit) => {
                   return (
@@ -264,10 +275,15 @@ function AddUnitsForm({
                 })}
                 <option value="newItem">...добавить игрока</option>
               </select>
+              <Error error={errors.name1AddUnitsForm} />
             </label>
             <label>
               Роль в игре
-              <select value={unit1Role} onChange={handleInputUnit1RoleChange}>
+              <select
+                value={unit1Role}
+                onChange={handleInputUnit1RoleChange}
+                required
+              >
                 <option></option>
                 <option value="мирный">мирный</option>
                 <option value="мафия">мафия</option>
@@ -301,7 +317,11 @@ function AddUnitsForm({
             <h3>Игрок 2</h3>
             <label>
               Ник игрока
-              <select value={unit2Id} onChange={handleInputUnit2IdChange}>
+              <select
+                value={unit2Id}
+                onChange={handleInputUnit2IdChange}
+                required
+              >
                 <option></option>
                 {allUnits.map((unit) => {
                   return (
@@ -317,7 +337,11 @@ function AddUnitsForm({
             </label>
             <label>
               Роль в игре
-              <select value={unit2Role} onChange={handleInputUnit2RoleChange}>
+              <select
+                value={unit2Role}
+                onChange={handleInputUnit2RoleChange}
+                required
+              >
                 <option></option>
                 <option value="мирный">мирный</option>
                 <option value="мафия">мафия</option>
@@ -350,7 +374,11 @@ function AddUnitsForm({
             <h3>Игрок 3</h3>
             <label>
               Ник игрока
-              <select value={unit3Id} onChange={handleInputUnit3IdChange}>
+              <select
+                value={unit3Id}
+                onChange={handleInputUnit3IdChange}
+                required
+              >
                 <option></option>
                 {allUnits.map((unit) => {
                   return (
@@ -366,7 +394,11 @@ function AddUnitsForm({
             </label>
             <label>
               Роль в игре
-              <select value={unit3Role} onChange={handleInputUnit3RoleChange}>
+              <select
+                value={unit3Role}
+                onChange={handleInputUnit3RoleChange}
+                required
+              >
                 <option></option>
                 <option value="мирный">мирный</option>
                 <option value="мафия">мафия</option>
@@ -399,7 +431,11 @@ function AddUnitsForm({
             <h3>Игрок 4</h3>
             <label>
               Ник игрока
-              <select value={unit4Id} onChange={handleInputUnit4IdChange}>
+              <select
+                value={unit4Id}
+                onChange={handleInputUnit4IdChange}
+                required
+              >
                 <option></option>
                 {allUnits.map((unit) => {
                   return (
@@ -415,7 +451,11 @@ function AddUnitsForm({
             </label>
             <label>
               Роль в игре
-              <select value={unit4Role} onChange={handleInputUnit4RoleChange}>
+              <select
+                value={unit4Role}
+                onChange={handleInputUnit4RoleChange}
+                required
+              >
                 <option></option>
                 <option value="мирный">мирный</option>
                 <option value="мафия">мафия</option>

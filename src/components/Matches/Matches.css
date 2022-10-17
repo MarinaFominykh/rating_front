@@ -1,6 +1,6 @@
 .match {
     display: grid;
-    gap: 15px;
+    gap: 20px;
     grid-template-columns: repeat(3, 1fr);
 }
 
@@ -63,4 +63,8 @@
     line-height: 20px;
     cursor: pointer;
     color: #fff;
+}
+
+.matches__link-active {
+    background: blue;
 }

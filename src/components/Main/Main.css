@@ -24,3 +24,7 @@
     cursor: pointer;
     color: #fff;
 }
+
+.main__link-active {
+    background: blue;
+}

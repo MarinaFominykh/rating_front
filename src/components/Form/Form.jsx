@@ -1,4 +1,5 @@
 import "./Form.css";
+import InfoTooltip from "../InfoTooltip/InfoTooltip.jsx";
 function Form({
   onSubmit,
   onClose,
@@ -8,6 +9,7 @@ function Form({
   button,
   isDisabled,
   className,
+  message
 }) {
   return (
     <section
@@ -17,6 +19,7 @@ function Form({
         <button type="button" className="form__close" onClick={onClose} />
         <h2 className="form__title">{title}</h2>
         <fieldset className="form__container">{children}</fieldset>
+        <InfoTooltip message={message} />
         <button
           type="submit"
           className="form__save"

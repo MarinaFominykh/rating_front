@@ -197,25 +197,47 @@ function RatingTable({ allUnits, onUpdateUnit, sortData, matches }) {
     return matchesArray.length;
   }
 
+  function countModKill(array, unit) {
+    const matchesArray = array.filter((element) => {
+      return element.units.some(
+        (item) => item.unit._id === unit._id && item.modKill
+      );
+    });
+    return matchesArray.length;
+  }
+
+  function countBestPlayer(array, unit) {
+    const matchesArray = array.filter((element) => {
+      return element.units.some(
+        (item) => item.unit._id === unit._id && item.bestPlayer
+      );
+    });
+    return matchesArray.length;
+  }
+
   return (
     <table className="table">
       <thead>
         <tr className="table__row">
-          <th className="table__cell" onClick={() => sorting("key")}>
-            Ник игрока
-          </th>
-          <th className="table__cell">Количество игр</th>
-          <th className="table__cell">Количество игр за мафию</th>
-          <th className="table__cell">Побед за мафию</th>
-          <th className="table__cell">Количество игр за мирного </th>
-          <th className="table__cell">Побед за мирного</th>
-          <th className="table__cell">Количество игр за шерифа</th>
-          <th className="table__cell">Побед за шерифа</th>
-          <th className="table__cell">Количество игр за дона</th>
-          <th className="table__cell">Побед за дона</th>
-          <th className="table__cell" onClick={() => sorting("rating")}>
-            Рейтинг
-          </th>
+          <th rowSpan="2" className="table__cell">Ник игрока</th>
+          <th rowSpan="2" className="table__cell">Количество игр</th>
+          <th colSpan="2" className="table__cell">Мафия</th>
+          <th colSpan="2" className="table__cell">Мирный</th>
+          <th colSpan="2" className="table__cell">Шериф</th>
+          <th colSpan="2" className="table__cell">Дон</th>
+          <th rowSpan="2" className="table__cell">МК</th>
+          <th rowSpan="2" className="table__cell">ЛИ</th>
+          <th rowSpan="2" className="table__cell">Рейтинг</th>
+        </tr>
+        <tr className="table__row">
+          <th className="table__cell">Сыграно</th>
+          <th className="table__cell">Побед</th>
+          <th className="table__cell">Сыграно</th>
+          <th className="table__cell">Побед</th>
+          <th className="table__cell">Сыграно</th>
+          <th className="table__cell">Побед</th>
+          <th className="table__cell">Сыграно</th>
+          <th className="table__cell">Побед</th>
         </tr>
       </thead>
       <tbody>
@@ -235,6 +257,8 @@ function RatingTable({ allUnits, onUpdateUnit, sortData, matches }) {
                 sheriffVictory={countSheriffVictory(matches, unit)}
                 don={countDonRole(matches, unit)}
                 donVictory={countDonVictory(matches, unit)}
+                modKill={countModKill(matches, unit)}
+                bestPlayer={countBestPlayer(matches, unit)}
                 unit={unit}
                 onUpdateUnit={onUpdateUnit}
               ></Unit>

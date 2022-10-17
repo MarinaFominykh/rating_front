@@ -40,7 +40,13 @@ function Match({
 
   return (
     <>
-      <table className="table">
+      <table
+        className={
+          match.result === "Победа города"
+            ? "table table_result_red"
+            : "table table_result_black"
+        }
+      >
         <caption>
           <div className="table__match-title-container">
             <h2>{title}</h2>
@@ -78,7 +84,7 @@ function Match({
             </td>
           </tr>
           <tr className="table__row table__row_result">
-            <td className="table__cell table__cell_result">
+            <td colSpan="4" className="table__cell table__cell_result">
               {match.result}
               <button
                 onClick={handleEditResultButton}
@@ -86,19 +92,10 @@ function Match({
                 data-tooltip="Редактировать результат игры"
               ></button>
             </td>
-            <td className="table__cell table__cell_result"></td>
-            <td className="table__cell table__cell_result"></td>
-            <td
-              className={
-                match.result === "Победа города"
-                  ? "table__cell table__cell_color_red"
-                  : "table__cell table__cell_color_black"
-              }
-            ></td>
           </tr>
           <tr>
             <td colSpan="4" className="table__cell">
-              Дата: {match.date}
+              Дата: {match.date.slice(0, 10).split("-").reverse().join(".")}
             </td>
           </tr>
           <tr>

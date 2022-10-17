@@ -58,6 +58,7 @@ function App() {
   const [editUnitMatch, setEditUnitMatch] = useState({});
   const [editResultMatch, setEditResultMatch] = useState({});
   const [addUnitsMatch, setAddUnitsMatch] = useState({});
+  const [message, setMessage] = useState("");
   // const [stationSubmitAddUtits, setStationSubmitAddUtits] = useState(false);
 
   function getInitialUnits() {
@@ -102,6 +103,11 @@ function App() {
       );
     });
   }
+
+  const showInfoToolTip = (error) => {
+    setMessage(error);
+    setTimeout(() => setMessage(""), 8000);
+  };
 
   function handleAddMatchClick() {
     setIsFormPopupOpen(true);
@@ -169,9 +175,10 @@ function App() {
   }
 
   function addUnits(array) {
-    console.log(addUnitsMatch)
-    if(addUnitsMatch.units.length > 1) {
-      console.log("Сюда нельзя больше добавлять игроков.")
+    if (addUnitsMatch.units.length > 1) {
+      showInfoToolTip(
+        "Эта игра уже содержит список игроков, его нельзя отправить повторно. Воспользуйтесь формой редактирования отдельного игрока, если необходимо изменить данные этого игрока"
+      );
       return;
     }
     addUnitsInMatch(addUnitsMatch, array)
@@ -243,7 +250,6 @@ function App() {
     //   return el.unit._id !== unitData.unit._id;
     // }).push(data)
 
-    console.log("unitData", unitData);
     updateUnitInMatch(unit, role, modKill, bestPlayer, editUnitMatch, unitData)
       .then(() => {
         getInitialMatches();
@@ -282,6 +288,7 @@ function App() {
     setFormWithUpdateGameMaster(false);
     setFormWithUpdateTitle(false);
     setIsFormWithReplaceUnit(false);
+    setFormWithUpdateResult(false);
   }
 
   useEffect(() => {
@@ -405,6 +412,7 @@ function App() {
         allUnits={units}
         onAddUnits={addUnits}
         onClick={handleAddUnitClick}
+        message={message}
       />
       <AddUnitForm
         isOpen={isFormWithUnitPopupOpen}

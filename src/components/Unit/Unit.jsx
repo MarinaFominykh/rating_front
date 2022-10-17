@@ -14,6 +14,8 @@ function Unit({
   redVictory,
   sheriffVictory,
   donVictory,
+  modKill,
+  bestPlayer,
   onUpdateUnit,
   unit,
 }) {
@@ -41,6 +43,8 @@ function Unit({
       <td className="table__cell unit__sheriff-victory">{sheriffVictory}</td>
       <td className="table__cell unit__don">{don}</td>
       <td className="table__cell unit__don-victory">{donVictory}</td>
+      <td className="table__cell unit__rating">{modKill}</td>
+      <td className="table__cell unit__rating">{bestPlayer}</td>
       <td className="table__cell unit__rating">{rating}</td>
     </tr>
   );
