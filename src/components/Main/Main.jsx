@@ -5,6 +5,12 @@ import { getMatches, getUnits } from "../../utils/Api.js";
 import Unit from "../Unit/Unit.jsx";
 import RatingTable from "../TotalRatingTable/RatingTable.jsx";
 function Main({ allUnits, onUpdateUnit, sortData, matches }) {
+  function filterResult(array, result) {
+    const newArray = array.filter((item) => {
+      return item.result === result;
+    })
+    return newArray.length
+  }
   return (
     <main className="main">
       <nav className="main__nav-container">
@@ -44,7 +50,11 @@ function Main({ allUnits, onUpdateUnit, sortData, matches }) {
         </ul>
       </nav>
       <h1>Рейтинг игроков</h1>
-      <p>Количество игры: {matches.length}</p>
+      <p>Количество игр: {matches.length}</p>
+      <p>
+        Город {filterResult(matches, "Победа города")} : {filterResult(matches, "Победа мафии")} Мафия 
+      </p>
+     
       <RatingTable
         allUnits={allUnits}
         onUpdateUnit={onUpdateUnit}

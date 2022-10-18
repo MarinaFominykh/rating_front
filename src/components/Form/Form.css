@@ -58,6 +58,13 @@
     margin: 0 0 18px 0;
     /* max-width: 358px; */
     width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form_unit-container {
+    display: flex;
+
 }
 
 .form__save {

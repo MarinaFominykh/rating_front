@@ -9,7 +9,7 @@ function Form({
   button,
   isDisabled,
   className,
-  message
+  message,
 }) {
   return (
     <section

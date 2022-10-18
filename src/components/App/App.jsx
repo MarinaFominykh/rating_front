@@ -1,5 +1,6 @@
 import "./App.css";
 import { useEffect, useState } from "react";
+import { useForm, useFieldArray, useWatch } from "react-hook-form";
 import {
   Route,
   Switch,
@@ -33,7 +34,13 @@ import ConfirmForm from "../ConfirmForm/ConfirmForm.jsx";
 import UpdateTitleForm from "../UpdateTitleForm/UpdateTitleForm.jsx";
 import UpdateResultForm from "../UpdateResultForm/UpdateResultForm.jsx";
 import EditUnitInMatchForm from "../EditUnitInMatchForm/EditUnitInMatchForm.jsx";
+
 function App() {
+  const { register, control } = useForm();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "items",
+  });
   const [units, setUnits] = useState([]);
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false);
   const [isFormWithUnitsPopupOpen, setIsFormWithUnitsPopupOpen] =
@@ -46,6 +53,8 @@ function App() {
   const [isFormWithUpdateTitle, setFormWithUpdateTitle] = useState(false);
   const [isFormWithReplaceUnit, setIsFormWithReplaceUnit] = useState(false);
   const [isFormWithUpdateResult, setFormWithUpdateResult] = useState(false);
+  const [isFormWithDynamicFields, setFormFormWithDynamicFields] =
+    useState(false);
   const [matches, setMatches] = useState([]);
   const [matches2020, setMatches2020] = useState([]);
   const [matches2021, setMatches2021] = useState([]);
@@ -120,7 +129,8 @@ function App() {
 
   function handleAddUnitsClick(data) {
     setAddUnitsMatch(data);
-    setIsFormWithUnitsPopupOpen(true);
+    setFormFormWithDynamicFields(true);
+    // setIsFormWithUnitsPopupOpen(true);
   }
 
   function handleAddUnitClick() {
@@ -175,10 +185,13 @@ function App() {
   }
 
   function addUnits(array) {
-    if (addUnitsMatch.units.length > 1) {
+    if (addUnitsMatch.units.length >= 10) {
       showInfoToolTip(
-        "Эта игра уже содержит список игроков, его нельзя отправить повторно. Воспользуйтесь формой редактирования отдельного игрока, если необходимо изменить данные этого игрока"
+        "В этой игре уже есть данные по всем игрокам. Воспользуйтесь формой редактирования отдельного игрока, если необходимо изменить данные этого игрока"
       );
+      return;
+    } else if (array.length !== 10) {
+      showInfoToolTip("Количество игроков должно быть 10");
       return;
     }
     addUnitsInMatch(addUnitsMatch, array)
@@ -289,6 +302,7 @@ function App() {
     setFormWithUpdateTitle(false);
     setIsFormWithReplaceUnit(false);
     setFormWithUpdateResult(false);
+    setFormFormWithDynamicFields(false);
   }
 
   useEffect(() => {
@@ -314,6 +328,7 @@ function App() {
   return (
     <div className="page">
       <Header />
+
       <Switch>
         <Route exact path="/">
           <Main
@@ -321,8 +336,6 @@ function App() {
             onUpdateUnit={handleUpdateUnitsClick}
             onUnitDelete={handleUnitDelete}
             matches={matches}
-
-            // matches={matches2022}
           />
         </Route>
         <Route path="/2020">
@@ -372,6 +385,7 @@ function App() {
             onEditTitle={handleUpdateTitleClick}
             onEditGameMatch={handleUpdateGameMasterClick}
             onEditUnit={handleReplaceUnitClick}
+            onEditResult={handleUpdateResultClick}
           ></Matches>
         </Route>
         <Route exact path="/matches/2021">
@@ -383,6 +397,7 @@ function App() {
             onEditTitle={handleUpdateTitleClick}
             onEditGameMatch={handleUpdateGameMasterClick}
             onEditUnit={handleReplaceUnitClick}
+            onEditResult={handleUpdateResultClick}
           ></Matches>
         </Route>
         <Route exact path="/matches/2022">
@@ -394,6 +409,7 @@ function App() {
             onEditTitle={handleUpdateTitleClick}
             onEditGameMatch={handleUpdateGameMasterClick}
             onEditUnit={handleReplaceUnitClick}
+            onEditResult={handleUpdateResultClick}
           ></Matches>
         </Route>
       </Switch>
@@ -405,7 +421,7 @@ function App() {
         onAddMatch={addMatch}
         onClick={handleAddUnitClick}
       />
-      <AddUnitsForm
+      {/* <AddUnitsForm
         isOpen={isFormWithUnitsPopupOpen}
         onClose={closePopup}
         allMatches={matches}
@@ -413,18 +429,12 @@ function App() {
         onAddUnits={addUnits}
         onClick={handleAddUnitClick}
         message={message}
-      />
+      /> */}
       <AddUnitForm
         isOpen={isFormWithUnitPopupOpen}
         onClose={closePopupAddUnit}
         onAddUnit={addUnit}
       />
-      {/* <UpdateUnitForm
-        isOpen={isFormWithUpdateUnitPopupOpen}
-        onClose={closePopup}
-        onUpdateUnit={updateName}
-      /> */}
-
       <ConfirmForm
         onMatchDelete={handleDeleteMatch}
         onClose={closePopup}
@@ -460,6 +470,14 @@ function App() {
         isOpen={isFormWithUpdateResult}
         onClose={closePopup}
         onUpdateResult={updateResultMatch}
+      />
+      <AddUnitsForm
+        isOpen={isFormWithDynamicFields}
+        onClose={closePopup}
+        allUnits={units}
+        onAddUnits={addUnits}
+        message={message}
+        onClick={handleAddUnitClick}
       />
     </div>
   );

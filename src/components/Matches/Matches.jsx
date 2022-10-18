@@ -75,7 +75,7 @@ function Matches({
       </button>
       <section className="match">
         {allMatches
-          .slice(0, count)
+          
           .map((match) => {
             return (
               <Match
@@ -102,7 +102,7 @@ function Matches({
               ></Match>
             );
           })
-          .reverse()}
+          .reverse().slice(0, count)}
       </section>
       {allMatches.length > count && (
         <button className="button button__load-more" onClick={handleLoadMore}>
