@@ -1,5 +1,5 @@
 // export const BASE_URL = "http://localhost:3001";
-export const BASE_URL = "http://mafia-raiting.online";
+export const BASE_URL = "http://api.mafia-raiting.online";
 
 
 export const getMatches = () => {
