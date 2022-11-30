@@ -1,5 +1,4 @@
-
-.unit__name{
+.unit__name {
     width: 200px;
     display: flex;
     flex-direction: row;
@@ -14,12 +13,9 @@
     text-align: center;
 }
 
-.table__input-name:focus{
-   
-   border: rgba(84, 84, 84, 0.7);
- 
+.table__input-name:focus {
+    border: rgba(84, 84, 84, 0.7);
 }
-
 
 .table__delete-button {
     width: 50px;
@@ -60,25 +56,30 @@
 
 
 
-.tooltip::after{
+.tooltip::after {
     /* background: rgba(0, 0, 0, 0.8); */
     background: #fff;
-	border-radius: 8px 8px 8px 0px;
-	box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
-	/* color: #FFF; */
+    border-radius: 8px 8px 8px 0px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+    /* color: #FFF; */
     color: #000000;
-	content: attr(data-tooltip); /* Главная часть кода, определяющая содержимое всплывающей подсказки */
-	margin-top: -24px;
-	opacity: 0; /* Наш элемент прозрачен... */
-	padding: 3px 7px;
-	position: absolute;
-	visibility: hidden; /* ...и скрыт. */
-	transition: all 0.4s ease-in-out; /* Добавить плавности по вкусу */
+    content: attr(data-tooltip);
+    /* Главная часть кода, определяющая содержимое всплывающей подсказки */
+    margin-top: -24px;
+    opacity: 0;
+    /* Наш элемент прозрачен... */
+    padding: 3px 7px;
+    position: absolute;
+    visibility: hidden;
+    /* ...и скрыт. */
+    transition: all 0.4s ease-in-out;
+    /* Добавить плавности по вкусу */
 }
 
 .tooltip:hover::after {
-	opacity: 1; /* Показываем его */
-	visibility: visible;
+    opacity: 1;
+    /* Показываем его */
+    visibility: visible;
 }
 
 .table__save-button_visible {
@@ -100,13 +101,13 @@
     height: 20px;
     visibility: hidden;
     opacity: 0;
-   
+
 }
 
 
 .unit__name {
     display: flex;
-    
+
     gap: 5px;
     justify-content: space-between;
 }

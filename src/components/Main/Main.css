@@ -1,14 +1,3 @@
-.table {
-    border: 1px solid rgba(84, 84, 84, 0.7);
-}
-
-.table__cell {
-    border: 1px solid rgba(84, 84, 84, 0.7);
-    text-align: center;
-    width: 100px;
-    min-height: 30px;
-}
-
 .main__nav-list {
     display: flex;
     gap: 10px;

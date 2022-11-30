@@ -1,0 +1,49 @@
+@import "../mixin.scss";
+.table {
+    border-spacing: 0;
+    margin-bottom: 30px;
+    border: none;
+}
+
+.table__cell {
+    text-align: center;
+    width: 100px;
+    min-height: 30px;
+    border: none;
+    padding: 5px;
+}
+
+.table__head {
+    position: sticky;
+    top: 0;
+    background: #F9F9FA;
+    border: none;
+}
+
+.table__cell-head {
+    font-size: 15px;
+    line-height: 16px;
+    color: #80858E;
+    border: none;
+    @include mediumText
+}
+
+* {
+    scrollbar-width: 14px;
+    scrollbar-color: #D4D5D9 #FFFFFF;
+}
+
+/* Работает в Chrome, Edge и Safari */
+*::-webkit-scrollbar {
+    width: 14px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #FFFFFF;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #D4D5D9;
+    border-radius: 20px;
+    border: 3px solid #FFFFFF;
+}

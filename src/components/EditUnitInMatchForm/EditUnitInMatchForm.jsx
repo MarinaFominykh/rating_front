@@ -53,22 +53,25 @@ function EditUnitInMatchForm({
     >
       <label>
         Ник игрока
-        <select
+        <input
           name="nameEditUnitInMatchForm"
+          list="nameEditUnitInMatchForm"
           // value={name}
           onChange={handleInputEditUnitChange}
           value={values.nameEditUnitInMatchForm || ""}
           // onChange={handleChange}
           required
-        >
-          <option value={null}></option>
-          {units.map((unit) => {
-            return (
-              <OptionUnit name={unit.name} key={unit._id} unitId={unit._id} />
-            );
-          })}
-          <option value="newItem">...добавить игрока</option>
-        </select>
+        />
+          <datalist id="nameEditUnitInMatchForm">
+            {/* <option value={null}></option> */}
+            {units.map((unit) => {
+              return (
+                <OptionUnit name={unit.name} key={unit._id} unitId={unit._id} />
+              );
+            })}
+            {/* <option value="newItem">...добавить игрока</option> */}
+          </datalist>
+      
         {/* Спан с ошибкой появляется только после повторного выбора пустого поля. Нужен рефакторинг */}
         <Error error={errors.nameEditUnitInMatchForm} />
       </label>
