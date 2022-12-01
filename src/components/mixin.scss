@@ -12,5 +12,19 @@ $font-family: 'Inter', Arial, Helvetica, sans-serif;
 @mixin boldText {
   font-family: $font-family;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 700;
+}
+@mixin extraBoldText {
+  font-family: $font-family;
+  font-style: normal;
+  font-weight: 900;
+}
+
+@mixin hover {
+  opacity: 0.6;
+}
+
+@mixin maxWidthLarge {
+  max-width: 1440px;
+  
 }

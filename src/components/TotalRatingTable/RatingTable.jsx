@@ -156,7 +156,6 @@ function RatingTable({ allUnits, onUpdateUnit, sortData, matches }) {
     });
     return matchesArray.length;
   }
-
   function countSheriffRole(array, unit) {
     const matchesArray = array.filter((element) => {
       return element.units.some(
@@ -219,60 +218,28 @@ function RatingTable({ allUnits, onUpdateUnit, sortData, matches }) {
     <div className="wrapper" style={{ height: 62 * 10 + 1, overflow: "auto" }}>
       <table className="table">
         <thead className="table__head">
-          <tr className="table__row">
-            <th rowSpan="2" className="table__cell table__cell-head">
+          <tr className="table__row table__row-head">
+            <th className="table__cell table__cell-head">№</th>
+            <th className="table__cell table__cell-head table__cell-name">
               Ник игрока
             </th>
-            <th rowSpan="2" className="table__cell table__cell-head">
-              Количество игр
-            </th>
-            <th colSpan="2" className="table__cell table__cell-head">
-              Мафия
-            </th>
-            <th colSpan="2" className="table__cell table__cell-head">
-              Мирный
-            </th>
-            <th colSpan="2" className="table__cell table__cell-head">
-              Шериф
-            </th>
-            <th colSpan="2" className="table__cell table__cell-head">
-              Дон
-            </th>
-            <th rowSpan="2" className="table__cell table__cell-head">
-              МК
-            </th>
-            <th rowSpan="2" className="table__cell table__cell-head">
-              ЛИ
-            </th>
-            <th rowSpan="2" className="table__cell table__cell-head">
-              Рейтинг
-            </th>
-          </tr>
-          <tr className="table__row">
-            <th className="table__cell table__cell table__cell-head">
-              Сыграно
-            </th>
-            <th className="table__cell table__cell table__cell-head">Побед</th>
-            <th className="table__cell table__cell table__cell-head">
-              Сыграно
-            </th>
-            <th className="table__cell table__cell table__cell-head">Побед</th>
-            <th className="table__cell table__cell table__cell-head">
-              Сыграно
-            </th>
-            <th className="table__cell table__cell table__cell-head">Побед</th>
-            <th className="table__cell table__cell table__cell-head">
-              Сыграно
-            </th>
-            <th className="table__cell table__cell table__cell-head">Побед</th>
+            <th className="table__cell table__cell-head">Количество игр</th>
+            <th className="table__cell table__cell-head">Побед</th>
+            <th className="table__cell table__cell-head">Лучший игрок</th>
+            <th className="table__cell table__cell-head">Рейтинг</th>
+            <th className="table__cell table__cell-head"></th>
           </tr>
         </thead>
         <tbody>
           {allUnits
-            .map((unit) => {
+            .map((unit, index) => {
               return (
                 <Unit
                   key={unit._id}
+                  victory={
+                    countBlackVictory(matches, unit) +
+                    countRedVictory(matches, unit)
+                  }
                   name={unit.name}
                   matches={countMatches(matches, unit)}
                   rating={countRating(matches, unit)}
@@ -301,3 +268,56 @@ function RatingTable({ allUnits, onUpdateUnit, sortData, matches }) {
 }
 
 export default RatingTable;
+
+{
+  /* <table className="table">
+<thead className="table__head">
+  <tr className="table__row">
+    <th rowSpan="2" className="table__cell table__cell-head">
+      Ник игрока
+    </th>
+    <th rowSpan="2" className="table__cell table__cell-head">
+      Количество игр
+    </th>
+    <th colSpan="2" className="table__cell table__cell-head">
+      Мафия
+    </th>
+    <th colSpan="2" className="table__cell table__cell-head">
+      Мирный
+    </th>
+    <th colSpan="2" className="table__cell table__cell-head">
+      Шериф
+    </th>
+    <th colSpan="2" className="table__cell table__cell-head">
+      Дон
+    </th>
+    <th rowSpan="2" className="table__cell table__cell-head">
+      МК
+    </th>
+    <th rowSpan="2" className="table__cell table__cell-head">
+      ЛИ
+    </th>
+    <th rowSpan="2" className="table__cell table__cell-head">
+      Рейтинг
+    </th>
+  </tr>
+  <tr className="table__row">
+    <th className="table__cell table__cell table__cell-head">
+      Сыграно
+    </th>
+    <th className="table__cell table__cell table__cell-head">Побед</th>
+    <th className="table__cell table__cell table__cell-head">
+      Сыграно
+    </th>
+    <th className="table__cell table__cell table__cell-head">Побед</th>
+    <th className="table__cell table__cell table__cell-head">
+      Сыграно
+    </th>
+    <th className="table__cell table__cell table__cell-head">Побед</th>
+    <th className="table__cell table__cell table__cell-head">
+      Сыграно
+    </th>
+    <th className="table__cell table__cell table__cell-head">Побед</th>
+  </tr>
+</thead> */
+}

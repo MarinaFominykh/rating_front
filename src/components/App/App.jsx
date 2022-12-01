@@ -327,7 +327,7 @@ function App() {
   }, []);
   return (
     <div className="page">
-      <Header />
+      <Header onClickAddMatch={handleAddMatchClick} />
 
       <Switch>
         <Route exact path="/">
@@ -336,30 +336,9 @@ function App() {
             onUpdateUnit={handleUpdateUnitsClick}
             onUnitDelete={handleUnitDelete}
             matches={matches}
-          />
-        </Route>
-        <Route path="/2020">
-          <Main
-            allUnits={units}
-            onUpdateUnit={handleUpdateUnitsClick}
-            onUnitDelete={handleUnitDelete}
-            matches={matches2020}
-          />
-        </Route>
-        <Route path="/2021">
-          <Main
-            allUnits={units}
-            onUpdateUnit={handleUpdateUnitsClick}
-            onUnitDelete={handleUnitDelete}
-            matches={matches2021}
-          />
-        </Route>
-        <Route path="/2022">
-          <Main
-            allUnits={units}
-            onUpdateUnit={handleUpdateUnitsClick}
-            onUnitDelete={handleUnitDelete}
-            matches={matches2022}
+            matches2020={matches2020}
+            matches2021={matches2021}
+            matches2022={matches2022}
           />
         </Route>
 

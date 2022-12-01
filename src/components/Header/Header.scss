@@ -1,0 +1,98 @@
+@import "../mixin.scss";
+.header {
+  width: 100%;
+  background: #ffffff;
+}
+.header__container {
+  @include maxWidthLarge;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  min-height: 90px;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+.header__logo {
+  @include boldText;
+  font-size: 24px;
+  line-height: 20px;
+  color: #2e3555;
+  margin: 0;
+}
+.header__nav-container {
+  display: flex;
+  gap: 56px;
+}
+// .header__nav-wrapper{
+//     margin: 0;
+//     padding: 0;
+// }
+.header__nav-list {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.header__nav-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  transition: .5s
+}
+.header__nav-item:hover{
+    @include hover
+}
+.header__nav-text {
+  @include mediumText;
+  color: #2E3555;
+  font-size: 16px;
+  line-height: 20px;
+  margin: 0;
+}
+.header__nav-icon{
+    width: 20px;
+    height: 20px;
+    
+}
+.header__nav-icon_raiting {
+    background: url(../../image/icons/fluent_arrow-trending-16-filled.svg) no-repeat;
+}
+.header__nav-icon_matches{
+    background: url(../../image/icons/fluent_city-16-filled.svg) no-repeat;
+}
+.header__link {
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  cursor: pointer;
+  padding-bottom: 8px;
+  /* color: #fff; */
+}
+
+.header__link-active {
+border-bottom: 4px #4480F3 solid;
+}
+
+.button {
+  @include regularText;
+  font-size: 16px;
+  line-height: 40px;
+  color: #ffffff;
+  width: 145px;
+  padding: 0;
+  transition: 0.5s;
+  align-self: center;
+  cursor: pointer;
+  background: #118dff;
+  border-radius: 8px;
+  border: none;
+}
+
+.button:hover {
+  @include hover;
+}

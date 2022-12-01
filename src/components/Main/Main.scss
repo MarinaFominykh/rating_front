@@ -1,0 +1,108 @@
+@import "../mixin.scss";
+
+.main {
+  @include maxWidthLarge;
+  padding: 0 40px;
+  margin: auto;
+  box-sizing: border-box;
+}
+.main__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 28px 0;
+}
+.main__title-container {
+  display: flex;
+  flex-direction: column;
+}
+.main__title {
+  @include boldText;
+  font-size: 32px;
+  line-height: 48px;
+  margin: 0;
+}
+.main__amount {
+  @include mediumText;
+  color: #80858e;
+  font-size: 15px;
+  line-height: 16px;
+  margin: 0;
+}
+.main__nav-list {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+}
+
+.main__link {
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.main__link-active {
+  background: blue;
+}
+.main__count {
+  height: 56px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 20px 0 20px 24px;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 10px rgba(127, 142, 164, 0.25);
+  border-radius: 8px 8px 0px 0px;
+ 
+}
+.main__count-text {
+  @include mediumText;
+  font-size: 15px;
+  line-height: 16px;
+  color: #80858e;
+  margin: 0;
+}
+.main__count-separator {
+  @include mediumText;
+  font-size: 24px;
+  line-height: 16px;
+  color: #525760;
+  margin: 0;
+}
+.main__count-number {
+  @include mediumText;
+  font-size: 15px;
+  line-height: 32px;
+  color: #2e3555;
+  margin: 0;
+  min-width: 32px;
+  text-align: center;
+  background: #ebedf0;
+  border-radius: 4px;
+}
+.select {
+  @include regularText;
+  font-size: 16px;
+  line-height: 20px;
+  min-width: 207px;
+  height: 40px;
+  color: #80858e;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1px solid rgba(212, 213, 217, 0.7);
+  border-radius: 8px;
+  box-sizing: border-box;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url(../../image/icons/fluent_chevron-down-16-filled.svg);
+  background-repeat: no-repeat;
+  background-position: top 50% right 18px;
+  cursor: pointer;
+  outline: none;
+}
