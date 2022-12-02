@@ -6,36 +6,36 @@
   margin: auto;
   box-sizing: border-box;
 }
-.main__head {
+.raiting__head {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 28px 0;
 }
-.main__title-container {
+.raiting__title-container {
   display: flex;
   flex-direction: column;
 }
-.main__title {
+.raiting__title {
   @include boldText;
   font-size: 32px;
   line-height: 48px;
   margin: 0;
 }
-.main__amount {
+.raiting__amount {
   @include mediumText;
   color: #80858e;
   font-size: 15px;
   line-height: 16px;
   margin: 0;
 }
-.main__nav-list {
+.raiting__nav-list {
   display: flex;
   gap: 10px;
   list-style: none;
 }
 
-.main__link {
+.raiting__link {
   text-decoration: none;
   font-style: normal;
   font-weight: 500;
@@ -45,10 +45,10 @@
   color: #fff;
 }
 
-.main__link-active {
+.raiting__link-active {
   background: blue;
 }
-.main__count {
+.raiting__count {
   height: 56px;
   background: #ffffff;
   display: flex;
@@ -60,21 +60,21 @@
   border-radius: 8px 8px 0px 0px;
  
 }
-.main__count-text {
+.raiting__count-text {
   @include mediumText;
   font-size: 15px;
   line-height: 16px;
   color: #80858e;
   margin: 0;
 }
-.main__count-separator {
+.raiting__count-separator {
   @include mediumText;
   font-size: 24px;
   line-height: 16px;
   color: #525760;
   margin: 0;
 }
-.main__count-number {
+.raiting__count-number {
   @include mediumText;
   font-size: 15px;
   line-height: 32px;

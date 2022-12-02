@@ -1,0 +1,139 @@
+@import "../mixin.scss";
+.table_result_red {
+  box-shadow: 0px 0px 20px red;
+}
+
+.table_result_black {
+  box-shadow: 0px 0px 20px blue;
+}
+
+.cell-bestPlayer {
+  color: rgb(12, 230, 12);
+  font-size: 22px;
+}
+
+.cell-modKill {
+  color: rgb(242, 16, 8);
+  font-size: 22px;
+}
+
+.table__add-button_hidden {
+  display: none;
+}
+
+.button__load-more {
+    @include mediumText;
+    font-size: 18px;
+line-height: 16px;
+color: #525760;
+  width: 100%;
+  margin-bottom: 20px;
+  line-height: 48px;
+  background: rgba(2, 54, 103, 0.08);
+border-radius: 8px;
+}
+.match {
+  max-width: 437px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #ffffff;
+
+  border: 1px solid #ebedf0;
+  box-shadow: 0px 2px 10px rgba(127, 142, 164, 0.25);
+  border-radius: 8px;
+}
+.match__image {
+  width: 100%;
+  height: 111px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  border-radius: 8px 8px 0 0;
+}
+.match__red {
+  background-image: url(../../image/image_city.png);
+}
+.match__black {
+  background-image: url(../../image/image_black.png);
+}
+.match__null {
+  background-image: url(../../image/image__null.png);
+}
+.match__info {
+  padding: 0 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.match__title {
+  @include semiBoldText;
+  font-size: 18px;
+  line-height: 16px;
+  color: #2e3555;
+  margin: 0;
+}
+.match__info-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(2, 54, 103, 0.08);
+  border-radius: 8px;
+  width: 100%;
+  min-height: 56px;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+.match__icon {
+  width: 30px;
+  height: 30px;
+}
+.match__container {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  }
+.match__text {
+  margin: 0;
+  max-width: 105px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.match__text-data {
+  @include semiBoldText;
+  font-size: 16px;
+  line-height: 16px;
+  color: #2e3555;
+}
+.match__text-description {
+  @include mediumText;
+  font-size: 12px;
+  line-height: 14px;
+  color: #525760;
+}
+.match__more-btn {
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: #ebefff;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.match__text-btn {
+  @include regularText;
+  font-size: 15px;
+  line-height: 20px;
+  color: #118dff;
+}
+.match__more-btn:hover {
+  @include hover;
+}

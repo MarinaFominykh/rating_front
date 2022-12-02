@@ -345,6 +345,9 @@ function App() {
         <Route exact path="/matches">
           <Matches
             allMatches={matches}
+            matches2020={matches2020}
+            matches2021={matches2021}
+            matches2022={matches2022}
             onClickAddMatch={handleAddMatchClick}
             onClickAddUnits={handleAddUnitsClick}
             onMatchDelete={handleDeleteMatchClick}
@@ -352,42 +355,6 @@ function App() {
             onEditGameMatch={handleUpdateGameMasterClick}
             onEditUnit={handleReplaceUnitClick}
             units={units}
-            onEditResult={handleUpdateResultClick}
-          ></Matches>
-        </Route>
-        <Route exact path="/matches/2020">
-          <Matches
-            allMatches={matches2020}
-            onClickAddMatch={handleAddMatchClick}
-            onClickAddUnits={handleAddUnitsClick}
-            onMatchDelete={handleDeleteMatchClick}
-            onEditTitle={handleUpdateTitleClick}
-            onEditGameMatch={handleUpdateGameMasterClick}
-            onEditUnit={handleReplaceUnitClick}
-            onEditResult={handleUpdateResultClick}
-          ></Matches>
-        </Route>
-        <Route exact path="/matches/2021">
-          <Matches
-            allMatches={matches2021}
-            onClickAddMatch={handleAddMatchClick}
-            onClickAddUnits={handleAddUnitsClick}
-            onMatchDelete={handleDeleteMatchClick}
-            onEditTitle={handleUpdateTitleClick}
-            onEditGameMatch={handleUpdateGameMasterClick}
-            onEditUnit={handleReplaceUnitClick}
-            onEditResult={handleUpdateResultClick}
-          ></Matches>
-        </Route>
-        <Route exact path="/matches/2022">
-          <Matches
-            allMatches={matches2022}
-            onClickAddMatch={handleAddMatchClick}
-            onClickAddUnits={handleAddUnitsClick}
-            onMatchDelete={handleDeleteMatchClick}
-            onEditTitle={handleUpdateTitleClick}
-            onEditGameMatch={handleUpdateGameMasterClick}
-            onEditUnit={handleReplaceUnitClick}
             onEditResult={handleUpdateResultClick}
           ></Matches>
         </Route>
