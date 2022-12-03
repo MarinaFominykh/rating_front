@@ -34,6 +34,7 @@ import ConfirmForm from "../ConfirmForm/ConfirmForm.jsx";
 import UpdateTitleForm from "../UpdateTitleForm/UpdateTitleForm.jsx";
 import UpdateResultForm from "../UpdateResultForm/UpdateResultForm.jsx";
 import EditUnitInMatchForm from "../EditUnitInMatchForm/EditUnitInMatchForm.jsx";
+import Profile from "../Profile/Profile.jsx";
 
 function App() {
   const { register, control } = useForm();
@@ -43,6 +44,7 @@ function App() {
   });
   const [units, setUnits] = useState([]);
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false);
+  const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
   const [isFormWithUnitsPopupOpen, setIsFormWithUnitsPopupOpen] =
     useState(false);
   const [isFormWithUnitPopupOpen, setIsFormWithUnitPopupOpen] = useState(false);
@@ -120,6 +122,9 @@ function App() {
 
   function handleAddMatchClick() {
     setIsFormPopupOpen(true);
+  }
+  function handleProfileClick() {
+    setIsProfilePopupOpen(true);
   }
 
   function handleDeleteMatchClick(data) {
@@ -303,6 +308,7 @@ function App() {
     setIsFormWithReplaceUnit(false);
     setFormWithUpdateResult(false);
     setFormFormWithDynamicFields(false);
+    setIsProfilePopupOpen(false);
   }
 
   useEffect(() => {
@@ -339,6 +345,7 @@ function App() {
             matches2020={matches2020}
             matches2021={matches2021}
             matches2022={matches2022}
+            showUnit={handleProfileClick}
           />
         </Route>
 
@@ -367,16 +374,8 @@ function App() {
         onAddMatch={addMatch}
         onClick={handleAddUnitClick}
       />
-      {/* <AddUnitsForm
-        isOpen={isFormWithUnitsPopupOpen}
-        onClose={closePopup}
-        allMatches={matches}
-        allUnits={units}
-        onAddUnits={addUnits}
-        onClick={handleAddUnitClick}
-        message={message}
-      /> */}
-      <AddUnitForm
+      <Profile isOpen={isProfilePopupOpen} onClose={closePopup} />
+      {/* <AddUnitForm
         isOpen={isFormWithUnitPopupOpen}
         onClose={closePopupAddUnit}
         onAddUnit={addUnit}
@@ -424,7 +423,7 @@ function App() {
         onAddUnits={addUnits}
         message={message}
         onClick={handleAddUnitClick}
-      />
+      /> */}
     </div>
   );
 }

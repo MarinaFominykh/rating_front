@@ -20,9 +20,13 @@ function Unit({
   unit,
   victory,
   order,
+  showUnit,
 }) {
-  function handleUpdateUnith() {
-    onUpdateUnit(unit);
+  // function handleUpdateUnith() {
+  //   onUpdateUnit(unit);
+  // }
+  function handleProfile() {
+    showUnit(unit);
   }
 
   return (
@@ -35,7 +39,8 @@ function Unit({
       <td className="table__cell unit__rating">{rating}</td>
       <td className="table__cell unit__profile">
         {" "}
-        <button className="table__profile-btn" onClick={handleUpdateUnith}>
+        {/* <button className="table__profile-btn" onClick={handleUpdateUnith}> */}
+        <button className="table__profile-btn" onClick={handleProfile}>
           Профиль
         </button>
       </td>

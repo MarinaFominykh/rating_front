@@ -13,6 +13,7 @@ function Main({
   matches2020,
   matches2021,
   matches2022,
+  showUnit,
 }) {
   const [period, setPeriod] = useState("allTime");
   const { values, handleChange, errors, isValid, resetForm } =
@@ -92,6 +93,7 @@ function Main({
           onUpdateUnit={onUpdateUnit}
           sortData={sortData}
           matches={matchesArray()}
+          showUnit={showUnit}
         />
       </section>
     </main>

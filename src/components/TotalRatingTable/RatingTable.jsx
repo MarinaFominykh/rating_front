@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getMatches, getUnits } from "../../utils/Api.js";
 import Unit from "../Unit/Unit.jsx";
 
-function RatingTable({ allUnits, onUpdateUnit, sortData, matches }) {
+function RatingTable({ allUnits, onUpdateUnit, sortData, matches, showUnit }) {
   const [dataUnits, setDataUnits] = useState(allUnits);
   const [order, setOrder] = useState("ASC");
   const [rating, setRating] = useState(0);
@@ -255,6 +255,7 @@ function RatingTable({ allUnits, onUpdateUnit, sortData, matches }) {
                   bestPlayer={countBestPlayer(matches, unit)}
                   unit={unit}
                   onUpdateUnit={onUpdateUnit}
+                  showUnit={showUnit}
                 ></Unit>
               );
             })
