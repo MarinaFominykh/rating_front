@@ -1,10 +1,17 @@
 import "./Main.scss";
 import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { connect } from "react-redux";
 import { getMatches, getUnits } from "../../utils/Api.js";
 import Unit from "../Unit/Unit.jsx";
 import RatingTable from "../TotalRatingTable/RatingTable.jsx";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
+import {
+  CurrentStateSelect,
+  currentStateDefault,
+} from "../../contexts/CurrentStateSelect.jsx";
+import { addTest, removeTest, selectValue } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 function Main({
   allUnits,
   onUpdateUnit,
@@ -14,50 +21,56 @@ function Main({
   matches2021,
   matches2022,
   showUnit,
+  test,
+  onAdd,
+  onRemove,
 }) {
-  const [period, setPeriod] = useState("allTime");
+  const dispatch = useDispatch();
+  const period = useSelector((state) => {
+    const { selectPeriodReducer } = state;
+    return selectPeriodReducer.value;
+  });
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
-
+  function handleSelectChange(e) {
+    dispatch(selectValue(e.target.value));
+  }
   function filterResult(array, result) {
     const newArray = array.filter((item) => {
       return item.result === result;
     });
     return newArray.length;
   }
-  function getPeriod() {
-    setPeriod(values.period);
-  }
-  const matchesArray = () => {
-    if (period === "2020") {
-      return matches2020;
-    } else if (period === "2021") {
-      return matches2021;
-    } else if (period === "2022") {
-      return matches2022;
-    }
-    return matches;
-  };
-  useEffect(() => {
-    getPeriod();
-  }, [values.period]);
-
+  // const matchesArray = () => {
+  //   if (period === "2020") {
+  //     return matches2020;
+  //   } else if (period === "2021") {
+  //     return matches2021;
+  //   } else if (period === "2022") {
+  //     return matches2022;
+  //   }
+  //   return matches;
+  // };
   return (
     <main className="main">
       <section className="raiting">
         <div className="raiting__head">
           <div className="raiting__title-container">
             <h1 className="raiting__title">Рейтинг</h1>
-            <p className="raiting__amount">
-              Количество игр: {matchesArray().length}
-            </p>
+            <p className="raiting__amount">Количество игр: {matches.length}</p>
+            {/* <button onClick={onAdd} className="button">
+              Добавить
+            </button>
+            <button onClick={onRemove} className="button">
+              Удалить
+            </button> */}
           </div>
           <form>
             <select
               className="select"
               name="period"
-              value={values.period}
-              onChange={handleChange}
+              // value={values.period}
+              onChange={handleSelectChange}
               defaultValue="allTime"
             >
               <option className="select__option" value="allTime">
@@ -78,11 +91,11 @@ function Main({
         <div className="raiting__count">
           <p className="raiting__count-text">Город</p>
           <p className="raiting__count-number">
-            {filterResult(matchesArray(), "Победа города")}
+            {filterResult(matches, "Победа города")}
           </p>
           <p className="raiting__count-separator">:</p>
           <p className="raiting__count-number">
-            {filterResult(matchesArray(), "Победа мафии")}
+            {filterResult(matches, "Победа мафии")}
           </p>
 
           <p className="raiting__count-text">Мафия</p>
@@ -92,12 +105,24 @@ function Main({
           allUnits={allUnits}
           onUpdateUnit={onUpdateUnit}
           sortData={sortData}
-          matches={matchesArray()}
+          matches={matches}
           showUnit={showUnit}
         />
       </section>
     </main>
   );
 }
+function mapStateToProps(state) {
+  const { testReducer } = state;
+  return {
+    test: testReducer.test,
+  };
+}
 
-export default Main;
+function mapDispatchToProps(dispatch) {
+  return {
+    onAdd: () => dispatch(addTest()),
+    onRemove: () => dispatch(removeTest()),
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

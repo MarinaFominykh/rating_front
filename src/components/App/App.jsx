@@ -1,5 +1,6 @@
 import "./App.scss";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { useForm, useFieldArray, useWatch } from "react-hook-form";
 import {
   Route,
@@ -22,6 +23,20 @@ import {
   updateResult,
   updateUnitInMatch,
 } from "../../utils/Api.js";
+import {
+  countMatches,
+  countBlackRole,
+  countBlackVictory,
+  countRedRole,
+  countRedVictory,
+  countSheriffRole,
+  countSheriffVictory,
+  countDonRole,
+  countDonVictory,
+  countModKill,
+  countBestPlayer,
+  countRating
+} from "../../utils/functions";
 import Main from "../Main/Main.jsx";
 import AddMatchesForm from "../AddMatchesForm/AddMatchesForm.jsx";
 import AddUnitsForm from "../AddUnitsForm/AddUnitsForm.jsx";
@@ -35,12 +50,24 @@ import UpdateTitleForm from "../UpdateTitleForm/UpdateTitleForm.jsx";
 import UpdateResultForm from "../UpdateResultForm/UpdateResultForm.jsx";
 import EditUnitInMatchForm from "../EditUnitInMatchForm/EditUnitInMatchForm.jsx";
 import Profile from "../Profile/Profile.jsx";
+import AddMatch from "../AddMatch/AddMatch"
+import {
+  CurrentStateSelect,
+  currentStateDefault,
+} from "../../contexts/CurrentStateSelect.jsx";
+import { selectValue } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
   const { register, control } = useForm();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "items",
+  });
+  const dispatch = useDispatch();
+  const period = useSelector((state) => {
+    const { selectPeriodReducer } = state;
+    return selectPeriodReducer.value;
   });
   const [units, setUnits] = useState([]);
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false);
@@ -61,6 +88,7 @@ function App() {
   const [matches2020, setMatches2020] = useState([]);
   const [matches2021, setMatches2021] = useState([]);
   const [matches2022, setMatches2022] = useState([]);
+  const [allMatches, setAllMatches] = useState(matches);
   const [matchDelete, setMatchDelete] = useState({});
   const [editTitle, setEditTitle] = useState({});
   const [editGameMaster, setEditGameMaster] = useState({});
@@ -70,18 +98,19 @@ function App() {
   const [editResultMatch, setEditResultMatch] = useState({});
   const [addUnitsMatch, setAddUnitsMatch] = useState({});
   const [message, setMessage] = useState("");
+  const [currentProfile, setCurrentProfile] = useState({});
   // const [stationSubmitAddUtits, setStationSubmitAddUtits] = useState(false);
 
   function getInitialUnits() {
     getUnits().then((dataUnits) => {
       setUnits(dataUnits);
-      // console.log(dataUnits);
+      console.log(dataUnits);
     });
   }
   function getInitialMatches() {
     getMatches().then((dataMatches) => {
       setMatches(dataMatches);
-      // console.log(dataMatches);
+      console.log(dataMatches);
     });
   }
 
@@ -115,16 +144,38 @@ function App() {
     });
   }
 
+  function getCurrentMatchesArray() {
+    if (period === "2020") {
+      return setAllMatches(matches2020);
+    } else if (period === "2021") {
+      return setAllMatches(matches2021);
+    } else if (period === "2022") {
+      return setAllMatches(matches2022);
+    }
+    return setAllMatches(matches);
+  }
   const showInfoToolTip = (error) => {
     setMessage(error);
     setTimeout(() => setMessage(""), 8000);
   };
+  function closePopup() {
+    setIsFormPopupOpen(false);
+    setIsFormWithUnitsPopupOpen(false);
 
+    setIsFormWithConfirmation(false);
+    setFormWithUpdateGameMaster(false);
+    setFormWithUpdateTitle(false);
+    setIsFormWithReplaceUnit(false);
+    setFormWithUpdateResult(false);
+    setFormFormWithDynamicFields(false);
+    setIsProfilePopupOpen(false);
+  }
   function handleAddMatchClick() {
     setIsFormPopupOpen(true);
   }
-  function handleProfileClick() {
+  function handleProfileClick(data) {
     setIsProfilePopupOpen(true);
+    setCurrentProfile(data);
   }
 
   function handleDeleteMatchClick(data) {
@@ -144,7 +195,7 @@ function App() {
   }
 
   function handleUpdateUnitsClick(data) {
-    setCurrentUnit(data);
+    // setCurrentUnit(data);
     setIsFormWithUpdateUnit(true);
   }
 
@@ -170,16 +221,18 @@ function App() {
   }
 
   function addMatch(data) {
-    const { title, gameMaster, date, result } = data;
-    addNewMatch(title, gameMaster, date, result)
+    // const { title, gameMaster, date, result, black, red, sheriff, done } = data;
+    addNewMatch(data)
       // Необходим рефакторинг для оптимизации, чтобы избавиться от избыточных запросов к серверу:
       .then(() => {
         getInitialMatches();
         getInitialMatches2020();
         getInitialMatches2021();
         getInitialMatches2022();
-      });
-    closePopup()
+      })
+      .then(() => {
+        closePopup();
+      })
       // .then((newMatch) => {
       //   console.log(newMatch)
       //   setMatches([...matches, newMatch]);
@@ -224,10 +277,10 @@ function App() {
   }
 
   function updateName(name) {
-    updateUnit(currentUnit, name)
+    updateUnit(currentProfile, name)
       .then(() => {
         getInitialUnits();
-        closePopup();
+        closeUpdateUnitPopup();
       })
       .catch((err) => console.log(err));
   }
@@ -298,17 +351,8 @@ function App() {
     setIsFormWithUnitPopupOpen(false);
   }
 
-  function closePopup() {
-    setIsFormPopupOpen(false);
-    setIsFormWithUnitsPopupOpen(false);
+  function closeUpdateUnitPopup() {
     setIsFormWithUpdateUnit(false);
-    setIsFormWithConfirmation(false);
-    setFormWithUpdateGameMaster(false);
-    setFormWithUpdateTitle(false);
-    setIsFormWithReplaceUnit(false);
-    setFormWithUpdateResult(false);
-    setFormFormWithDynamicFields(false);
-    setIsProfilePopupOpen(false);
   }
 
   useEffect(() => {
@@ -321,6 +365,9 @@ function App() {
   useEffect(() => {
     getInitialUnits();
   }, []);
+  useEffect(() => {
+    getCurrentMatchesArray();
+  }, [matches, period]);
 
   useEffect(() => {
     const closeByEscape = (e) => {
@@ -334,27 +381,30 @@ function App() {
   return (
     <div className="page">
       <Header onClickAddMatch={handleAddMatchClick} />
-
+{/* <AddMatch /> */}
+      {/* <CurrentStateSelect.Provider value={stateSelect}> */}
       <Switch>
         <Route exact path="/">
           <Main
             allUnits={units}
-            onUpdateUnit={handleUpdateUnitsClick}
+            // onUpdateUnit={handleUpdateUnitsClick}
             onUnitDelete={handleUnitDelete}
-            matches={matches}
-            matches2020={matches2020}
-            matches2021={matches2021}
-            matches2022={matches2022}
+            matches={allMatches}
+            // matches={matches}
+            // matches2020={matches2020}
+            // matches2021={matches2021}
+            // matches2022={matches2022}
             showUnit={handleProfileClick}
           />
         </Route>
 
         <Route exact path="/matches">
           <Matches
-            allMatches={matches}
+            matches={matches}
             matches2020={matches2020}
             matches2021={matches2021}
             matches2022={matches2022}
+            // matches={allMatches}
             onClickAddMatch={handleAddMatchClick}
             onClickAddUnits={handleAddUnitsClick}
             onMatchDelete={handleDeleteMatchClick}
@@ -363,6 +413,7 @@ function App() {
             onEditUnit={handleReplaceUnitClick}
             units={units}
             onEditResult={handleUpdateResultClick}
+            showUnit={handleProfileClick}
           ></Matches>
         </Route>
       </Switch>
@@ -374,7 +425,35 @@ function App() {
         onAddMatch={addMatch}
         onClick={handleAddUnitClick}
       />
-      <Profile isOpen={isProfilePopupOpen} onClose={closePopup} />
+      <Profile
+        isOpen={isProfilePopupOpen}
+        onClose={closePopup}
+        name={currentProfile.name}
+        amount={countMatches(allMatches, currentProfile)}
+        blackCompletion={countBlackRole(allMatches, currentProfile)}
+        blackVictory={countBlackVictory(allMatches, currentProfile)}
+        redCompletion={countRedRole(allMatches, currentProfile)}
+        redVictory={countRedVictory(allMatches, currentProfile)}
+        sheriffCompletion={countSheriffRole(allMatches, currentProfile)}
+        sheriffVictory={countSheriffVictory(allMatches, currentProfile)}
+        donCompletion={countDonRole(allMatches, currentProfile)}
+        donVictory={countDonVictory(allMatches, currentProfile)}
+        modKill={countModKill(allMatches, currentProfile)}
+        best={countBestPlayer(allMatches, currentProfile)}
+        raiting={countRating(allMatches, currentProfile)}
+        onUpdateUnit={handleUpdateUnitsClick}
+        unit={currentProfile}
+      />
+      <UpdateUnitForm
+        isOpen={isFormWithUpdateUnit}
+        onClose={closeUpdateUnitPopup}
+        onUpdateUnit={updateName}
+        onClick={handleAddUnitClick}
+        currentName={currentProfile.name}
+      />
+
+      {/* </CurrentStateSelect.Provider> */}
+
       {/* <AddUnitForm
         isOpen={isFormWithUnitPopupOpen}
         onClose={closePopupAddUnit}

@@ -1,0 +1,13 @@
+@import "../mixin.scss";
+
+.form_update-name{
+    min-width: 477px;
+    height: 100vh;
+    background: #ffffff;
+    padding: 32px;
+    box-sizing: border-box;
+    position: absolute;
+    top:0;
+    right: 0;
+    gap: 24px;
+}

@@ -20,7 +20,7 @@ export const getUnits = () => {
     }).then(checkResponse)
 }
 
-export const addNewMatch = (title, gameMaster, date, result) => {
+export const addNewMatch = (data) => {
     return fetch(`${BASE_URL}/matches`, {
         method: "POST",
         headers: {
@@ -28,11 +28,16 @@ export const addNewMatch = (title, gameMaster, date, result) => {
 
         },
         body: JSON.stringify({
-            title,
-            gameMaster,
-            date,
-            result
-
+            title: data.title,
+            gameMaster: data.gameMaster,
+            date: data.date,
+            result: data.result,
+            black: data.black,
+            red: data.red,
+            sheriff: data.sheriff,
+            done: data.done,
+            modKill: data.modKill,
+            bestPlayer: data.bestPlayer,
         })
     }).then(checkResponse)
 }

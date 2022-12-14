@@ -3,16 +3,22 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./components/App/App.jsx";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 import { createRoot } from "react-dom/client";
+import { createStore } from "redux";
+import { rootReducer } from "./redux/rootReducer";
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const store = createStore(rootReducer);
 root.render(
   <BrowserRouter>
-  <React.StrictMode>
-      <App />
-  </React.StrictMode>
-</BrowserRouter>
+    <React.StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </React.StrictMode>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -7,8 +7,31 @@ import redIcon from "../../image/icons/profile_red.svg";
 import sheriffIcon from "../../image/icons/profile_sheriff.svg";
 import doneIcon from "../../image/icons/profile_done.svg";
 import settingIcon from "../../image/icons/fluent_settings-16-filled.svg";
+import { selectValue } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
-function Profile({ isOpen, onClose }) {
+function Profile({
+  isOpen,
+  onClose,
+  name,
+  amount,
+  blackCompletion,
+  blackVictory,
+  redCompletion,
+  redVictory,
+  sheriffCompletion,
+  sheriffVictory,
+  donCompletion,
+  donVictory,
+  modKill,
+  best,
+  onUpdateUnit,
+  unit,
+  raiting
+}) {
+  function handleUpdateName() {
+    onUpdateUnit(unit);
+  }
   return (
     <Popup isOpen={isOpen} className="profile">
       <article className="profile">
@@ -23,58 +46,70 @@ function Profile({ isOpen, onClose }) {
         <div className="profile__name-container">
           <img src={avatar} alt="Аватар игрока" className="profile__avatar" />
           <div className="profile__name-text-container">
-            <p className="profile__raiting">Рейтинг</p>
-            <p className="profile__name">констанин</p>
+            <p className="profile__raiting">Рейтинг {raiting}</p>
+            <p className="profile__name">{name}</p>
           </div>
         </div>
         <ul className="profile__data">
           <li className="profile__item">
             <div className="profile__text-container">
               <p className="profile__description">Количество игр</p>
-              <p className="profile__number">12</p>
+              <p className="profile__number">{amount}</p>
             </div>
             <img src={amountIcon} alt="Количество игры" />
           </li>
           <li className="profile__item">
             <div className="profile__text-container">
               <p className="profile__description">Мафия (сыграно/побед)</p>
-              <p className="profile__number">12</p>
+              <p className="profile__number">
+                {blackCompletion}/{blackVictory}
+              </p>
             </div>
             <img src={blackIcon} alt="Мафия" />
           </li>
           <li className="profile__item">
             <div className="profile__text-container">
               <p className="profile__description">Мирный (сыграно/побед)</p>
-              <p className="profile__number">12</p>
+              <p className="profile__number">
+                {redCompletion}/{redVictory}
+              </p>
             </div>
             <img src={redIcon} alt="Мирный" />
           </li>
           <li className="profile__item">
             <div className="profile__text-container">
               <p className="profile__description">Шериф (сыграно/побед)</p>
-              <p className="profile__number">12</p>
+              <p className="profile__number">
+                {sheriffCompletion}/{sheriffVictory}
+              </p>
             </div>
             <img src={sheriffIcon} alt="Шериф" />
           </li>
           <li className="profile__item">
             <div className="profile__text-container">
               <p className="profile__description">Дон (сыграно/побед)</p>
-              <p className="profile__number">12</p>
+              <p className="profile__number">
+                {donCompletion}/{donVictory}
+              </p>
             </div>
             <img src={doneIcon} alt="Дон мафии" />
           </li>
           <li className="profile__progress">
             <div className="profile__text-container profile__progress-item">
               <p className="profile__description">ModKill</p>
-              <p className="profile__number">12</p>
+              <p className="profile__number">{modKill}</p>
             </div>
             <div className="profile__text-container profile__progress-item">
               <p className="profile__description">Лучший игрок</p>
-              <p className="profile__number">12</p>
+              <p className="profile__number">{best}</p>
             </div>
           </li>
         </ul>
-        <button type="button" className="profile__setting">
+        <button
+          onClick={handleUpdateName}
+          type="button"
+          className="profile__setting"
+        >
           <p className="profile__setting-text">Настройки пользователя</p>
           <img
             src={settingIcon}

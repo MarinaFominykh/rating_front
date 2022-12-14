@@ -7,7 +7,7 @@ import { getLoadStep, getInitialCount } from "../../utils/getLoadStep.js";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 
 function Matches({
-  allMatches,
+  matches,
   matches2020,
   matches2021,
   matches2022,
@@ -49,7 +49,7 @@ function Matches({
     } else if (period === "2022") {
       return matches2022;
     }
-    return allMatches;
+    return matches;
   };
   useEffect(() => {
     getPeriod();
@@ -152,7 +152,7 @@ function Matches({
           .reverse()
           .slice(0, count)}
       </section>
-      {allMatches.length > count && (
+      {matches.length > count && (
         <button className="button button__load-more" onClick={handleLoadMore}>
           Загрузить ещё
         </button>
