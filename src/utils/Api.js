@@ -103,16 +103,19 @@ export const removeMatch = (match) => {
     }).then(checkResponse)
 }
 
-export const updateGameMaster = (match, gameMaster) => {
-    return fetch(`${BASE_URL}/matches/gameMaster`, {
+export const updateMatch = (id, title, gameMaster, date, result) => {
+    return fetch(`${BASE_URL}/matches/${id}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json"
 
         },
         body: JSON.stringify({
-            match,
-            gameMaster
+            id,
+            title,
+            gameMaster,
+            date,
+            result
         })
     }).then(checkResponse)
 }

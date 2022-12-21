@@ -1,0 +1,104 @@
+@import "../mixin.scss";
+.match-card__users {
+  list-style: none;
+  margin: 0 0 124px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // height: 392px;
+  // overflow: auto;
+}
+
+.match-card__user {
+  min-height: 56px;
+  border-bottom: 1px solid #ebedf0;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.match-card__user:hover {
+  background: #f6f6f6;
+}
+
+.match-card__action {
+  width: 31px;
+  height: 31px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px 20px;
+}
+.match-card__action_menu {
+  background-image: url(../../image/icons/menu.svg);
+}
+.match-card__action_delete{
+    background-image: url(../../image/icons/fluent_person_delete_black.svg);
+}
+.match-card__user:hover .match-card__action_delete{
+    background-image: url(../../image/icons/fluent_person-delete-20-regular.svg);
+  }
+
+.match-card__name-container {
+  display: flex;
+  gap: 4px;
+}
+
+.match-card__name {
+  @include semiBoldText;
+  font-size: 16px;
+  line-height: 16px;
+  color: #2e3555;
+  margin: 0 0 6px 0;
+}
+
+.match-card__up {
+  width: 24px;
+  height: 24px;
+  // background-image: url(../../image/icons/bi_check.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.match-card__up_mk {
+  background-image: url(../../image/icons/red_cross.svg);
+}
+.match-card__up_best {
+  background-image: url(../../image/icons/bi_check.svg);
+}
+.match-card__role {
+  @include mediumText;
+  font-size: 12px;
+  line-height: 14px;
+  color: #525760;
+  margin: 0;
+}
+
+.tooltip::after {
+  /* background: rgba(0, 0, 0, 0.8); */
+  background: #fff;
+  border-radius: 8px 8px 8px 0px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  /* color: #FFF; */
+  color: #000000;
+  content: attr(data-tooltip);
+  /* Главная часть кода, определяющая содержимое всплывающей подсказки */
+  margin-top: -24px;
+  opacity: 0;
+  /* Наш элемент прозрачен... */
+  padding: 3px 7px;
+  position: absolute;
+  visibility: hidden;
+  /* ...и скрыт. */
+  transition: all 0.4s ease-in-out;
+  /* Добавить плавности по вкусу */
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+  /* Показываем его */
+  visibility: visible;
+}

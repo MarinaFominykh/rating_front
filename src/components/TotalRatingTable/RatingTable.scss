@@ -116,32 +116,6 @@ table tr td:first-child::before {
     opacity: 0.6;
 } */
 
-.tooltip::after {
-  /* background: rgba(0, 0, 0, 0.8); */
-  background: #fff;
-  border-radius: 8px 8px 8px 0px;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
-  /* color: #FFF; */
-  color: #000000;
-  content: attr(data-tooltip);
-  /* Главная часть кода, определяющая содержимое всплывающей подсказки */
-  margin-top: -24px;
-  opacity: 0;
-  /* Наш элемент прозрачен... */
-  padding: 3px 7px;
-  position: absolute;
-  visibility: hidden;
-  /* ...и скрыт. */
-  transition: all 0.4s ease-in-out;
-  /* Добавить плавности по вкусу */
-}
-
-.tooltip:hover::after {
-  opacity: 1;
-  /* Показываем его */
-  visibility: visible;
-}
-
 .table__save-button_visible {
   width: 100px;
   height: 20px;

@@ -30,6 +30,7 @@ function UpdateUnitForm({ onUpdateUnit, onClose, isOpen, currentName }) {
         isDisabled={!isValid}
         handlerClick={onClose}
         linkClass="hidden"
+        onClose={onClose}
       >
         <label className="form__label" htmlFor="updateUnitForm">
           Имя пользователя

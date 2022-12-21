@@ -10,7 +10,7 @@ import Popup from "../Popup/Popup.jsx";
 import Form from "../Form/Form.jsx";
 import Error from "../Error/Error.jsx";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
-import { options } from "../../utils/constans";
+import { optionsResult } from "../../utils/constans";
 function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
   let location = useLocation();
 
@@ -183,9 +183,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
   // useEffect(() => {
   //   return history.push("/");
   // }, [isOpen, onClose]);
-  const getValue = () => {
-    return result ? options.find((c) => c.value === result) : "";
-  };
+
   return (
     <Popup isOpen={isOpen}>
       <Form
@@ -317,7 +315,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
                   </label>
 
                   <Select
-                    options={options}
+                    options={optionsResult}
                     name="resultAddMatchRorm"
                     onChange={onChangeResult}
                     required

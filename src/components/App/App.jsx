@@ -18,10 +18,10 @@ import {
   updateUnit,
   removeUnit,
   removeMatch,
-  updateGameMaster,
   updateTitle,
   updateResult,
   updateUnitInMatch,
+  updateMatch,
 } from "../../utils/Api.js";
 import {
   countMatches,
@@ -35,7 +35,7 @@ import {
   countDonVictory,
   countModKill,
   countBestPlayer,
-  countRating
+  countRating,
 } from "../../utils/functions";
 import Main from "../Main/Main.jsx";
 import AddMatchesForm from "../AddMatchesForm/AddMatchesForm.jsx";
@@ -50,7 +50,9 @@ import UpdateTitleForm from "../UpdateTitleForm/UpdateTitleForm.jsx";
 import UpdateResultForm from "../UpdateResultForm/UpdateResultForm.jsx";
 import EditUnitInMatchForm from "../EditUnitInMatchForm/EditUnitInMatchForm.jsx";
 import Profile from "../Profile/Profile.jsx";
-import AddMatch from "../AddMatch/AddMatch"
+import AddMatch from "../AddMatch/AddMatch";
+import MatchCard from "../MatchCard/MatchCard";
+import MatchEdit from "../MatchEdit/MatchEdit";
 import {
   CurrentStateSelect,
   currentStateDefault,
@@ -59,6 +61,7 @@ import { selectValue } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
+  let location = useLocation();
   const { register, control } = useForm();
   const { fields, append, remove } = useFieldArray({
     control,
@@ -72,6 +75,8 @@ function App() {
   const [units, setUnits] = useState([]);
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false);
   const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
+  const [isMatchCardPopupOpen, setIsMatchCardPopupOpen] = useState(false);
+  const [isMatchEditPopupOpen, setIsMatchEditPopupOpen] = useState(false);
   const [isFormWithUnitsPopupOpen, setIsFormWithUnitsPopupOpen] =
     useState(false);
   const [isFormWithUnitPopupOpen, setIsFormWithUnitPopupOpen] = useState(false);
@@ -99,12 +104,13 @@ function App() {
   const [addUnitsMatch, setAddUnitsMatch] = useState({});
   const [message, setMessage] = useState("");
   const [currentProfile, setCurrentProfile] = useState({});
+  const [currentMatch, setCurrentMatch] = useState({});
   // const [stationSubmitAddUtits, setStationSubmitAddUtits] = useState(false);
 
   function getInitialUnits() {
     getUnits().then((dataUnits) => {
       setUnits(dataUnits);
-      console.log(dataUnits);
+      // console.log(dataUnits);
     });
   }
   function getInitialMatches() {
@@ -161,7 +167,6 @@ function App() {
   function closePopup() {
     setIsFormPopupOpen(false);
     setIsFormWithUnitsPopupOpen(false);
-
     setIsFormWithConfirmation(false);
     setFormWithUpdateGameMaster(false);
     setFormWithUpdateTitle(false);
@@ -169,6 +174,10 @@ function App() {
     setFormWithUpdateResult(false);
     setFormFormWithDynamicFields(false);
     setIsProfilePopupOpen(false);
+    setIsMatchCardPopupOpen(false);
+  }
+  function closeEditMatchPopup() {
+    setIsMatchEditPopupOpen(false);
   }
   function handleAddMatchClick() {
     setIsFormPopupOpen(true);
@@ -177,7 +186,15 @@ function App() {
     setIsProfilePopupOpen(true);
     setCurrentProfile(data);
   }
+  function handleDetailMatchClick(data) {
+    setCurrentMatch(data);
+    setIsMatchCardPopupOpen(true);
+  }
+  function handleEditMatchClick() {
+    setIsMatchEditPopupOpen(true);
 
+    console.log("currentMatch>>>", currentMatch);
+  }
   function handleDeleteMatchClick(data) {
     setMatchDelete(data);
     setIsFormWithConfirmation(true);
@@ -241,7 +258,22 @@ function App() {
 
       .catch((err) => console.log(err));
   }
-
+  function editMatch(data) {
+    const { id, title, gameMaster, date, result } = data;
+    updateMatch(id, title, gameMaster, date, result)
+      .then(() => {
+        getInitialMatches();
+        getInitialMatches2020();
+        getInitialMatches2021();
+        getInitialMatches2022();
+      })
+      .then(() => closeEditMatchPopup())
+      // .then((updatedMatch) => {
+      //   setMatches({ ...matches, updatedMatch });
+      //   closePopup();
+      // })
+      .catch((err) => console.log(err));
+  }
   function addUnits(array) {
     if (addUnitsMatch.units.length >= 10) {
       showInfoToolTip(
@@ -286,14 +318,14 @@ function App() {
   }
 
   //Измененные данные ведущего видны только после перезагрузки. Необходим рефакторинг
-  function updateGameMasterName(gameMaster) {
-    updateGameMaster(editGameMaster, gameMaster)
-      .then(() => {
-        getInitialMatches();
-        setFormWithUpdateGameMaster(false);
-      })
-      .catch((err) => console.log(err));
-  }
+  // function updateGameMasterName(gameMaster) {
+  //   updateGameMaster(editGameMaster, gameMaster)
+  //     .then(() => {
+  //       getInitialMatches();
+  //       setFormWithUpdateGameMaster(false);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
 
   function updateTitleMatch(title) {
     updateTitle(editTitle, title)
@@ -360,14 +392,14 @@ function App() {
     getInitialMatches2020();
     getInitialMatches2021();
     getInitialMatches2022();
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     getInitialUnits();
   }, []);
   useEffect(() => {
     getCurrentMatchesArray();
-  }, [matches, period]);
+  }, [matches, period, location]);
 
   useEffect(() => {
     const closeByEscape = (e) => {
@@ -381,14 +413,14 @@ function App() {
   return (
     <div className="page">
       <Header onClickAddMatch={handleAddMatchClick} />
-{/* <AddMatch /> */}
+      {/* <AddMatch /> */}
       {/* <CurrentStateSelect.Provider value={stateSelect}> */}
       <Switch>
         <Route exact path="/">
           <Main
             allUnits={units}
             // onUpdateUnit={handleUpdateUnitsClick}
-            onUnitDelete={handleUnitDelete}
+            // onUnitDelete={handleUnitDelete}
             matches={allMatches}
             // matches={matches}
             // matches2020={matches2020}
@@ -414,6 +446,7 @@ function App() {
             units={units}
             onEditResult={handleUpdateResultClick}
             showUnit={handleProfileClick}
+            showMatch={handleDetailMatchClick}
           ></Matches>
         </Route>
       </Switch>
@@ -450,6 +483,39 @@ function App() {
         onUpdateUnit={updateName}
         onClick={handleAddUnitClick}
         currentName={currentProfile.name}
+      />
+      <MatchCard
+        isOpen={isMatchCardPopupOpen}
+        onClose={closePopup}
+        onEdit={handleEditMatchClick}
+        match={currentMatch}
+        title={currentMatch.title}
+        result={currentMatch.result}
+        gameMaster={currentMatch.gameMaster?.name}
+        date={currentMatch.date}
+        // name={currentProfile.name}
+        // amount={countMatches(allMatches, currentProfile)}
+        // blackCompletion={countBlackRole(allMatches, currentProfile)}
+        // blackVictory={countBlackVictory(allMatches, currentProfile)}
+        // redCompletion={countRedRole(allMatches, currentProfile)}
+        // redVictory={countRedVictory(allMatches, currentProfile)}
+        // sheriffCompletion={countSheriffRole(allMatches, currentProfile)}
+        // sheriffVictory={countSheriffVictory(allMatches, currentProfile)}
+        // donCompletion={countDonRole(allMatches, currentProfile)}
+        // donVictory={countDonVictory(allMatches, currentProfile)}
+        // modKill={countModKill(allMatches, currentProfile)}
+        // best={countBestPlayer(allMatches, currentProfile)}
+        // raiting={countRating(allMatches, currentProfile)}
+        // onUpdateUnit={handleUpdateUnitsClick}
+        // unit={currentProfile}
+      />
+      <MatchEdit
+        isOpen={isMatchEditPopupOpen}
+        match={currentMatch}
+        onClose={closeEditMatchPopup}
+        units={units}
+        onEditMatch={editMatch}
+        handleDelete={handleUnitDelete}
       />
 
       {/* </CurrentStateSelect.Provider> */}

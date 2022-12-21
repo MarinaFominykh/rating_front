@@ -27,6 +27,7 @@ function Matches({
   onEditGameMatch,
   onEditUnit,
   onEditResult,
+  showMatch
   // stationSubmit,
 }) {
   const width = UserCurrentWidth();
@@ -145,6 +146,7 @@ function Matches({
                 onEditGameMatch={onEditGameMatch}
                 onEditUnit={onEditUnit}
                 onEditResult={onEditResult}
+                onClickDetail={showMatch}
                 // stationSubmit={stationSubmit}
               ></Match>
             );

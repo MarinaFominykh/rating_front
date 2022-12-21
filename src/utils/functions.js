@@ -6,42 +6,42 @@ import {
 
 export function getBlack(array, unit) {
     return array.filter((element) => {
-        return element.black.some((item) => item === unit._id)
+        return element.black.some((item) => item._id === unit._id)
     }).length
 }
 export function getRed(array, unit) {
     return array.filter((element) => {
-        return element.red.some((item) => item === unit._id)
+        return element.red.some((item) => item._id === unit._id)
     }).length
 }
 export function getSheriff(array, unit) {
     return array.filter((element) => {
-        return element.sheriff === unit._id
+        return element.sheriff._id === unit._id
     }).length
 }
 export function getDone(array, unit) {
     return array.filter((element) => {
-        return element.done === unit._id
+        return element.done._id === unit._id
     }).length
 }
 export function getBlackResult(array, unit, result) {
     return array.filter((element) => {
-        return element.black.some((item) => item === unit._id) && element.result === result
+        return element.black.some((item) => item._id === unit._id) && element.result === result
     }).length
 }
 export function getRedResult(array, unit, result) {
     return array.filter((element) => {
-        return element.red.some((item) => item === unit._id) && element.result === result
+        return element.red.some((item) => item._id === unit._id) && element.result === result
     }).length
 }
 export function getSheriffResult(array, unit, result) {
     return array.filter((element) => {
-        return element.sheriff === unit._id && element.result === result
+        return element.sheriff._id === unit._id && element.result === result
     }).length
 }
 export function getDoneResult(array, unit, result) {
     return array.filter((element) => {
-        return element.done === unit._id && element.result === result
+        return element.done._id === unit._id && element.result === result
     }).length
 }
 
@@ -49,6 +49,8 @@ export function getDoneResult(array, unit, result) {
 // Количество игр за роль
 export function countMatches(array, unit) {
     return getBlack(array, unit) + getRed(array, unit) + getSheriff(array, unit) + getDone(array, unit)
+    // console.log("array", array)
+    // console.log("unit", unit)
 }
 export function countBlackRole(array, unit) {
     return getBlack(array, unit) + getDone(array, unit)
@@ -131,4 +133,12 @@ export function countRating(array, unit) {
     // + matchesArrayMaster.length * 1;
     return rating;
 
+}
+export const optionsUnit = (array) => {
+    return array.map((unit) => {
+        return {
+            value: unit._id,
+            label: unit.name
+        };
+    });
 }

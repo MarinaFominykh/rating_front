@@ -17,6 +17,7 @@ function Match({
   onEditUnit,
   onEditResult,
   isSubmited,
+  onClickDetail
 }) {
   const addUnitsButtonClassName = `button ${
     isSubmited ? "table__add-button_hidden" : "table__add-button"
@@ -49,7 +50,9 @@ function Match({
   function handleAddUnits() {
     onClickAddUnits(match);
   }
-
+  function handleDetail() {
+    onClickDetail(match);
+  }
   return (
     <article className="match">
       <div className={imageClass()}></div>
@@ -81,7 +84,7 @@ function Match({
             </div>
           </div>
         </div>
-        <button type="button" className="match__more-btn">
+        <button onClick={handleDetail} type="button" className="match__more-btn">
           <img src={play} alt="Подробнее об игре" />
           <p className="match__text-btn">Подробнее об игре</p>
         </button>

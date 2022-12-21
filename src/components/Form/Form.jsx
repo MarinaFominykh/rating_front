@@ -21,7 +21,9 @@ function Form({
     <form className={`form form_${className}`} onSubmit={onSubmit} noValidate>
       <button type="button" className="form__close" onClick={onClose} />
       <h2 className="form__title">{title}</h2>
-      <fieldset className="form__container">{children}</fieldset>
+      <fieldset className={`form__container form__container_${className}`}>
+        {children}
+      </fieldset>
       <InfoTooltip message={message} />
       <div className="form__buttons-container">
         <button
