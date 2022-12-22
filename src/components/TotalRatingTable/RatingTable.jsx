@@ -17,7 +17,14 @@ import {
   countRating,
 } from "../../utils/functions";
 
-function RatingTable({ allUnits, onUpdateUnit, sortData, matches, showUnit }) {
+function RatingTable({
+  allUnits,
+  onUpdateUnit,
+  sortData,
+  matches,
+  showUnit,
+  handleAddUnit,
+}) {
   const [dataUnits, setDataUnits] = useState(allUnits);
   const [order, setOrder] = useState("ASC");
   const [rating, setRating] = useState(0);
@@ -35,7 +42,11 @@ function RatingTable({ allUnits, onUpdateUnit, sortData, matches, showUnit }) {
             <th className="table__cell table__cell-head">Побед</th>
             <th className="table__cell table__cell-head">Лучший игрок</th>
             <th className="table__cell table__cell-head">Рейтинг</th>
-            <th className="table__cell table__cell-head"></th>
+            <th className="table__cell table__cell-head">
+              {/* <button onClick={handleAddUnit} className="button">
+                Добавить игрока
+              </button> */}
+            </th>
           </tr>
         </thead>
         <tbody>

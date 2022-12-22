@@ -110,13 +110,13 @@ function App() {
   function getInitialUnits() {
     getUnits().then((dataUnits) => {
       setUnits(dataUnits);
-      // console.log(dataUnits);
+      console.log(dataUnits);
     });
   }
   function getInitialMatches() {
     getMatches().then((dataMatches) => {
       setMatches(dataMatches);
-      console.log(dataMatches);
+      // console.log(dataMatches);
     });
   }
 
@@ -207,7 +207,7 @@ function App() {
   }
 
   function handleAddUnitClick() {
-    setIsFormPopupOpen(false);
+    // setIsFormPopupOpen(false);
     setIsFormWithUnitPopupOpen(true);
   }
 
@@ -427,6 +427,7 @@ function App() {
             // matches2021={matches2021}
             // matches2022={matches2022}
             showUnit={handleProfileClick}
+            handleAddUnit={handleAddUnitClick}
           />
         </Route>
 
@@ -518,6 +519,11 @@ function App() {
         handleDelete={handleUnitDelete}
       />
 
+      {/* <AddUnitForm
+        isOpen={isFormWithUnitPopupOpen}
+        onClose={closePopupAddUnit}
+        onAddUnit={addUnit}
+      /> */}
       {/* </CurrentStateSelect.Provider> */}
 
       {/* <AddUnitForm
