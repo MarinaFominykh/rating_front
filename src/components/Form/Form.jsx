@@ -7,7 +7,7 @@ function Form({
   children,
   isDisabled,
   className,
-  message,
+  // message,
   buttonLeftValue,
   handlerClick,
   link,
@@ -16,15 +16,20 @@ function Form({
   handlerLink,
   linkText,
   linkBack,
+  submit = "Сохранить",
 }) {
   return (
     <form className={`form form_${className}`} onSubmit={onSubmit} noValidate>
-      <button type="button" className="form__close" onClick={onClose} />
+      <button
+        type="button"
+        className={`form__close form__close_${className}`}
+        onClick={onClose}
+      />
       <h2 className="form__title">{title}</h2>
       <fieldset className={`form__container form__container_${className}`}>
         {children}
       </fieldset>
-      <InfoTooltip message={message} />
+      {/* <InfoTooltip message={message} /> */}
       <div className="form__buttons-container">
         <button
           className="form__button form__button-back"
@@ -39,10 +44,10 @@ function Form({
         <button
           className={`form__button form__button-submit form__button-submit_${submitClass}`}
           type="submit"
-          value="Сохранить"
+          value={submit}
           disabled={isDisabled}
         >
-          Сохранить
+          {submit}
         </button>
 
         <a href={link} className={`form__link form__link_${linkClass}`}>

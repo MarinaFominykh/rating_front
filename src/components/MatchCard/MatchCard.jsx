@@ -92,7 +92,12 @@ function MatchCard({
           />
           <p className="match-card__user-text user-title__text">Участники</p>
         </div>
-        <MatchCardUsers isOpen={isOpen} match={match} iconClass="menu" />
+        <MatchCardUsers
+          isOpen={isOpen}
+          match={match}
+          iconClass="menu"
+          wrapperClass="card"
+        />
         <div className="match-card__buttons">
           <button
             type="button"

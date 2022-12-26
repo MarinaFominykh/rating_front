@@ -167,7 +167,7 @@ function App() {
   function closePopup() {
     setIsFormPopupOpen(false);
     setIsFormWithUnitsPopupOpen(false);
-    setIsFormWithConfirmation(false);
+    // setIsFormWithConfirmation(false);
     setFormWithUpdateGameMaster(false);
     setFormWithUpdateTitle(false);
     setIsFormWithReplaceUnit(false);
@@ -175,6 +175,9 @@ function App() {
     setFormFormWithDynamicFields(false);
     setIsProfilePopupOpen(false);
     setIsMatchCardPopupOpen(false);
+  }
+  function closeConfirmPopup() {
+    setIsFormWithConfirmation(false);
   }
   function closeEditMatchPopup() {
     setIsMatchEditPopupOpen(false);
@@ -195,9 +198,10 @@ function App() {
 
     console.log("currentMatch>>>", currentMatch);
   }
-  function handleDeleteMatchClick(data) {
-    setMatchDelete(data);
+  function handleDeleteMatchClick() {
+    // setMatchDelete(data);
     setIsFormWithConfirmation(true);
+    console.log("Работает");
   }
 
   function handleAddUnitsClick(data) {
@@ -371,10 +375,12 @@ function App() {
   }
 
   function handleDeleteMatch() {
-    removeMatch(matchDelete)
+    removeMatch(currentMatch)
       .then(() => {
-        setMatches((state) => state.filter((c) => c._id !== matchDelete._id));
+        setMatches((state) => state.filter((c) => c._id !== currentMatch._id));
         setIsFormWithConfirmation(false);
+        closeEditMatchPopup();
+        closePopup();
       })
       .catch((err) => console.log(err));
   }
@@ -440,7 +446,7 @@ function App() {
             // matches={allMatches}
             onClickAddMatch={handleAddMatchClick}
             onClickAddUnits={handleAddUnitsClick}
-            onMatchDelete={handleDeleteMatchClick}
+            // onMatchDelete={handleDeleteMatchClick}
             onEditTitle={handleUpdateTitleClick}
             onEditGameMatch={handleUpdateGameMasterClick}
             onEditUnit={handleReplaceUnitClick}
@@ -517,8 +523,13 @@ function App() {
         units={units}
         onEditMatch={editMatch}
         handleDelete={handleUnitDelete}
+        onMatchDelete={handleDeleteMatchClick}
       />
-
+      <ConfirmForm
+        onMatchDelete={handleDeleteMatch}
+        onClose={closeConfirmPopup}
+        isOpen={isFormWithConfirmation}
+      />
       {/* <AddUnitForm
         isOpen={isFormWithUnitPopupOpen}
         onClose={closePopupAddUnit}
@@ -531,11 +542,7 @@ function App() {
         onClose={closePopupAddUnit}
         onAddUnit={addUnit}
       />
-      <ConfirmForm
-        onMatchDelete={handleDeleteMatch}
-        onClose={closePopup}
-        isOpen={isFormWithConfirmation}
-      />
+   
       <UpdateTitleForm
         onUpdateTitle={updateTitleMatch}
         onClose={closePopup}

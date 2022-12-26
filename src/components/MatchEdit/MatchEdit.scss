@@ -1,12 +1,12 @@
 @import "../mixin.scss";
 .form_match-edit {
-    gap: 24px;
+    gap: 20px;
 }
 .match-edit {
     min-width: 477px;
     height: 100vh;
     background: #ffffff;
-    padding: 32px;
+    padding: 24px;
     box-sizing: border-box;
     position: absolute;
     top:0;
@@ -23,8 +23,9 @@
     line-height: 32px;
     color: #2e3555;
     margin: 0 0 8px 0;
-}
+    max-width: 360px;
 
+}
 
 .match-edit__close {
     padding: 0;
@@ -51,10 +52,10 @@
     gap: 4px;
 }
 .match-edit__input{
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 .match-edit__result-container {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 .select-input {
     @include regularText;
@@ -73,8 +74,46 @@
     margin: 0;
 }
 .match-edit__user-title {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 .match-card__users_match-edit {
     margin: 0;
+}
+.match-edit__button {
+    @include regularText;
+    font-size: 15px;
+    line-height: 40px;
+border: none;
+border-radius: 8px;
+background: transparent;
+cursor: pointer;
+padding: 0 10px;
+transition: .5s;
+}
+.match-edit__button:hover{
+    @include hover;
+    background: #EBEFFF;
+   
+
+}
+.match-edit__add-unit {
+    color: $font-color;
+}
+.match-edit__delete-match {
+    color: #EB5757;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.match-edit__delete-img {
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../../image/icons/red_basket.svg);
+}
+.match-edit__delete-text {
+    margin: 0;
+    text-align: center;
 }

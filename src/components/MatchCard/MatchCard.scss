@@ -9,6 +9,9 @@
     position: absolute;
     top: 0;
     right: 0;
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-between;
 }
 
 .match-card__head {
@@ -51,7 +54,7 @@
     text-align: center;
     background: #118DFF;
     border-radius: 4px;
-    display: inline-block;
+   width: 105px;
     margin: 0 0 24px 0;
 }
 
@@ -124,6 +127,7 @@ padding: 12px;
   .match-card__buttons{
     display: flex;
     justify-content: space-between;
+    margin: auto 0 20px 0;
 
   }
   .match-card__close-btn{

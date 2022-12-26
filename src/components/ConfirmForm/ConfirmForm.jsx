@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import "./ConfirmForm.css";
+import "./ConfirmForm.scss";
 import Form from "../Form/Form.jsx";
+import Popup from "../Popup/Popup";
 
 function ConfirmForm({ onMatchDelete, onClose, isOpen }) {
   function handleSubmit(e) {
@@ -10,13 +11,28 @@ function ConfirmForm({ onMatchDelete, onClose, isOpen }) {
   }
 
   return (
-    <Form
-      onSubmit={handleSubmit}
-      onClose={onClose}
-      isOpen={isOpen}
-      title="Удалить игру?"
-      button="Да"
-    ></Form>
+    <Popup isOpen={isOpen} className="confirm">
+      <Form
+        onSubmit={handleSubmit}
+        onClose={onClose}
+        isOpen={isOpen}
+        title="Удаление игры"
+        className="confirm"
+        linkClass="hidden"
+        submit="Удалить"
+        submitClass="confirm"
+        buttonLeftValue="Отменить"
+        handlerClick={onClose}
+      >
+        <p className="confirm__question">
+          Вы действительно хотите удалить игру?
+        </p>
+        <p className="confirm__text">
+          В случае удаления, игру восстановить будет невозможно. Все данные
+          будут потеряны
+        </p>
+      </Form>
+    </Popup>
   );
 }
 

@@ -182,7 +182,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
 
   // useEffect(() => {
   //   return history.push("/");
-  // }, [isOpen, onClose]);
+  // }, [onClose]);
 
   return (
     <Popup isOpen={isOpen}>
@@ -199,7 +199,6 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
         linkClass={classLink}
         linkBack={linkBack}
         handlerClick={handleClose}
-        message={message}
       >
         <div className="form__tabs">
           <nav className="form__nav">

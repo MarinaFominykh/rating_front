@@ -6,6 +6,7 @@ import MatchCardUsers from "../MatchCardUsers/MatchCardUsers";
 import Popup from "../Popup/Popup.jsx";
 import Form from "../Form/Form";
 import OptionUnit from "../OptionUnit/OptionUnit";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 import { optionsResult } from "../../utils/constans.js";
 import { optionsUnit } from "../../utils/functions.js";
@@ -20,6 +21,7 @@ function MatchEdit({
   currentGameMaster,
   units,
   handleDelete,
+  onMatchDelete,
 }) {
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
@@ -211,6 +213,21 @@ function MatchEdit({
             iconClass="delete"
             onClick={handleDelete}
           />
+          <button
+            type="button"
+            className="match-edit__add-unit match-edit__button"
+          >
+            + Добавить участника
+          </button>
+          <button
+            type="button"
+            className="match-edit__delete-match match-edit__button"
+            onClick={onMatchDelete}
+          >
+            <p className="match-edit__delete-text">Удалить игру</p>
+            <div className="match-edit__delete-img"></div>
+          </button>
+          <InfoTooltip message={message} />
         </Form>
       </article>
     </Popup>

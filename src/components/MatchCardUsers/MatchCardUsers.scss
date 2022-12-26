@@ -1,19 +1,28 @@
 @import "../mixin.scss";
+.match-card__users-wrapper {
+  height: 30vh;
+  overflow-y: auto;
+  margin: 0 0 24px;
+}
+.users_card {
+  height: 60vh;
+}
 .match-card__users {
   list-style: none;
-  margin: 0 0 124px;
+  // margin: 0 0 124px;
   padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
+ 
   // height: 392px;
-  // overflow: auto;
+  // overflow-y: auto;
 }
 
 .match-card__user {
   min-height: 56px;
   border-bottom: 1px solid #ebedf0;
-  padding: 8px 12px;
+  padding: 8px 10px;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;

@@ -13,7 +13,14 @@ import gameMasterIcon from "../../image/icons/gamemaster.svg";
 import calendarIcon from "../../image/icons/calendar.svg";
 import peopleIcon from "../../image/icons/fluent_people-20-regular.svg";
 
-function MatchCardUsers({ isOpen, match, listClass, iconClass, onClick }) {
+function MatchCardUsers({
+  isOpen,
+  match,
+  listClass,
+  iconClass,
+  onClick,
+  wrapperClass,
+}) {
   function getTooltip(unit, best, mk) {
     if (best.some((item) => item === unit._id)) {
       return "Лучший игрок";
@@ -30,108 +37,110 @@ function MatchCardUsers({ isOpen, match, listClass, iconClass, onClick }) {
   }
 
   return (
-    <ul className={`match-card__users match-card__users_${listClass}`}>
-      {isOpen && (
-        <>
-          <li className="match-card__user">
-            <div className="match-card__item">
-              <div className="match-card__name-container">
-                <p className="match-card__name"> {match.sheriff.name}</p>
-                <div
-                  data-tooltip={getTooltip(
-                    match.sheriff,
-                    match.bestPlayer,
-                    match.modKill
-                  )}
-                  className={getIcon(
-                    match.sheriff,
-                    match.bestPlayer,
-                    match.modKill
-                  )}
-                ></div>
+    <div className={`match-card__users-wrapper users_${wrapperClass}`}>
+      <ul className={`match-card__users match-card__users_${listClass}`}>
+        {isOpen && (
+          <>
+            <li className="match-card__user">
+              <div className="match-card__item">
+                <div className="match-card__name-container">
+                  <p className="match-card__name"> {match.sheriff.name}</p>
+                  <div
+                    data-tooltip={getTooltip(
+                      match.sheriff,
+                      match.bestPlayer,
+                      match.modKill
+                    )}
+                    className={getIcon(
+                      match.sheriff,
+                      match.bestPlayer,
+                      match.modKill
+                    )}
+                  ></div>
+                </div>
+                <p className="match-card__role">Шериф</p>
               </div>
-              <p className="match-card__role">Шериф</p>
-            </div>
-            <div
-              onClick={onClick}
-              className={`match-card__action match-card__action_${iconClass}`}
-            ></div>
-          </li>
-          <li className="match-card__user">
-            <div className="match-card__item">
-              <div className="match-card__name-container">
-                <p className="match-card__name"> {match.done.name}</p>
-                <div
-                  data-tooltip={getTooltip(
-                    match.done,
-                    match.bestPlayer,
-                    match.modKill
-                  )}
-                  className={getIcon(
-                    match.done,
-                    match.bestPlayer,
-                    match.modKill
-                  )}
-                ></div>
+              <div
+                onClick={onClick}
+                className={`match-card__action match-card__action_${iconClass}`}
+              ></div>
+            </li>
+            <li className="match-card__user">
+              <div className="match-card__item">
+                <div className="match-card__name-container">
+                  <p className="match-card__name"> {match.done.name}</p>
+                  <div
+                    data-tooltip={getTooltip(
+                      match.done,
+                      match.bestPlayer,
+                      match.modKill
+                    )}
+                    className={getIcon(
+                      match.done,
+                      match.bestPlayer,
+                      match.modKill
+                    )}
+                  ></div>
+                </div>
+                <p className="match-card__role">Дон мафии</p>
               </div>
-              <p className="match-card__role">Дон мафии</p>
-            </div>
-            <div
-              className={`match-card__action match-card__action_${iconClass}`}
-            ></div>
-          </li>
-        </>
-      )}
+              <div
+                className={`match-card__action match-card__action_${iconClass}`}
+              ></div>
+            </li>
+          </>
+        )}
 
-      {isOpen &&
-        match.black.map((unit) => {
-          return (
-            <li key={unit._id} className="match-card__user">
-              <div className="match-card__item">
-                <div className="match-card__name-container">
-                  <p className="match-card__name"> {unit.name}</p>
-                  <div
-                    data-tooltip={getTooltip(
-                      unit,
-                      match.bestPlayer,
-                      match.modKill
-                    )}
-                    className={getIcon(unit, match.bestPlayer, match.modKill)}
-                  ></div>
+        {isOpen &&
+          match.black.map((unit) => {
+            return (
+              <li key={unit._id} className="match-card__user">
+                <div className="match-card__item">
+                  <div className="match-card__name-container">
+                    <p className="match-card__name"> {unit.name}</p>
+                    <div
+                      data-tooltip={getTooltip(
+                        unit,
+                        match.bestPlayer,
+                        match.modKill
+                      )}
+                      className={getIcon(unit, match.bestPlayer, match.modKill)}
+                    ></div>
+                  </div>
+                  <p className="match-card__role">Мафия</p>
                 </div>
-                <p className="match-card__role">Мафия</p>
-              </div>
-              <div
-                className={`match-card__action match-card__action_${iconClass}`}
-              ></div>
-            </li>
-          );
-        })}
-      {isOpen &&
-        match.red.map((unit) => {
-          return (
-            <li key={unit._id} className="match-card__user">
-              <div className="match-card__item">
-                <div className="match-card__name-container">
-                  <p className="match-card__name"> {unit.name}</p>
-                  <div
-                    data-tooltip={getTooltip(
-                      unit,
-                      match.bestPlayer,
-                      match.modKill
-                    )}
-                    className={getIcon(unit, match.bestPlayer, match.modKill)}
-                  ></div>
+                <div
+                  className={`match-card__action match-card__action_${iconClass}`}
+                ></div>
+              </li>
+            );
+          })}
+        {isOpen &&
+          match.red.map((unit) => {
+            return (
+              <li key={unit._id} className="match-card__user">
+                <div className="match-card__item">
+                  <div className="match-card__name-container">
+                    <p className="match-card__name"> {unit.name}</p>
+                    <div
+                      data-tooltip={getTooltip(
+                        unit,
+                        match.bestPlayer,
+                        match.modKill
+                      )}
+                      className={getIcon(unit, match.bestPlayer, match.modKill)}
+                    ></div>
+                  </div>
+                  <p className="match-card__role">Мирный</p>
                 </div>
-                <p className="match-card__role">Мирный</p>
-              </div>
-              <div
-                className={`match-card__action match-card__action_${iconClass}`}
-              ></div>
-            </li>
-          );
-        })}
-    </ul>
+                <div
+                  className={`match-card__action match-card__action_${iconClass}`}
+                ></div>
+              </li>
+            );
+          })}
+      </ul>
+    </div>
   );
 }
 
