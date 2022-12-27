@@ -28,10 +28,10 @@
 
 .table__cell-head {
   font-size: 15px;
-  line-height: 64px;
+  line-height: 16px;
   color: #80858e;
   border: none;
-  min-height: 64px;
+  height: 64px;
   @include mediumText;
 }
 
@@ -185,4 +185,13 @@ table tr td:first-child::before {
 }
 .table__profile-btn:hover {
   @include hover;
+}
+@media screen and (max-width: 769px) {
+  .table__cell-head {
+       height: 56px;
+    
+  }
+  .unit__head {
+    display: none;
+  }
 }

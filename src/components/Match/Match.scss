@@ -91,7 +91,7 @@ border-radius: 8px;
 }
 .match__container {
   display: flex;
-  gap: 12px;
+  row-gap: 12px;
   justify-content: space-between;
   align-items: center;
   }
@@ -136,4 +136,13 @@ border-radius: 8px;
 }
 .match__more-btn:hover {
   @include hover;
+}
+@media screen and (max-width: 1200px) {
+  .match{
+    max-width: 357px;
+  }
+  .match__container {
+    flex-direction: column;
+    column-gap: 12px;
+  }
 }

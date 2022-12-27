@@ -96,3 +96,8 @@ border-bottom: 4px #4480F3 solid;
 .button:hover {
   @include hover;
 }
+@media screen and (max-width: 1200px) {
+  .header__container {
+    @include maxWidthMedium;
+  }
+}

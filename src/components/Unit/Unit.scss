@@ -1,0 +1,12 @@
+.unit {
+  border-radius: 8px;
+}
+@media screen and (max-width: 769px) {
+  .unit:hover {
+    background-color: #f6f6f6;
+    cursor: pointer;
+  }
+  .unit__profile {
+    display: none;
+  }
+}

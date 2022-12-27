@@ -54,3 +54,9 @@
 .matches__link-active {
     background: blue;
 }
+@media screen and (max-width: 769px) {
+    .matches {
+        grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  

@@ -30,7 +30,7 @@ function Form({
         {children}
       </fieldset>
       {/* <InfoTooltip message={message} /> */}
-      <div className="form__buttons-container">
+      <div className={`form__buttons-container form__buttons_${className}`}>
         <button
           className="form__button form__button-back"
           type="button"

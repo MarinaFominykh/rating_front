@@ -34,3 +34,7 @@ $font-color: #118DFF;
   max-width: 1440px;
   
 }
+@mixin maxWidthMedium {
+  max-width: 1200px;
+  
+}

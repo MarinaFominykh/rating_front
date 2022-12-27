@@ -22,6 +22,8 @@ function Unit({
   order,
   showUnit,
 }) {
+  const screenWidth = window.screen.width;
+
   // function handleUpdateUnith() {
   //   onUpdateUnit(unit);
   // }
@@ -30,7 +32,11 @@ function Unit({
   }
 
   return (
-    <tr style={{ height: 62 }} className="table__row unit">
+    <tr
+      style={{ height: 62 }}
+      className="table__row unit"
+      onClick={screenWidth < 769 && handleProfile}
+    >
       <td className="table__cell unit__order">{order}</td>
       <td className="table__cell unit__name">{name}</td>
       <td className="table__cell unit__amount">{matches}</td>

@@ -1,12 +1,13 @@
 @import "../mixin.scss";
 .form_add-mathes{
-    width: 625px;
+    width: 668px;
     background: #ffffff;
     padding: 24px;
     box-sizing: border-box;
     position: absolute;
     gap: 24px;
-    min-height: 665px;
+    min-height: 581px;
+    border-radius: 16px;
 }
 .form__tabs{
     display: flex;
@@ -83,57 +84,10 @@ color: #118DFF;
     width: 100%;
     // gap: 4px;
 }
-
-/* .popup {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, .5);
-    visibility: hidden;
-    opacity: 0;
-    transition: .5s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.popup_opened {
-    visibility: visible;
-    opacity: 1;
-    transition: .5s;
-    z-index: 3;
-}
-
-.form {
-    min-width: 630px;
-    min-height: 330px;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
-    position: relative;
-    padding: 34px 36px 37px;
-    box-sizing: border-box;
-    color: black;
-}
-
-.form__close {
-    width: 32px;
-    height: 32px;
-    background: transparent url(../../image/Close_Icon.svg);
-    position: absolute;
-    top: -40px;
-    right: -40px;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    transition: .5s;
-    object-fit: contain;
-    object-position: center;
-    border: 1px red;
-}
-
-.form__close:hover {
-    opacity: 0.6;
-} */
+@media screen and (max-width: 769px) {
+    .form_add-mathes {
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+    }
+  }

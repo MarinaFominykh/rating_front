@@ -42,7 +42,7 @@ function RatingTable({
             <th className="table__cell table__cell-head">Побед</th>
             <th className="table__cell table__cell-head">Лучший игрок</th>
             <th className="table__cell table__cell-head">Рейтинг</th>
-            <th className="table__cell table__cell-head">
+            <th className="table__cell table__cell-head unit__head">
               {/* <button onClick={handleAddUnit} className="button">
                 Добавить игрока
               </button> */}

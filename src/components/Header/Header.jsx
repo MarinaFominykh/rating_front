@@ -7,7 +7,7 @@ function Header({ onClickAddMatch }) {
     <header className="header">
       <div className="header__container">
         <div className="header__nav-container">
-          <p className="header__logo">Mafia Rating</p>
+          <p className="header__logo">Mafia&nbsp;Rating</p>
           <nav className="header__nav-wrapper">
             <ul className="header__nav-list">
               <NavLink
