@@ -4,7 +4,7 @@
   min-width: 477px;
   height: 100vh;
   background: #ffffff;
-  padding: 32px;
+  padding: 32px 32px 62px 32px;
   box-sizing: border-box;
   position: absolute;
   top: 0;
@@ -167,6 +167,6 @@
 @media screen and (max-width: 540px) {
   .match-card {
   min-width: 288px;
-  padding: 16px;
+  padding: 16px 16px 62px 16px;
 }
 }
