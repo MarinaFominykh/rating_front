@@ -5,7 +5,7 @@
   background: #ffffff;
   border-radius: 16px;
   gap: 40px;
-  padding: 24px 24px 0 24px;
+  padding: 24px;
   box-sizing: border-box;
   position: relative;
   justify-content: flex-end;
@@ -38,5 +38,12 @@
 @media screen and (max-width: 767px) {
   .header__container {
     @include maxWidthSmall;
+  }
+}
+@media screen and (max-width: 540px) {
+  .form_confirm {
+    min-width: 288px;
+    width: 100%;
+    padding: 16px;
   }
 }
