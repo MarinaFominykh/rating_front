@@ -38,3 +38,11 @@ $font-color: #118DFF;
   max-width: 1200px;
   
 }
+@mixin maxWidthSmall {
+  max-width: 688px;
+  
+}
+@mixin maxWidthExtraSmall {
+  max-width: 280px;
+  
+}

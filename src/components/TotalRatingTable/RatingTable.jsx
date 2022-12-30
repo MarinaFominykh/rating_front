@@ -30,7 +30,7 @@ function RatingTable({
   const [rating, setRating] = useState(0);
 
   return (
-    <div className="wrapper" style={{ height: 62 * 10 + 1, overflow: "auto" }}>
+    <div className="wrapper">
       <table className="table">
         <thead className="table__head">
           <tr className="table__row table__row-head">
@@ -38,10 +38,18 @@ function RatingTable({
             <th className="table__cell table__cell-head table__cell-name">
               Ник игрока
             </th>
-            <th className="table__cell table__cell-head">Количество игр</th>
-            <th className="table__cell table__cell-head">Побед</th>
-            <th className="table__cell table__cell-head">Лучший игрок</th>
-            <th className="table__cell table__cell-head">Рейтинг</th>
+            <th className="table__cell table__cell-head amount__head">
+              Количество игр
+            </th>
+            <th className="table__cell table__cell-head victory__head">
+              Побед
+            </th>
+            <th className="table__cell table__cell-head best__head">
+              Лучший игрок
+            </th>
+            <th className="table__cell table__cell-head raiting__head-cell">
+              Рейтинг
+            </th>
             <th className="table__cell table__cell-head unit__head">
               {/* <button onClick={handleAddUnit} className="button">
                 Добавить игрока

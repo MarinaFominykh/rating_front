@@ -253,7 +253,10 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
           </nav>
           <div className="form__tabs-body">
             <article className={classArticle} id="tab_01">
-              <label className="form__label" htmlFor="titleAddMatchForm">
+              <label
+                className="form__label add-match__label"
+                htmlFor="titleAddMatchForm"
+              >
                 Название игры
               </label>
               <input
@@ -269,7 +272,10 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
               ></input>
               <Error error={errors?.titleAddMatchForm?.message} />
 
-              <label className="form__label" htmlFor="gameMasterAddMatchForm">
+              <label
+                className="form__label add-match__label"
+                htmlFor="gameMasterAddMatchForm"
+              >
                 Выберите ведущего
               </label>
               <Select
@@ -289,7 +295,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
               <fieldset className="form__result-container">
                 <div className="form__result-item">
                   <label
-                    className="form__label"
+                    className="form__label add-match__label"
                     htmlFor="dateMasterAddMatchForm"
                   >
                     Дата окончания игры
@@ -309,7 +315,10 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
                 </div>
 
                 <div className="form__result-item">
-                  <label className="form__label" htmlFor="resultAddMatchForm">
+                  <label
+                    className="form__label add-match__label"
+                    htmlFor="resultAddMatchForm"
+                  >
                     Результат игры
                   </label>
 
@@ -328,7 +337,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
               </fieldset>
             </article>
             <article className={classSecondArticle} id="tab_02">
-              <label className="form__label">Мафия</label>
+              <label className="form__label add-match__label">Мафия</label>
               <Select
                 options={units.map((unit) => {
                   return { value: unit._id, label: unit.name };
@@ -340,7 +349,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
                 placeholder={<div>Добавьте игрока</div>}
               />
               <Error error={getSpanMessageBlack()}></Error>
-              <label className="form__label">Дон</label>
+              <label className="form__label add-match__label">Дон</label>
               <Select
                 options={units.map((unit) => {
                   return { value: unit._id, label: unit.name };
@@ -352,7 +361,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
                 isClearable
               />
               <Error error={!done && "Укажите дона мафии"}></Error>
-              <label className="form__label">Шериф</label>
+              <label className="form__label add-match__label">Шериф</label>
               <Select
                 options={units.map((unit) => {
                   return { value: unit._id, label: unit.name };
@@ -364,7 +373,9 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
                 isClearable
               />
               <Error error={!sheriff && "Укажите шерифа"}></Error>
-              <label className="form__label">Мирные жители</label>
+              <label className="form__label add-match__label">
+                Мирные жители
+              </label>
               <Select
                 options={units.map((unit) => {
                   return { value: unit._id, label: unit.name };
@@ -379,7 +390,9 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
               <Error error={getSpanMessageRed()}></Error>
             </article>
             <article className={classLastArticle} id="tab_03">
-              <label className="form__label">Лучший игрок</label>
+              <label className="form__label add-match__label">
+                Лучший игрок
+              </label>
               <Select
                 options={units.map((unit) => {
                   return { value: unit._id, label: unit.name };
@@ -391,7 +404,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
                 isClearable
                 className="form__input-wo-error"
               />
-              <label className="form__label">МК</label>
+              <label className="form__label add-match__label">МК</label>
               <Select
                 options={units.map((unit) => {
                   return { value: unit._id, label: unit.name };

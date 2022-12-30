@@ -35,7 +35,7 @@ function Unit({
     <tr
       style={{ height: 62 }}
       className="table__row unit"
-      onClick={screenWidth < 769 && handleProfile}
+      onClick={screenWidth < 769 ? handleProfile : undefined}
     >
       <td className="table__cell unit__order">{order}</td>
       <td className="table__cell unit__name">{name}</td>

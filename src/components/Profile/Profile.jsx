@@ -57,7 +57,11 @@ function Profile({
                 <p className="profile__description">Количество игр</p>
                 <p className="profile__number">{amount}</p>
               </div>
-              <img src={amountIcon} alt="Количество игры" />
+              <img
+                src={amountIcon}
+                alt="Количество игры"
+                className="profile__img"
+              />
             </li>
             <li className="profile__item">
               <div className="profile__text-container">
@@ -66,7 +70,7 @@ function Profile({
                   {blackCompletion}/{blackVictory}
                 </p>
               </div>
-              <img src={blackIcon} alt="Мафия" />
+              <img src={blackIcon} alt="Мафия" className="profile__img" />
             </li>
             <li className="profile__item">
               <div className="profile__text-container">
@@ -75,7 +79,7 @@ function Profile({
                   {redCompletion}/{redVictory}
                 </p>
               </div>
-              <img src={redIcon} alt="Мирный" />
+              <img src={redIcon} alt="Мирный" className="profile__img" />
             </li>
             <li className="profile__item">
               <div className="profile__text-container">
@@ -84,7 +88,7 @@ function Profile({
                   {sheriffCompletion}/{sheriffVictory}
                 </p>
               </div>
-              <img src={sheriffIcon} alt="Шериф" />
+              <img src={sheriffIcon} alt="Шериф" className="profile__img" />
             </li>
             <li className="profile__item">
               <div className="profile__text-container">
@@ -93,7 +97,7 @@ function Profile({
                   {donCompletion}/{donVictory}
                 </p>
               </div>
-              <img src={doneIcon} alt="Дон мафии" />
+              <img src={doneIcon} alt="Дон мафии" className="profile__img" />
             </li>
             <li className="profile__progress">
               <div className="profile__text-container profile__progress-item">

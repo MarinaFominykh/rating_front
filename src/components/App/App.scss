@@ -8,4 +8,11 @@
   -webkit-font-smoothing: antialiased;
   margin: auto;
   color: #2e3555;
+  position: relative;
+}
+@media screen and (max-width: 540px) {
+  .body {
+    background: #FFFFFF;
+  }
+  
 }

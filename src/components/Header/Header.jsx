@@ -1,11 +1,18 @@
 import "./Header.scss";
 import React, { useState, useContext, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import Menu from "../Menu/Menu";
 
-function Header({ onClickAddMatch }) {
+function Header({ onClickAddMatch, onClickBurger }) {
   return (
     <header className="header">
       <div className="header__container">
+        {/* <Menu /> */}
+        <button
+          type="button"
+          className="header__burger"
+          onClick={onClickBurger}
+        ></button>
         <div className="header__nav-container">
           <p className="header__logo">Mafia&nbsp;Rating</p>
           <nav className="header__nav-wrapper">
@@ -36,7 +43,7 @@ function Header({ onClickAddMatch }) {
           </nav>
         </div>
 
-        <button className="button" onClick={onClickAddMatch}>
+        <button className="button header__button" onClick={onClickAddMatch}>
           Новая игра &#43;
         </button>
       </div>

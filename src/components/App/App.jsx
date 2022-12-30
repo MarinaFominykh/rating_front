@@ -53,6 +53,7 @@ import Profile from "../Profile/Profile.jsx";
 import AddMatch from "../AddMatch/AddMatch";
 import MatchCard from "../MatchCard/MatchCard";
 import MatchEdit from "../MatchEdit/MatchEdit";
+import Menu from "../Menu/Menu";
 import {
   CurrentStateSelect,
   currentStateDefault,
@@ -82,6 +83,7 @@ function App() {
   const [isFormWithUnitPopupOpen, setIsFormWithUnitPopupOpen] = useState(false);
   const [isFormWithUpdateUnit, setIsFormWithUpdateUnit] = useState(false);
   const [isFormWithConfirmation, setIsFormWithConfirmation] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFormWithUpdateGameMaster, setFormWithUpdateGameMaster] =
     useState(false);
   const [isFormWithUpdateTitle, setFormWithUpdateTitle] = useState(false);
@@ -182,8 +184,15 @@ function App() {
   function closeEditMatchPopup() {
     setIsMatchEditPopupOpen(false);
   }
+  function closeMenu() {
+    setIsMenuOpen(false);
+  }
   function handleAddMatchClick() {
     setIsFormPopupOpen(true);
+    closeMenu();
+  }
+  function handleBurgerClick() {
+    setIsMenuOpen(true);
   }
   function handleProfileClick(data) {
     setIsProfilePopupOpen(true);
@@ -418,7 +427,11 @@ function App() {
   }, []);
   return (
     <div className="page">
-      <Header onClickAddMatch={handleAddMatchClick} />
+      <Header
+        onClickAddMatch={handleAddMatchClick}
+        onClickBurger={handleBurgerClick}
+        onClose={closeMenu}
+      />
       {/* <AddMatch /> */}
       {/* <CurrentStateSelect.Provider value={stateSelect}> */}
       <Switch>
@@ -529,6 +542,11 @@ function App() {
         onMatchDelete={handleDeleteMatch}
         onClose={closeConfirmPopup}
         isOpen={isFormWithConfirmation}
+      />
+      <Menu
+        onClickAddMatch={handleAddMatchClick}
+        isOpen={isMenuOpen}
+        onClose={closeMenu}
       />
       {/* <AddUnitForm
         isOpen={isFormWithUnitPopupOpen}

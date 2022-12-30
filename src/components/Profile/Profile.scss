@@ -164,3 +164,42 @@
     width: 100%;
   }
 }
+@media screen and (max-width: 540px) {
+  .profile {
+    min-width: 288px;
+    width: 100%;
+    padding: 16px 16px 0 16px;
+  }
+  .profile__title {
+    font-size: 24px;
+    line-height: 24px;
+    max-width: 254px;
+    margin-bottom: 16px;
+  }
+  .profile__avatar {
+    width: 48px;
+    height: 48px;
+  }
+  .profile__data{
+    gap: 10px;
+  }
+  .profile__name-container {
+    margin-bottom: 16px;
+  }
+  .profile__item {
+    padding: 6px 12px;
+  }
+  .profile__progress-item {
+    padding: 6px 12px;
+  }
+  .profile__img {
+    width: 24px;
+    height: 24px;
+  }
+  .profile__setting {
+    margin-bottom: 24px;
+  }
+  .profile__close-btn{
+    width: 100%;
+  }
+}

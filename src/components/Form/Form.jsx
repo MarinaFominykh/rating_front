@@ -32,7 +32,7 @@ function Form({
       {/* <InfoTooltip message={message} /> */}
       <div className={`form__buttons-container form__buttons_${className}`}>
         <button
-          className="form__button form__button-back"
+          className={`form__button form__button-back button-back_${className}`}
           type="button"
           value={buttonLeftValue}
           onClick={handlerClick}

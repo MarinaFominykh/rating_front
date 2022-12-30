@@ -25,6 +25,7 @@ function UpdateUnitForm({ onUpdateUnit, onClose, isOpen, currentName }) {
       <Form
         onSubmit={handleSubmit}
         className="update-name"
+        submitClass="update-name"
         title="Настройки"
         buttonLeftValue="Назад"
         isDisabled={!isValid}

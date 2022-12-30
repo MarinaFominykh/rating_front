@@ -10,3 +10,17 @@
     display: none;
   }
 }
+@media screen and (max-width: 540px) {
+  .unit__amount{
+    display: none;
+  }
+  .unit__victory{
+    display: none;
+  }
+  .unit__bestPlayer{
+    display: none;
+  }
+
+
+  
+}

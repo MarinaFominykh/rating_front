@@ -1,4 +1,8 @@
 @import "../mixin.scss";
+.wrapper{
+  height: 621px;
+  overflow: auto;
+}
 .table {
   border-spacing: 0;
   // margin-bottom: 30px;
@@ -188,10 +192,44 @@ table tr td:first-child::before {
 }
 @media screen and (max-width: 769px) {
   .table__cell-head {
-       height: 56px;
-    
+    height: 56px;
   }
   .unit__head {
     display: none;
   }
+}
+@media screen and (max-width: 540px) {
+  .wrapper{
+    height: 100%
+   
+  }
+  .table {
+    padding: 0;
+  }
+  .table__head {
+    background: #f9f9fa;
+    border-radius: 8px;
+  }
+  .table__cell-head{
+    height: 32px;
+    font-size: 14px;
+line-height: 16px;
+  }
+  .amount__head {
+    display: none;
+  }
+  .victory__head {
+    display: none;
+  }
+  .best__head {
+    display: none;
+  }
+  .amount__head {
+    display: none;
+  }
+.raiting__head-cell{
+  margin: 0;
+  justify-content: center;
+}
+
 }

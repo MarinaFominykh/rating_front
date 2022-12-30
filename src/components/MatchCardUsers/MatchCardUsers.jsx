@@ -41,7 +41,7 @@ function MatchCardUsers({
       <ul className={`match-card__users match-card__users_${listClass}`}>
         {isOpen && (
           <>
-            <li className="match-card__user">
+            <li className={`match-card__user match-card__user_${listClass}`}>
               <div className="match-card__item">
                 <div className="match-card__name-container">
                   <p className="match-card__name"> {match.sheriff.name}</p>

@@ -16,3 +16,14 @@
       width: 100%;
     }
   }
+  @media screen and (max-width: 540px) {
+    .form_update-name {
+      min-width: 288px;
+    }
+    .button-back_update-name{
+      display: none;
+    }
+    .form__button-submit_update-name{
+      width: 100%;
+    }
+  }

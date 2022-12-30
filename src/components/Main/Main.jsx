@@ -59,14 +59,8 @@ function Main({
           <div className="raiting__title-container">
             <h1 className="raiting__title">Рейтинг</h1>
             <p className="raiting__amount">Количество игр: {matches.length}</p>
-            {/* <button onClick={onAdd} className="button">
-              Добавить
-            </button>
-            <button onClick={onRemove} className="button">
-              Удалить
-            </button> */}
           </div>
-          <form>
+          <form className="main__select">
             <select
               className="select"
               name="period"

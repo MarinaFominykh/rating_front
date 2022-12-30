@@ -16,7 +16,7 @@
 }
 .form__nav {
     display: flex;
-    gap: 24px;
+    column-gap: 24px;
 }
 .form__nav-item{
     display: flex;
@@ -76,7 +76,7 @@ color: #118DFF;
     display: flex;
     justify-content: space-between;
     padding: 0;
-    gap: 24px;
+    column-gap: 24px;
 }
 .form__result-item{
     display: flex;
@@ -90,4 +90,21 @@ color: #118DFF;
       height: 100%;
       border-radius: 0;
     }
+  }
+  @media screen and (max-width: 540px) {
+    .form_add-mathes {
+        min-width: 288px;
+        width: 100%;
+        padding: 16px;
+        gap: 16px;
+    }
+    .form__nav {
+        flex-direction: column;
+        row-gap: 4px;
+    }
+    .form__result-container {
+        flex-direction: column;
+        row-gap: 4px;
+    }
+
   }
