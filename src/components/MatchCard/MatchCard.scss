@@ -164,3 +164,9 @@
     height: 100%;
   }
 }
+@media screen and (max-width: 540px) {
+  .match-card {
+  min-width: 288px;
+  padding: 16px;
+}
+}

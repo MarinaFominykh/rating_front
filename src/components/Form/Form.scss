@@ -17,7 +17,7 @@
   font-size: 24px;
   line-height: 32px;
   color: #2e3555;
-  margin: 0;
+  margin: 0 0 24px 0;
 }
 .form__label {
   @include regularText;
@@ -65,7 +65,7 @@ border: 1px solid rgba(212, 213, 217, 0.7) !important;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: auto 0 42px 0;
+  // margin: auto 0 42px 0;
 }
 .form__buttons_add-mathes{
   margin: auto 0 0 0;
@@ -208,6 +208,7 @@ border: 1px solid rgba(212, 213, 217, 0.7) !important;
 @media screen and (max-width: 540px) {
   .form__title {
     line-height: 24px;
+    margin-bottom: 20px;
   }
   .form__close{
     top: 16px;

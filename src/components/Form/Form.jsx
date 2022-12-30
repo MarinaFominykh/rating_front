@@ -25,10 +25,13 @@ function Form({
         className={`form__close form__close_${className}`}
         onClick={onClose}
       />
-      <h2 className="form__title">{title}</h2>
-      <fieldset className={`form__container form__container_${className}`}>
-        {children}
-      </fieldset>
+      <div>
+        <h2 className="form__title">{title}</h2>
+        <fieldset className={`form__container form__container_${className}`}>
+          {children}
+        </fieldset>
+      </div>
+
       {/* <InfoTooltip message={message} /> */}
       <div className={`form__buttons-container form__buttons_${className}`}>
         <button

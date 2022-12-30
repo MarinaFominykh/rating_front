@@ -124,8 +124,14 @@
    grid-template-columns: repeat(2, minmax(min-content, 348px));
    gap: 5px;
   }
-  // .match-card__user_match-edit {
-  //   max-width: 348px
 
-  // }
+}
+@media screen and (max-width: 540px) {
+  .form_match-edit {
+    gap: 16px;
+  }
+  .match-edit {
+  min-width: 288px;
+  padding: 16px;
+}
 }

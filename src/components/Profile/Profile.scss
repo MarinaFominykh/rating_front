@@ -3,7 +3,7 @@
   min-width: 477px;
   height: 100vh;
   background: #ffffff;
-  padding: 32px 32px 0 32px;
+  padding: 32px 32px 42px 32px;
   box-sizing: border-box;
   position: absolute;
   top: 0;
@@ -156,7 +156,7 @@
   color: #118dff;
   background: #ebefff;
   border-radius: 8px;
-  margin-bottom: 32px;
+  // margin-bottom: 32px;
   width: 100px;
 }
 @media screen and (max-width: 769px) {
@@ -168,7 +168,7 @@
   .profile {
     min-width: 288px;
     width: 100%;
-    padding: 16px 16px 0 16px;
+    padding: 16px 16px 42px 16px;
   }
   .profile__title {
     font-size: 24px;

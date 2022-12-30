@@ -111,3 +111,8 @@
   /* Показываем его */
   visibility: visible;
 }
+@media screen and (max-width: 540px) {
+  .match-card__users-wrapper{
+    margin-bottom: 16px;
+  }
+}
