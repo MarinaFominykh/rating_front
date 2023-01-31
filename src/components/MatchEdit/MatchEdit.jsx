@@ -136,7 +136,7 @@ function MatchEdit({
             onChange={handleChange}
           />
           <label
-            className="form__labe match-edit__label"
+            className="form__label match-edit__label"
             htmlFor="gameMasterEditMatchForm"
           >
             Выберите ведущего

@@ -1,6 +1,6 @@
 @import "../mixin.scss";
 .form_confirm {
-  min-width: 668px;
+  max-width: 668px;
   min-height: 296px;
   background: #ffffff;
   border-radius: 16px;
@@ -9,6 +9,7 @@
   box-sizing: border-box;
   position: relative;
   justify-content: flex-end;
+  margin: 0 16px;
   
 }
 
@@ -35,15 +36,12 @@
     top: 28px;
     right: 24px;
 }
-@media screen and (max-width: 767px) {
-  .header__container {
-    @include maxWidthSmall;
-  }
-}
+
 @media screen and (max-width: 540px) {
   .form_confirm {
     min-width: 288px;
     width: 100%;
     padding: 16px;
+    
   }
 }

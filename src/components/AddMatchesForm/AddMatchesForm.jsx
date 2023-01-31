@@ -137,7 +137,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
         bestPlayer: best,
         modKill: MK,
       });
-
+      history.push("/matches");
       window.location.reload();
       reset();
     }
@@ -182,7 +182,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
 
   // useEffect(() => {
   //   return history.push("/");
-  // }, [onClose]);
+  // }, [onSubmit]);
 
   return (
     <Popup isOpen={isOpen}>

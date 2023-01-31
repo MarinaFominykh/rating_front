@@ -20,13 +20,16 @@ function Form({
 }) {
   return (
     <form className={`form form_${className}`} onSubmit={onSubmit} noValidate>
-      <button
-        type="button"
-        className={`form__close form__close_${className}`}
-        onClick={onClose}
-      />
-      <div>
+      <div className="form__head">
         <h2 className="form__title">{title}</h2>
+        <button
+          type="button"
+          className={`form__close form__close_${className}`}
+          onClick={onClose}
+        />
+      </div>
+
+      <div>
         <fieldset className={`form__container form__container_${className}`}>
           {children}
         </fieldset>

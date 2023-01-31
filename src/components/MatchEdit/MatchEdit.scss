@@ -22,7 +22,7 @@
   font-size: 24px;
   line-height: 32px;
   color: #2e3555;
-  margin: 0 0 8px 0;
+  margin: 0 0 12px 0;
   max-width: 360px;
 }
 
@@ -54,7 +54,7 @@
   margin-bottom: 12px;
 }
 .match-edit__result-container {
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 .select-input {
   @include regularText;
@@ -120,8 +120,8 @@
     // height: 100%;
   }
   .match-card__users_match-edit {
-   display: grid;
-   grid-template-columns: repeat(2, minmax(min-content, 348px));
+  //  display: grid;
+  //  grid-template-columns: repeat(2, minmax(min-content, 348px));
    gap: 5px;
   }
 
