@@ -211,6 +211,7 @@ function MatchEdit({
             match={match}
             listClass="match-edit"
             iconClass="delete"
+            tooltipClass="tooltip"
             onClick={handleDelete}
           />
           <button

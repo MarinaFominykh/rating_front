@@ -1,11 +1,11 @@
 @import "../mixin.scss";
 .match-card__users-wrapper {
-  height: 30vh;
-  overflow-y: auto;
+  // height: 30vh;
+  // overflow-y: auto;
   margin: 0 0 24px;
 }
 .users_card {
-  height: 60vh;
+  // height: 60vh;
 }
 .match-card__users {
   list-style: none;
@@ -96,6 +96,7 @@
   content: attr(data-tooltip);
   /* Главная часть кода, определяющая содержимое всплывающей подсказки */
   margin-top: -24px;
+  right: 5px;
   opacity: 0;
   /* Наш элемент прозрачен... */
   padding: 3px 7px;

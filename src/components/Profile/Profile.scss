@@ -2,7 +2,7 @@
 .profile {
   min-width: 477px;
   // height: 100vh;
-  height: 100%;
+  // height: 100%;
   background: #ffffff;
   padding: 32px 32px 62px 32px;
   box-sizing: border-box;
@@ -115,6 +115,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  gap: 8px;
 }
 .profile__progress-item {
   width: 100%;
@@ -185,17 +186,17 @@
     gap: 10px;
   }
   .profile__name-container {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
   }
   .profile__item {
     padding: 6px 12px;
   }
   .profile__progress-item {
-    padding: 6px 12px;
+    padding: 12px;
   }
   .profile__img {
-    width: 24px;
-    height: 24px;
+    width: 48px;
+    height: 48px;
   }
   .profile__setting {
     margin-bottom: 24px;
