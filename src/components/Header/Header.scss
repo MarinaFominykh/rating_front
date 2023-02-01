@@ -149,9 +149,9 @@ border-bottom: 4px #4480F3 solid;
   }
   
 }
-@media screen and (max-width: 540px) {
-  .header__container {
-    @include maxWidthExtraSmall;
-  }
+// @media screen and (max-width: 540px) {
+//   .header__container {
+//     @include maxWidthExtraSmall;
+//   }
   
-}
+// }

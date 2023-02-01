@@ -19,18 +19,19 @@
     opacity: 1;
     transition: .5s;
     pointer-events: auto;
+    overflow-y: auto;
     /* z-index: 3; */
 }
-.popup_type_match-card{
-    overflow-y: auto;
-}
-.popup_type_match-edit{
-    overflow-y: auto;
-}
-.popup_type_profile{
-    overflow-y: auto;
-}
-.popup_type_update-name{
-    overflow-y: auto;
-}
+// .popup_type_match-card{
+//     overflow-y: auto;
+// }
+// .popup_type_match-edit{
+//     overflow-y: auto;
+// }
+// .popup_type_profile{
+//     overflow-y: auto;
+// }
+// .popup_type_update-name{
+//     overflow-y: auto;
+// }
 
