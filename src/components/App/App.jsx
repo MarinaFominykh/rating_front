@@ -95,6 +95,9 @@ function App() {
   const [matches2020, setMatches2020] = useState([]);
   const [matches2021, setMatches2021] = useState([]);
   const [matches2022, setMatches2022] = useState([]);
+  const [matches2023, setMatches2023] = useState([]);
+  const [matches2024, setMatches2024] = useState([]);
+  const [matches2025, setMatches2025] = useState([]);
   const [allMatches, setAllMatches] = useState(matches);
   const [matchDelete, setMatchDelete] = useState({});
   const [editTitle, setEditTitle] = useState({});
@@ -112,9 +115,11 @@ function App() {
   function getInitialUnits() {
     getUnits().then((dataUnits) => {
       setUnits(dataUnits);
-      console.log(dataUnits);
+      // console.log(dataUnits);
     });
   }
+
+  //Записать в localStorage
   function getInitialMatches() {
     getMatches().then((dataMatches) => {
       setMatches(dataMatches);
@@ -152,6 +157,42 @@ function App() {
     });
   }
 
+  function getInitialMatches2023() {
+    getMatches().then((dataMatches) => {
+      setMatches2023(
+        dataMatches.filter((match) => {
+          return match.date.includes("2023");
+        })
+      );
+    });
+  }
+  function getInitialMatches2024() {
+    getMatches().then((dataMatches) => {
+      setMatches2024(
+        dataMatches.filter((match) => {
+          return match.date.includes("2024");
+        })
+      );
+    });
+  }
+  function getInitialMatches2025() {
+    getMatches().then((dataMatches) => {
+      setMatches2025(
+        dataMatches.filter((match) => {
+          return match.date.includes("2025");
+        })
+      );
+    });
+  }
+  // function getFilterMatches(year) {
+  //   getMatches().then((dataMatches) => {
+  //     setAllMatches(
+  //       dataMatches.filter((match) => {
+  //         return match.date.includes(year);
+  //       })
+  //     );
+  //   });
+  // }
   function getCurrentMatchesArray() {
     if (period === "2020") {
       return setAllMatches(matches2020);
@@ -159,13 +200,39 @@ function App() {
       return setAllMatches(matches2021);
     } else if (period === "2022") {
       return setAllMatches(matches2022);
+    } else if (period === "2023") {
+      return setAllMatches(matches2023);
+    } else if (period === "2024") {
+      return setAllMatches(matches2024);
+    } else if (period === "2025") {
+      return setAllMatches(matches2025);
     }
+
     return setAllMatches(matches);
   }
+
+  // function getCurrentMatchesArray() {
+  //   if (period === "2020") {
+  //     return getFilterMatches("2020");
+  //   } else if (period === "2021") {
+  //     return getFilterMatches("2021");
+  //   } else if (period === "2022") {
+  //     return getFilterMatches("2022");
+  //   } else if (period === "2023") {
+  //     return getFilterMatches("2023");
+  //   } else if (period === "2024") {
+  //     return getFilterMatches("2024");
+  //   } else if (period === "2025") {
+  //     return getFilterMatches("2025");
+  //   }
+
+  //   return setAllMatches(matches);
+  // }
   const showInfoToolTip = (error) => {
     setMessage(error);
     setTimeout(() => setMessage(""), 8000);
   };
+
   function closePopup() {
     setIsFormPopupOpen(false);
     setIsFormWithUnitsPopupOpen(false);
@@ -259,6 +326,9 @@ function App() {
         getInitialMatches2020();
         getInitialMatches2021();
         getInitialMatches2022();
+        getInitialMatches2023();
+        getInitialMatches2024();
+        getInitialMatches2025();
       })
       .then(() => {
         closePopup();
@@ -279,6 +349,9 @@ function App() {
         getInitialMatches2020();
         getInitialMatches2021();
         getInitialMatches2022();
+        getInitialMatches2023();
+        getInitialMatches2024();
+        getInitialMatches2025();
       })
       .then(() => closeEditMatchPopup())
       // .then((updatedMatch) => {
@@ -407,6 +480,9 @@ function App() {
     getInitialMatches2020();
     getInitialMatches2021();
     getInitialMatches2022();
+    getInitialMatches2023();
+    getInitialMatches2024();
+    getInitialMatches2025();
   }, [location]);
 
   useEffect(() => {
@@ -456,6 +532,9 @@ function App() {
             matches2020={matches2020}
             matches2021={matches2021}
             matches2022={matches2022}
+            matches2023={matches2023}
+            matches2024={matches2024}
+            matches2025={matches2024}
             // matches={allMatches}
             onClickAddMatch={handleAddMatchClick}
             onClickAddUnits={handleAddUnitsClick}

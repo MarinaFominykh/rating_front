@@ -5,12 +5,16 @@ import Match from "../Match/Match.jsx";
 import UserCurrentWidth from "../../hooks/useCurrentWidth.js";
 import { getLoadStep, getInitialCount } from "../../utils/getLoadStep.js";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
+import noGames from "../../image/no_games.png";
 
 function Matches({
   matches,
   matches2020,
   matches2021,
   matches2022,
+  matches2023,
+  matches2024,
+  matches2025,
   onClickAddMatch,
   onClickAddUnits,
   onMatchDelete,
@@ -27,7 +31,7 @@ function Matches({
   onEditGameMatch,
   onEditUnit,
   onEditResult,
-  showMatch
+  showMatch,
   // stationSubmit,
 }) {
   const width = UserCurrentWidth();
@@ -49,6 +53,12 @@ function Matches({
       return matches2021;
     } else if (period === "2022") {
       return matches2022;
+    } else if (period === "2023") {
+      return matches2023;
+    } else if (period === "2024") {
+      return matches2024;
+    } else if (period === "2025") {
+      return matches2025;
     }
     return matches;
   };
@@ -95,9 +105,9 @@ function Matches({
       </nav> */}
       <div className="matches__head">
         <h1 className="matches__title">Игры</h1>
-        <form>
+        <form className="matches__form-select">
           <select
-            className="select"
+            className="select matches__select"
             name="period"
             value={values.period}
             onChange={handleChange}
@@ -114,6 +124,15 @@ function Matches({
             </option>
             <option className="select__option" value="2022">
               2022
+            </option>
+            <option className="select__option" value="2023">
+              2023
+            </option>
+            <option className="select__option" value="2024">
+              2024
+            </option>
+            <option className="select__option" value="2025">
+              2025
             </option>
           </select>
         </form>
@@ -154,10 +173,36 @@ function Matches({
           .reverse()
           .slice(0, count)}
       </section>
-      {matches.length > count && (
+      {matchesArray().length > count && (
         <button className="button button__load-more" onClick={handleLoadMore}>
           Загрузить ещё
         </button>
+      )}
+      {matchesArray().length === 0 && (
+        <article className="no-games">
+          <div className="no-games__image-wrapper">
+            <img
+              src={noGames}
+              alt="Игры не найдены"
+              className="no-games__image"
+            />
+          </div>
+
+          <p className="no-games__title">
+            Мы не смогли найти игры за выбранный период
+          </p>
+          <p className="no-games__text">
+            Создайте новую игру или подождите пока другой пользователь сделает
+            это
+          </p>
+          <button
+            onClick={onClickAddMatch}
+            type="button"
+            className="button no-games__button"
+          >
+            Создать игру &#43;
+          </button>
+        </article>
       )}
     </main>
   );
