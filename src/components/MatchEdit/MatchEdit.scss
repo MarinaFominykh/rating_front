@@ -78,6 +78,9 @@
 .match-card__users_match-edit {
   margin: 0;
 }
+.match-edit__users{
+  border: none;
+}
 .match-edit__button {
   @include regularText;
   font-size: 15px;

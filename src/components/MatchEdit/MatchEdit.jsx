@@ -22,6 +22,8 @@ function MatchEdit({
   units,
   handleDelete,
   onMatchDelete,
+  onEditUnitsClick,
+  unit,
 }) {
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
@@ -104,6 +106,10 @@ function MatchEdit({
   // useEffect(() => {
   //   setDate(moment(match?.date).format("YYYY-MM-DD"));
   // }, [isOpen]);
+
+  const handleEditUnits = () => {
+    onEditUnitsClick(match, unit);
+  };
   return (
     <Popup isOpen={isOpen} className="match-edit">
       <article className="match-edit">
@@ -212,11 +218,35 @@ function MatchEdit({
             listClass="match-edit"
             iconClass="delete"
             tooltipClass="tooltip"
-            onClick={handleDelete}
+            // onClick={handleEditUnits}
           />
+          {/* <fieldset className="match-edit__users">
+            <Select
+              options={units.map((unit) => {
+                return { value: unit._id, label: unit.name };
+              })}
+              // isMulti
+              name="blackAddMatchRorm"
+              required
+              placeholder={<div>Добавьте игрока</div>}
+              // unstyled
+              styles={{
+                control: (baseStyles, state) => ({
+                  ...baseStyles,
+                  border: 0,
+                  width: "150px",
+                }),
+              }}
+              components={{
+                IndicatorSeparator: () => null,
+                DropdownIndicator: () => null,
+              }}
+            />
+          </fieldset> */}
           <button
             type="button"
             className="match-edit__add-unit match-edit__button"
+            // onClick={handleEditUnits}
           >
             + Добавить участника
           </button>

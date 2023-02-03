@@ -49,6 +49,7 @@ import ConfirmForm from "../ConfirmForm/ConfirmForm.jsx";
 import UpdateTitleForm from "../UpdateTitleForm/UpdateTitleForm.jsx";
 import UpdateResultForm from "../UpdateResultForm/UpdateResultForm.jsx";
 import EditUnitInMatchForm from "../EditUnitInMatchForm/EditUnitInMatchForm.jsx";
+import EditMatchForm from "../EditMatchForm/EditMatcForm";
 import Profile from "../Profile/Profile.jsx";
 import AddMatch from "../AddMatch/AddMatch";
 import MatchCard from "../MatchCard/MatchCard";
@@ -78,6 +79,7 @@ function App() {
   const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
   const [isMatchCardPopupOpen, setIsMatchCardPopupOpen] = useState(false);
   const [isMatchEditPopupOpen, setIsMatchEditPopupOpen] = useState(false);
+  const [isFormWithEditMatchOpen, setIsFormWithEditMatchOpen] = useState(false);
   const [isFormWithUnitsPopupOpen, setIsFormWithUnitsPopupOpen] =
     useState(false);
   const [isFormWithUnitPopupOpen, setIsFormWithUnitPopupOpen] = useState(false);
@@ -244,6 +246,7 @@ function App() {
     setFormFormWithDynamicFields(false);
     setIsProfilePopupOpen(false);
     setIsMatchCardPopupOpen(false);
+    setIsFormWithEditMatchOpen(false);
   }
   function closeConfirmPopup() {
     setIsFormWithConfirmation(false);
@@ -258,6 +261,11 @@ function App() {
     setIsFormPopupOpen(true);
     closeMenu();
   }
+  function handleEditUnitslick() {
+    setIsFormWithReplaceUnit(true);
+    // setIsFormWithEditMatchOpen(true);
+    console.log("current match =>", currentMatch);
+  }
   function handleBurgerClick() {
     setIsMenuOpen(true);
   }
@@ -271,8 +279,6 @@ function App() {
   }
   function handleEditMatchClick() {
     setIsMatchEditPopupOpen(true);
-
-    console.log("currentMatch>>>", currentMatch);
   }
   function handleDeleteMatchClick() {
     // setMatchDelete(data);
@@ -616,7 +622,13 @@ function App() {
         onEditMatch={editMatch}
         handleDelete={handleUnitDelete}
         onMatchDelete={handleDeleteMatchClick}
+        onEditUnitsClick={handleEditUnitslick}
       />
+      {/* <EditMatchForm
+        isOpen={isFormWithEditMatchOpen}
+        onClose={closePopup}
+        units={units}
+      /> */}
       <ConfirmForm
         onMatchDelete={handleDeleteMatch}
         onClose={closeConfirmPopup}
@@ -626,6 +638,14 @@ function App() {
         onClickAddMatch={handleAddMatchClick}
         isOpen={isMenuOpen}
         onClose={closeMenu}
+      />
+
+      <EditUnitInMatchForm
+        isOpen={isFormWithReplaceUnit}
+        onClose={closePopup}
+        units={units}
+        onClick={handleAddUnitClick}
+        onEditUnitInMatch={replaceUnit}
       />
       {/* <AddUnitForm
         isOpen={isFormWithUnitPopupOpen}
