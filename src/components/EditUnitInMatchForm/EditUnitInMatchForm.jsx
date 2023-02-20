@@ -1,12 +1,14 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import "./EditUnitInMatchForm.css";
+import Select from "react-select";
+import "./EditUnitInMatchForm.scss";
 import Form from "../Form/Form.jsx";
 import OptionUnit from "../OptionUnit/OptionUnit.jsx";
 import Popup from "../Popup/Popup";
 import Error from "../Error/Error.jsx";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
-
+import { optionsResult, optionsRole } from "../../utils/constans.js";
+import { optionsUnit } from "../../utils/functions.js";
 function EditUnitInMatchForm({
   onEditUnitInMatch,
   onClose,
@@ -27,6 +29,9 @@ function EditUnitInMatchForm({
 
   function handleInputEditUnitChange(e) {
     e.target.value === "newItem" ? onClick() : handleChange(e);
+  }
+  function onChangeName(newValue) {
+    setName(newValue);
   }
   function handleSubmit(e) {
     e.preventDefault();
@@ -51,49 +56,41 @@ function EditUnitInMatchForm({
         button="Сохранить"
         className="edit-unit"
         isDisabled={!isValid}
+        linkClass="hidden"
+        buttonLeftValue="Назад"
+        handlerClick={onClose}
       >
-        <label>
-          Ник игрока
-          <input
-            name="nameEditUnitInMatchForm"
-            list="nameEditUnitInMatchForm"
-            // value={name}
-            onChange={handleInputEditUnitChange}
-            value={values.nameEditUnitInMatchForm || ""}
-            // onChange={handleChange}
-            required
-          />
-          <datalist id="nameEditUnitInMatchForm">
-            {/* <option value={null}></option> */}
+        <label className="form__label">Выберите ведущего</label>
+        {/* <select
+            name="gameMasterEditMatchForm"
+            defaultValue={match.gameMaster?.name}
+            onChange={handleChange}
+            className="form__input"
+          >
+            <option></option>
             {units.map((unit) => {
               return (
                 <OptionUnit name={unit.name} key={unit._id} unitId={unit._id} />
               );
             })}
-            {/* <option value="newItem">...добавить игрока</option> */}
-          </datalist>
-          {/* Спан с ошибкой появляется только после повторного выбора пустого поля. Нужен рефакторинг */}
-          <Error error={errors.nameEditUnitInMatchForm} />
-        </label>
+            <option value="newItem">...добавить игрока</option>
+          </select> */}
+        <Select
+          options={optionsUnit(units)}
+          placeholder={<div>Выберите из списка</div>}
+          isClearable
+          value={name}
+          onChange={onChangeName}
+          className="select-input"
+        />
 
-        <label>
-          Роль в игре
-          <select
-            name="roleEditUnitInMatch"
-            // value={role}
-            // onChange={handleInputUnitRoleChange}
-            value={values.roleEditUnitInMatch || ""}
-            onChange={handleChange}
-            required
-          >
-            <option></option>
-            <option value="мирный">мирный</option>
-            <option value="мафия">мафия</option>
-            <option value="дон">дон</option>
-            <option value="шериф">шериф</option>
-          </select>
-          <Error error={errors.roleEditUnitInMatch} />
-        </label>
+        <label className="form__label">Роль в игре</label>
+        <Select
+          options={optionsRole}
+          placeholder={<div>Выберите из списка</div>}
+          className="select-input"
+          isClearable
+        />
         <label>
           Модкилл в игре
           <input

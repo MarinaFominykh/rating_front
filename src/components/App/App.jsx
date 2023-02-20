@@ -265,6 +265,7 @@ function App() {
     setIsFormWithReplaceUnit(true);
     // setIsFormWithEditMatchOpen(true);
     console.log("current match =>", currentMatch);
+    console.log("current profile =>", currentProfile);
   }
   function handleBurgerClick() {
     setIsMenuOpen(true);

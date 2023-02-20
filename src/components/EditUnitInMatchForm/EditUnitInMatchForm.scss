@@ -1,0 +1,26 @@
+@import "../mixin.scss";
+
+.form_edit-unit{
+    min-width: 477px;
+    height: 102vh;
+    background: #ffffff;
+    padding: 32px 32px 62px 32px;
+    box-sizing: border-box;
+    position: absolute;
+    top:0;
+    right: 0;
+    gap: 24px;
+    justify-content: space-between;
+}
+@media screen and (max-width: 769px) {
+    .form_edit-unit {
+      width: 100%;
+    }
+  }
+  @media screen and (max-width: 540px) {
+    .form_edit-unit {
+      min-width: 288px;
+      padding: 16px 16px 62px 16px;
+    }
+    
+  }

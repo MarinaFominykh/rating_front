@@ -218,7 +218,7 @@ function MatchEdit({
             listClass="match-edit"
             iconClass="delete"
             tooltipClass="tooltip"
-            // onClick={handleEditUnits}
+            onClick={handleEditUnits}
           />
           {/* <fieldset className="match-edit__users">
             <Select
@@ -246,7 +246,7 @@ function MatchEdit({
           <button
             type="button"
             className="match-edit__add-unit match-edit__button"
-            // onClick={handleEditUnits}
+            onClick={handleEditUnits}
           >
             + Добавить участника
           </button>

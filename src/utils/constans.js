@@ -12,6 +12,24 @@ export const optionsResult = [{
     }
 ]
 
+export const optionsRole = [{
+        value: 'мирный',
+        label: 'мирный'
+    },
+    {
+        value: 'мафия',
+        label: 'мафия'
+    },
+    {
+        value: 'дон',
+        label: 'дон'
+    },
+    {
+        value: 'шериф',
+        label: 'шериф'
+    }
+]
+
 export const RED_RESULT = "Победа города";
 export const BLACK_RESULT = "Победа мафии";
 export const EQUALITY_RESULT = "Ничья"
