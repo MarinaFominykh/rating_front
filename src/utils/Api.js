@@ -150,7 +150,7 @@ export const updateResult = (match, result) => {
     }).then(checkResponse)
 }
 
-export const updateUnitInMatch = (unit, role, modKill, bestPlayer, match, currentUnit) => {
+export const updateUnitInMatch = (unit, role, match, currentUnit) => {
     return fetch(`${BASE_URL}/matches/unit`, {
         method: "PATCH",
         headers: {
@@ -160,8 +160,6 @@ export const updateUnitInMatch = (unit, role, modKill, bestPlayer, match, curren
         body: JSON.stringify({
             unit,
             role,
-            modKill,
-            bestPlayer,
             match,
             currentUnit
         })

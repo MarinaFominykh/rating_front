@@ -441,12 +441,12 @@ function App() {
   }
 
   function replaceUnit(data) {
-    const { unit, role, modKill, bestPlayer } = data;
+    const { unit, role } = data;
     //    const array = editUnitMatch.units.filter((el) => {
     //   return el.unit._id !== unitData.unit._id;
     // }).push(data)
-
-    updateUnitInMatch(unit, role, modKill, bestPlayer, editUnitMatch, unitData)
+console.log(currentMatch, unitData)
+    updateUnitInMatch(unit, role, currentMatch, unitData)
       .then(() => {
         getInitialMatches();
         setIsFormWithReplaceUnit(false);

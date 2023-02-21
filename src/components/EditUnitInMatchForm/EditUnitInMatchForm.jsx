@@ -20,33 +20,30 @@ function EditUnitInMatchForm({
     useFormWithValidation();
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
-  const [checkedModKill, setCheckedModKill] = useState(false);
-  const [checkedBestPlayer, setCheckedBestPlayer] = useState(false);
 
   useEffect(() => {
     resetForm();
   }, [isOpen, resetForm]);
 
-  function handleInputEditUnitChange(e) {
-    e.target.value === "newItem" ? onClick() : handleChange(e);
-  }
   function onChangeName(newValue) {
     setName(newValue);
+  }
+  function onChangeRole(newValue) {
+    setRole(newValue);
   }
   function handleSubmit(e) {
     e.preventDefault();
     // onEditUnitInMatch(name, role, checkedModKill, checkedBestPlayer);
     onEditUnitInMatch({
-      unit: values.nameEditUnitInMatchForm,
-      role: values.roleEditUnitInMatch,
-      modKill: checkedModKill,
-      bestPlayer: checkedBestPlayer,
+      unit: name.value,
+      role: role.value,
     });
+    // console.log({
+    //   unit: name.value,
+    //   role: role.value,
+    // });
   }
 
-  function handleInputUnitRoleChange(e) {
-    setRole(e.target.value);
-  }
   return (
     <Popup isOpen={isOpen}>
       <Form
@@ -55,59 +52,33 @@ function EditUnitInMatchForm({
         title="Редактировать данные игрока"
         button="Сохранить"
         className="edit-unit"
-        isDisabled={!isValid}
+        // isDisabled={!isValid}
         linkClass="hidden"
         buttonLeftValue="Назад"
         handlerClick={onClose}
       >
-        <label className="form__label">Выберите ведущего</label>
-        {/* <select
-            name="gameMasterEditMatchForm"
-            defaultValue={match.gameMaster?.name}
-            onChange={handleChange}
-            className="form__input"
-          >
-            <option></option>
-            {units.map((unit) => {
-              return (
-                <OptionUnit name={unit.name} key={unit._id} unitId={unit._id} />
-              );
-            })}
-            <option value="newItem">...добавить игрока</option>
-          </select> */}
-        <Select
-          options={optionsUnit(units)}
-          placeholder={<div>Выберите из списка</div>}
-          isClearable
-          value={name}
-          onChange={onChangeName}
-          className="select-input"
-        />
-
-        <label className="form__label">Роль в игре</label>
-        <Select
-          options={optionsRole}
-          placeholder={<div>Выберите из списка</div>}
-          className="select-input"
-          isClearable
-        />
-        <label>
-          Модкилл в игре
-          <input
-            name="modKillEditUnitInMatch"
-            type="checkbox"
-            checked={checkedModKill}
-            onChange={() => setCheckedModKill(!checkedModKill)}
-          ></input>
+        <label className="form__label">
+          Ник игрока
+          <Select
+            options={optionsUnit(units)}
+            placeholder={<div>Выберите из списка</div>}
+            isClearable
+            value={name}
+            onChange={onChangeName}
+            className="select-input"
+          />
         </label>
 
-        <label>
-          Лучший игрок
-          <input
-            type="checkbox"
-            checked={checkedBestPlayer}
-            onChange={() => setCheckedBestPlayer(!checkedBestPlayer)}
-          ></input>
+        <label className="form__label">
+          Роль в игре
+          <Select
+            options={optionsRole}
+            value={role}
+            onChange={onChangeRole}
+            placeholder={<div>Выберите из списка</div>}
+            className="select-input"
+            isClearable
+          />
         </label>
       </Form>
     </Popup>
