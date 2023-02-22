@@ -1,5 +1,5 @@
-// export const BASE_URL = "http://localhost:3001";
-export const BASE_URL = "https://mafia-raiting.online";
+export const BASE_URL = "http://localhost:3001";
+// export const BASE_URL = "https://mafia-raiting.online";
 
 
 export const getMatches = () => {
@@ -151,7 +151,7 @@ export const updateResult = (match, result) => {
 }
 
 export const updateUnitInMatch = (unit, role, match, currentUnit) => {
-    return fetch(`${BASE_URL}/matches/unit`, {
+    return fetch(`${BASE_URL}/matches/${match._id}/unit`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json"

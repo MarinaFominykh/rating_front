@@ -264,8 +264,8 @@ function App() {
   function handleEditUnitslick() {
     setIsFormWithReplaceUnit(true);
     // setIsFormWithEditMatchOpen(true);
-    console.log("current match =>", currentMatch);
-    console.log("current profile =>", currentProfile);
+    // console.log("current match =>", currentMatch);
+    // console.log("current profile =>", currentProfile);
   }
   function handleBurgerClick() {
     setIsMenuOpen(true);
@@ -445,7 +445,7 @@ function App() {
     //    const array = editUnitMatch.units.filter((el) => {
     //   return el.unit._id !== unitData.unit._id;
     // }).push(data)
-console.log(currentMatch, unitData)
+
     updateUnitInMatch(unit, role, currentMatch, unitData)
       .then(() => {
         getInitialMatches();
