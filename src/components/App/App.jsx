@@ -264,7 +264,7 @@ function App() {
   function handleEditUnitslick() {
     setIsFormWithReplaceUnit(true);
     // setIsFormWithEditMatchOpen(true);
-    // console.log("current match =>", currentMatch);
+    console.log("current match =>", currentMatch);
     // console.log("current profile =>", currentProfile);
   }
   function handleBurgerClick() {
@@ -279,7 +279,8 @@ function App() {
     setIsMatchCardPopupOpen(true);
   }
   function handleEditMatchClick() {
-    setIsMatchEditPopupOpen(true);
+    // setIsMatchEditPopupOpen(true);
+    setIsFormWithEditMatchOpen(true);
   }
   function handleDeleteMatchClick() {
     // setMatchDelete(data);
@@ -350,7 +351,8 @@ function App() {
   }
   function editMatch(data) {
     const { id, title, gameMaster, date, result } = data;
-    updateMatch(id, title, gameMaster, date, result)
+    console.log("data=>", data)
+    updateMatch(data)
       .then(() => {
         getInitialMatches();
         getInitialMatches2020();
@@ -360,12 +362,8 @@ function App() {
         getInitialMatches2024();
         getInitialMatches2025();
       })
-      .then(() => closeEditMatchPopup())
-      // .then((updatedMatch) => {
-      //   setMatches({ ...matches, updatedMatch });
-      //   closePopup();
-      // })
-      .catch((err) => console.log(err));
+    //   .then(() => closeEditMatchPopup())
+    //   .catch((err) => console.log(err));
   }
   function addUnits(array) {
     if (addUnitsMatch.units.length >= 10) {
@@ -615,7 +613,7 @@ function App() {
         // onUpdateUnit={handleUpdateUnitsClick}
         // unit={currentProfile}
       />
-      <MatchEdit
+      {/* <MatchEdit
         isOpen={isMatchEditPopupOpen}
         match={currentMatch}
         onClose={closeEditMatchPopup}
@@ -624,12 +622,14 @@ function App() {
         handleDelete={handleUnitDelete}
         onMatchDelete={handleDeleteMatchClick}
         onEditUnitsClick={handleEditUnitslick}
-      />
-      {/* <EditMatchForm
+      /> */}
+      <EditMatchForm
         isOpen={isFormWithEditMatchOpen}
         onClose={closePopup}
         units={units}
-      /> */}
+        onEditMatch={editMatch}
+        match={currentMatch}
+      />
       <ConfirmForm
         onMatchDelete={handleDeleteMatch}
         onClose={closeConfirmPopup}

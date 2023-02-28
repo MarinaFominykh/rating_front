@@ -3,6 +3,7 @@ import { useState, useContext, useEffect, useCallback } from "react";
 import { useLocation, Link, useHistory } from "react-router-dom";
 import Select from "react-select";
 import { useForm } from "react-hook-form";
+import moment from "moment";
 import "./EditMatchForm.scss";
 import { getMatches, getUnits } from "../../utils/Api.js";
 import OptionUnit from "../OptionUnit/OptionUnit.jsx";
@@ -11,19 +12,29 @@ import Form from "../Form/Form.jsx";
 import Error from "../Error/Error.jsx";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 import { optionsResult } from "../../utils/constans";
-function EditMatchForm({ isOpen, onAddMatch, onClose, onClick, units }) {
+import { optionsUnit } from "../../utils/functions";
+function EditMatchForm({
+  isOpen,
+  onEditMatch,
+  onClose,
+  onClick,
+  units,
+  match,
+}) {
   let location = useLocation();
 
   const history = useHistory();
-  const {
-    register,
-    formState: { errors, isValid },
-    handleSubmit,
-    reset,
-  } = useForm({ mode: "onBlur" });
-
+  // const {
+  //   register,
+  //   formState: { errors, isValid },
+  //   handleSubmit,
+  //   reset,
+  // } = useForm({ mode: "onBlur" });
+  const { values, handleChange, resetForm, errors, isValid } =
+    useFormWithValidation();
   const [gameMaster, setGameMaster] = useState({});
   const [result, setResult] = useState({});
+  const [date, setDate] = useState("");
   const [blackUnits, setBlackUnits] = useState([]);
   const [redUnits, setRedUnits] = useState([]);
   const [sheriff, setSheriff] = useState({});
@@ -92,18 +103,18 @@ function EditMatchForm({ isOpen, onAddMatch, onClose, onClick, units }) {
   }
 
   function getSpanMessageBlack() {
-    if (blackUnits.length > 0 && blackUnits.length < 2) {
-      return `Добавьте ещё ${2 - blackUnits.length} игрока`;
-    } else if (blackUnits.length > 0 && blackUnits.length > 2) {
-      return `Удалите ${blackUnits.length - 2} игрока`;
-    } else return;
+    // if (blackUnits.length > 0 && blackUnits.length < 2) {
+    //   return `Добавьте ещё ${2 - blackUnits.length} игрока`;
+    // } else if (blackUnits.length > 0 && blackUnits.length > 2) {
+    //   return `Удалите ${blackUnits.length - 2} игрока`;
+    // } else return;
   }
   function getSpanMessageRed() {
-    if (redUnits.length > 0 && redUnits.length < 6) {
-      return `Добавьте ещё ${6 - redUnits.length} игрока`;
-    } else if (redUnits.length > 0 && redUnits.length > 6) {
-      return `Удалите ${redUnits.length - 6} игрока`;
-    } else return;
+    // if (redUnits.length > 0 && redUnits.length < 6) {
+    //   return `Добавьте ещё ${6 - redUnits.length} игрока`;
+    // } else if (redUnits.length > 0 && redUnits.length > 6) {
+    //   return `Удалите ${redUnits.length - 6} игрока`;
+    // } else return;
   }
   useEffect(() => {
     if (
@@ -119,28 +130,58 @@ function EditMatchForm({ isOpen, onAddMatch, onClose, onClick, units }) {
       return setIsValidComposition(true);
     }
   }, [gameMaster, result, blackUnits, redUnits, sheriff, done]);
+
+  useEffect(() => {
+    setGameMaster({
+      label: match?.gameMaster?.name,
+      value: match?.gameMaster?._id,
+    });
+    setDate(moment(match?.date).format("YYYY-MM-DD"));
+    setResult({
+      label: match?.result,
+      value: match?.result,
+    });
+
+    // setBlackUnits(match?.black?.map((item) => {
+    //   return {
+    //     value: item._id,
+    //     label: item.name,
+    //   }
+    // }))
+   
+  }, [isOpen]);
+
   function onSubmit(e) {
-    if (blackUnits.length !== 2) {
-      showInfoToolTip("Проверьте количество мафии");
-    } else if (redUnits.length !== 6) {
-      showInfoToolTip("Проверьте количество мирных жителей");
-    } else {
-      onAddMatch({
-        title: e.titleAddMatchForm,
-        gameMaster: gameMaster.value,
-        date: e.dateMasterAddMatchForm,
-        result: result.value,
-        black: blackUnits,
-        red: redUnits,
-        sheriff: sheriff.value,
-        done: done.value,
-        bestPlayer: best,
-        modKill: MK,
-      });
-      history.push("/matches");
-      window.location.reload();
-      reset();
-    }
+    e.preventDefault();
+    //  console.log({
+    //   id: match._id,
+    //   title: values.titleEditMatchForm,
+    //   gameMaster: gameMaster.value,
+    //   date: values.dateEditMatchForm,
+    //   result: result.value,
+    //   black: blackUnits,
+    //   red: redUnits,
+    //   sheriff: sheriff.value,
+    //   done: done.value,
+    //   bestPlayer: best,
+    //   modKill: MK,
+    //  })
+    onEditMatch({
+      id: match._id,
+      title: values.titleEditMatchForm,
+      gameMaster: gameMaster.value,
+      date: values.dateEditMatchForm,
+      result: result.value,
+      black: blackUnits,
+      red: redUnits,
+      sheriff: sheriff.value,
+      done: done.value,
+      bestPlayer: best,
+      modKill: MK,
+    });
+    // history.push("/matches");
+    // window.location.reload();
+    // reset();
   }
   useEffect(() => {
     if (location.hash === "#tab_02") {
@@ -188,11 +229,11 @@ function EditMatchForm({ isOpen, onAddMatch, onClose, onClick, units }) {
     <Popup isOpen={isOpen}>
       <Form
         className="add-mathes"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={onSubmit}
         onClose={onClose}
         title="Редактирование игры"
         button="Сохранить"
-        isDisabled={!isValid || !isValidComposition}
+        // isDisabled={!isValid || !isValidComposition}
         buttonLeftValue={linkText}
         link={link}
         submitClass={classSubmit}
@@ -215,10 +256,10 @@ function EditMatchForm({ isOpen, onAddMatch, onClose, onClick, units }) {
                   tab !== "1" && "form__nav-text_disabled"
                 }`}
               >
-                Участники
+                Параметры игры
               </p>
             </a>
-            {/* <a href="#tab_02" className="form__nav-item">
+            <a href="#tab_02" className="form__nav-item">
               <p
                 className={`form__nav-paragraph form__nav-number ${
                   tab !== "2" && "form__nav-number_disabled"
@@ -233,7 +274,7 @@ function EditMatchForm({ isOpen, onAddMatch, onClose, onClick, units }) {
               >
                 Участники
               </p>
-            </a> */}
+            </a>
             <a href="#tab_03" className="form__nav-item">
               <p
                 className={`form__nav-paragraph form__nav-number ${
@@ -253,13 +294,72 @@ function EditMatchForm({ isOpen, onAddMatch, onClose, onClick, units }) {
           </nav>
           <div className="form__tabs-body">
             <article className={classArticle} id="tab_01">
+              <label className="form__label" htmlFor="titleEditMatchForm">
+                Название игры
+              </label>
+              <input
+                className="form__input form__input-add-match"
+                name="titleEditMatchForm"
+                id="titleEditMatchForm"
+                type="text"
+                placeholder="Введите название игры"
+                defaultValue={match.title}
+                onChange={handleChange}
+                // {...register("titleEditMatchForm")}
+              ></input>
+              <label className="form__label" htmlFor="gameMasterEditMatchForm">
+                Выберите ведущего
+              </label>
+              <Select
+                options={optionsUnit(units)}
+                value={gameMaster}
+                name="gameMasterEditMatchForm"
+                placeholder={<div>Выберите из списка</div>}
+                isClearable
+                onChange={onChangeGameMaster}
+              />
+
+              <fieldset className="form__result-container">
+                <div className="form__result-item">
+                  <label className="form__label" htmlFor="dateEditMatchForm">
+                    Дата окончания игры
+                  </label>
+                  <input
+                    className="form__input"
+                    name="dateEditMatchForm"
+                    id="dateEditMatchForm"
+                    type="date"
+                    placeholder="Дата окончания игры"
+                    defaultValue={date}
+                    // {...register("dateEditMatchForm")}
+                    onChange={handleChange}
+                  ></input>
+                </div>
+
+                <div className="form__result-item">
+                  <label className="form__label" htmlFor="resultEditMatchForm">
+                    Результат игры
+                  </label>
+
+                  <Select
+                    options={optionsResult}
+                    name="resultEditMatchForm"
+                    value={result}
+                    onChange={onChangeResult}
+                    required
+                    placeholder={<div>Выберите из списка</div>}
+                    isClearable
+                  />
+                </div>
+              </fieldset>
+            </article>
+            <article className={classSecondArticle} id="tab_02">
               <label className="form__label add-match__label">Мафия</label>
               <Select
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
+                options={optionsUnit(units)}
                 isMulti
-                name="blackAddMatchRorm"
+                name="blackEditMatchRorm"
+                // value={blackUnits}
                 onChange={onChangeBlack}
                 required
                 placeholder={<div>Добавьте игрока</div>}
@@ -267,10 +367,8 @@ function EditMatchForm({ isOpen, onAddMatch, onClose, onClick, units }) {
               <Error error={getSpanMessageBlack()}></Error>
               <label className="form__label add-match__label">Дон</label>
               <Select
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
-                name="doneAddMatchRorm"
+                options={optionsUnit(units)}
+                name="doneEditMatchRorm"
                 onChange={onChangeDone}
                 required
                 placeholder={<div>Добавьте игрока</div>}
@@ -279,10 +377,8 @@ function EditMatchForm({ isOpen, onAddMatch, onClose, onClick, units }) {
               <Error error={!done && "Укажите дона мафии"}></Error>
               <label className="form__label add-match__label">Шериф</label>
               <Select
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
-                name="sheriffAddMatchRorm"
+                options={optionsUnit(units)}
+                name="sheriffEditMatchRorm"
                 onChange={onChangeSheriff}
                 required
                 placeholder={<div>Добавьте игрока</div>}
@@ -293,11 +389,10 @@ function EditMatchForm({ isOpen, onAddMatch, onClose, onClick, units }) {
                 Мирные жители
               </label>
               <Select
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
+                options={optionsUnit(units)}
                 isMulti
-                name="redAddMatchRorm"
+                name="redEditMatchRorm"
+                value={redUnits}
                 onChange={onChangeRed}
                 required
                 placeholder={<div>Добавьте игрока</div>}
@@ -305,81 +400,22 @@ function EditMatchForm({ isOpen, onAddMatch, onClose, onClick, units }) {
               />
               <Error error={getSpanMessageRed()}></Error>
             </article>
-            {/* <article className={classSecondArticle} id="tab_02">
-              <label className="form__label add-match__label">Мафия</label>
-              <Select
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
-                isMulti
-                name="blackAddMatchRorm"
-                onChange={onChangeBlack}
-                required
-                placeholder={<div>Добавьте игрока</div>}
-              />
-              <Error error={getSpanMessageBlack()}></Error>
-              <label className="form__label add-match__label">Дон</label>
-              <Select
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
-                name="doneAddMatchRorm"
-                onChange={onChangeDone}
-                required
-                placeholder={<div>Добавьте игрока</div>}
-                isClearable
-              />
-              <Error error={!done && "Укажите дона мафии"}></Error>
-              <label className="form__label add-match__label">Шериф</label>
-              <Select
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
-                name="sheriffAddMatchRorm"
-                onChange={onChangeSheriff}
-                required
-                placeholder={<div>Добавьте игрока</div>}
-                isClearable
-              />
-              <Error error={!sheriff && "Укажите шерифа"}></Error>
-              <label className="form__label add-match__label">
-                Мирные жители
-              </label>
-              <Select
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
-                isMulti
-                name="redAddMatchRorm"
-                onChange={onChangeRed}
-                required
-                placeholder={<div>Добавьте игрока</div>}
-                className="form__input-black"
-              />
-              <Error error={getSpanMessageRed()}></Error>
-            </article> */}
             <article className={classLastArticle} id="tab_03">
-              <label className="form__label add-match__label">
-                Лучший игрок
-              </label>
+              <label className="form__label">Лучший игрок</label>
               <Select
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
+                options={optionsUnit(units)}
                 isMulti
-                name="bestAddMatchRorm"
+                name="bestEditMatchRorm"
                 onChange={onChangeBest}
                 placeholder={<div>Добавьте игрока</div>}
                 isClearable
                 className="form__input-wo-error"
               />
-              <label className="form__label add-match__label">МК</label>
+              <label className="form__label">МК</label>
               <Select
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
+                options={optionsUnit(units)}
                 isMulti
-                name="mkAddMatchRorm"
+                name="mkEditMatchRorm"
                 onChange={onChangeMK}
                 placeholder={<div>Добавьте игрока</div>}
                 isClearable

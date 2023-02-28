@@ -120,6 +120,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
     }
   }, [gameMaster, result, blackUnits, redUnits, sheriff, done]);
   function onSubmit(e) {
+   
     if (blackUnits.length !== 2) {
       showInfoToolTip("Проверьте количество мафии");
     } else if (redUnits.length !== 6) {

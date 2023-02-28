@@ -103,19 +103,26 @@ export const removeMatch = (match) => {
     }).then(checkResponse)
 }
 
-export const updateMatch = (id, title, gameMaster, date, result) => {
-    return fetch(`${BASE_URL}/matches/${id}`, {
+export const updateMatch = (data) => {
+    return fetch(`${BASE_URL}/matches/${data.id}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json"
 
         },
         body: JSON.stringify({
-            id,
-            title,
-            gameMaster,
-            date,
-            result
+            id: data.id,       
+            title: data.title,
+            gameMaster: data.gameMaster,
+            date: data.date,
+            result: data.result,
+            sheriff: data.sheriff,
+            done: data.done,
+            red: data.red,
+            black: data.black,
+            modKill: data.modKill,
+            bestPlayer: data.bestPlayer,
+
         })
     }).then(checkResponse)
 }
@@ -172,3 +179,5 @@ const checkResponse = (res) => {
     }
     return Promise.reject(res.status);
 };
+
+  
