@@ -597,6 +597,7 @@ function App() {
         result={currentMatch.result}
         gameMaster={currentMatch.gameMaster?.name}
         date={currentMatch.date}
+        onMatchDelete={handleDeleteMatchClick}
         // name={currentProfile.name}
         // amount={countMatches(allMatches, currentProfile)}
         // blackCompletion={countBlackRole(allMatches, currentProfile)}

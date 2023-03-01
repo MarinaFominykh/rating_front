@@ -158,6 +158,42 @@
 .match-card__edit-btn:hover {
   @include hover;
 }
+
+.match-card__button {
+  @include regularText;
+  font-size: 15px;
+  line-height: 40px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  padding: 0 10px;
+  transition: 0.5s;
+}
+.match-card__button:hover {
+  @include hover;
+  background: #ebefff;
+}
+
+.match-card__delete-match {
+  color: #eb5757;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.match-card__delete-img {
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(../../image/icons/red_basket.svg);
+}
+.match-card__delete-text {
+  margin: 0;
+  text-align: center;
+}
 @media screen and (max-width: 769px) {
     .match-card {
     width: 100%;

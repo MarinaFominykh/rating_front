@@ -25,6 +25,7 @@ function MatchCard({
   date,
   match,
   onEdit,
+  onMatchDelete
 }) {
   function handleUpdateName() {
     onUpdateUnit(unit);
@@ -98,6 +99,14 @@ function MatchCard({
           iconClass="menu"
           wrapperClass="card"
         />
+        <button
+            type="button"
+            className="match-card__delete-match match-card__button"
+            onClick={onMatchDelete}
+          >
+            <p className="match-card__delete-text">Удалить игру</p>
+            <div className="match-card__delete-img"></div>
+          </button>
         <div className="match-card__buttons">
           <button
             type="button"
