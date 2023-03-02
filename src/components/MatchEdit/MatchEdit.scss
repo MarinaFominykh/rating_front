@@ -6,11 +6,13 @@
   min-width: 477px;
   // height: 100vh;
   background: #ffffff;
-  padding: 24px 24px 62px 24px;
+  padding: 32px 32px 62px 32px;
   box-sizing: border-box;
   position: absolute;
   top: 0;
   right: 0;
+  display: flex;
+  flex-direction: column;
 }
 .match-edit__head {
   display: flex;
@@ -72,15 +74,29 @@
 .match-edit__label {
   margin: 0;
 }
+.match-edit__label-units {
+  padding-left: 10px;
+}
 .match-edit__user-title {
   margin-bottom: 16px;
 }
-.match-card__users_match-edit {
+.match-edit__users_match-edit {
   margin: 0;
 }
 .match-edit__users{
   border: none;
+  display: flex;
+  flex-direction: column;
+  
 }
+.match-edit__user{
+  padding-bottom: 8px;
+  border-bottom: 1px #EBEDF0 solid
+}
+// .match-edit__user:hover{
+//   cursor: pointer;
+//   background-color: #F6F6F6;
+// }
 .match-edit__button {
   @include regularText;
   font-size: 15px;
@@ -117,6 +133,10 @@
   margin: 0;
   text-align: center;
 }
+
+// Стили React-Select
+
+
 @media screen and (max-width: 769px) {
   .match-edit {
     width: 100%;

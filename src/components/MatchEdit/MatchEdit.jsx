@@ -212,29 +212,35 @@ function MatchEdit({
             />
             <p className="match-edit__user-text user-title__text">Участники</p>
           </div>
-          <MatchCardUsers
+          {/* <MatchCardUsers
             isOpen={isOpen}
             match={match}
             listClass="match-edit"
             iconClass="delete"
             tooltipClass="tooltip"
             onClick={handleEditUnits}
-          />
-          {/* <fieldset className="match-edit__users">
+          /> */}
+          <fieldset className="match-edit__users">
+            <div className="match-edit__user">
             <Select
               options={units.map((unit) => {
                 return { value: unit._id, label: unit.name };
               })}
               // isMulti
-              name="blackAddMatchRorm"
+              
               required
-              placeholder={<div>Добавьте игрока</div>}
+              placeholder={<div>Шериф</div>}
+              // isClearable
               // unstyled
               styles={{
                 control: (baseStyles, state) => ({
                   ...baseStyles,
                   border: 0,
-                  width: "150px",
+                  width: "50%",
+                  padding: "0px",
+                  margin: "0px",
+                  cursor: "text"
+                 
                 }),
               }}
               components={{
@@ -242,7 +248,33 @@ function MatchEdit({
                 DropdownIndicator: () => null,
               }}
             />
-          </fieldset> */}
+            <label className="form__label match-edit__label-units">Шериф</label>
+            </div>
+           
+            <Select
+              options={units.map((unit) => {
+                return { value: unit._id, label: unit.name };
+              })}
+              // isMulti
+              name="blackAddMatchRorm"
+              required
+              placeholder={<div>Дон мафии</div>}
+              isClearable
+              // unstyled
+              styles={{
+                control: (baseStyles, state) => ({
+                  ...baseStyles,
+                  border: 0,
+                  width: "100%px",
+                }),
+              }}
+              components={{
+                IndicatorSeparator: () => null,
+                DropdownIndicator: () => null,
+              }}
+            />
+            <label className="form__label match-edit__label-units">Дон мафии</label>
+          </fieldset>
           <button
             type="button"
             className="match-edit__add-unit match-edit__button"

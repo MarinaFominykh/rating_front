@@ -279,8 +279,8 @@ function App() {
     setIsMatchCardPopupOpen(true);
   }
   function handleEditMatchClick() {
-    // setIsMatchEditPopupOpen(true);
-    setIsFormWithEditMatchOpen(true);
+    setIsMatchEditPopupOpen(true);
+    // setIsFormWithEditMatchOpen(true);
   }
   function handleDeleteMatchClick() {
     // setMatchDelete(data);
@@ -614,7 +614,7 @@ function App() {
         // onUpdateUnit={handleUpdateUnitsClick}
         // unit={currentProfile}
       />
-      {/* <MatchEdit
+      <MatchEdit
         isOpen={isMatchEditPopupOpen}
         match={currentMatch}
         onClose={closeEditMatchPopup}
@@ -623,14 +623,14 @@ function App() {
         handleDelete={handleUnitDelete}
         onMatchDelete={handleDeleteMatchClick}
         onEditUnitsClick={handleEditUnitslick}
-      /> */}
-      <EditMatchForm
+      />
+      {/* <EditMatchForm
         isOpen={isFormWithEditMatchOpen}
         onClose={closePopup}
         units={units}
         onEditMatch={editMatch}
         match={currentMatch}
-      />
+      /> */}
       <ConfirmForm
         onMatchDelete={handleDeleteMatch}
         onClose={closeConfirmPopup}

@@ -170,19 +170,27 @@ function EditMatchForm({
       label: match?.sheriff?.name,
       value: match?.sheriff?._id,
     });
-    setBestArray(
+   
+   setBestArray(
       match?.red?.map((item) => {
         return {
-          value: item._id,
           label: item.name,
+          value: item._id
+          
         };
       }).concat(match?.black?.map((item) => {
         return {
-          value: item._id,
           label: item.name,
+          value: item._id
+          
         };
-      }))
+      })).push(sheriff)
     );
+     //  console.log(optionsUnit(match?.red).concat(optionsUnit(match?.black)))
+  //  console.log(Array.isArray(match?.red))
+
+
+   
     // setBlackUnits(match?.black?.map((item) => {
     //   return {
     //     value: item._id,

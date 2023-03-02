@@ -135,7 +135,7 @@ export function countRating(array, unit) {
 
 }
 export const optionsUnit = (array) => {
-    return array.map((unit) => {
+    return array?.map((unit) => {
         return {
             value: unit._id,
             label: unit.name
