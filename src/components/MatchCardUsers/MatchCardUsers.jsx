@@ -23,14 +23,14 @@ function MatchCardUsers({
   tooltipClass,
 }) {
   function getTooltip(unit, best, mk) {
-    if (best.some((item) => item === unit._id)) {
+    if (best.some((item) => item._id === unit._id)) {
       return "Лучший игрок";
     } else if (mk.some((item) => item === unit._id)) {
       return "ModKill";
     } else return "";
   }
   function getIcon(unit, best, mk) {
-    if (best.some((item) => item === unit._id)) {
+    if (best.some((item) => item._id === unit._id)) {
       return "tooltip match-card__up match-card__up_best";
     } else if (mk.some((item) => item === unit._id)) {
       return "tooltip match-card__up match-card__up_mk";

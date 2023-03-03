@@ -623,6 +623,7 @@ function App() {
         handleDelete={handleUnitDelete}
         onMatchDelete={handleDeleteMatchClick}
         onEditUnitsClick={handleEditUnitslick}
+        isOpenCard={isMatchCardPopupOpen}
       />
       {/* <EditMatchForm
         isOpen={isFormWithEditMatchOpen}

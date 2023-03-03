@@ -7,8 +7,15 @@ import Popup from "../Popup/Popup.jsx";
 import Form from "../Form/Form";
 import OptionUnit from "../OptionUnit/OptionUnit";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import UnitEdit from "../UnitEdit/UnitEdit";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
-import { optionsResult } from "../../utils/constans.js";
+import {
+  optionsResult,
+  SHERIF,
+  DONE,
+  BLACK,
+  RED,
+} from "../../utils/constans.js";
 import { optionsUnit } from "../../utils/functions.js";
 import peopleIcon from "../../image/icons/fluent_people-20-regular.svg";
 function MatchEdit({
@@ -24,6 +31,7 @@ function MatchEdit({
   onMatchDelete,
   onEditUnitsClick,
   unit,
+  isOpenCard,
 }) {
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
@@ -37,6 +45,9 @@ function MatchEdit({
   const [gameMaster, setGameMaster] = useState({});
   const [result, setResult] = useState("");
   const [date, setDate] = useState("");
+  const [sheriff, setSheriff] = useState({});
+  const [bestPlayer, setBestPlayer] = useState([]);
+
   const [message, setMessage] = useState("");
 
   function showInfoToolTip(error) {
@@ -50,9 +61,17 @@ function MatchEdit({
     setResult(newValue);
     // setDefaultResult(newValue);
   }
+
+  function onChangeSheriff(newValue) {
+    setSheriff(newValue);
+  }
+  function onChangeBestPlayer(newValue) {
+    setBestPlayer(newValue);
+  }
   // function getValue() {
   //   return gameMaster ? options().find((c) => c.value === gameMaster) : "";
   // }
+
   function handleSubmit(e) {
     e.preventDefault();
     if (
@@ -70,14 +89,11 @@ function MatchEdit({
         gameMaster: gameMaster.value,
         date: values.dateEditMatchForm,
         result: result.value,
+        sheriff: sheriff.value,
+        bestPlayer: bestPlayer.map((item) => {
+          return item.value;
+        }),
       })
-      // console.log({
-      //   id: match._id,
-      //   title: values.titleEditMatchForm,
-      //   gameMaster: gameMaster.value,
-      //   date: values.dateEditMatchForm,
-      //   result: result.value,
-      // })
     )
       e.target.reset();
   }
@@ -89,20 +105,28 @@ function MatchEdit({
       label: match?.gameMaster?.name,
       value: match?.gameMaster?._id,
     });
-    // const getGmArray = match?.red?.map((item) => {
-    //   return {
-    //     value: item._id,
-    //     label: item.name,
-    //   };
-    // });
-    // setGameMaster(getGmArray);
 
+    setBestPlayer(
+      match?.bestPlayer?.map((item) => {
+        return {
+          label: item.name,
+          value: item._id,
+        };
+      })
+    );
+
+    setSheriff({
+      label: match?.sheriff?.name,
+      value: match?.sheriff?._id,
+    });
     setDate(moment(match?.date).format("YYYY-MM-DD"));
     setResult({
       label: match?.result,
       value: match?.result,
     });
-  }, [isOpen]);
+  }, [isOpenCard, isOpen]);
+
+  useEffect(() => {}, [isOpen]);
   // useEffect(() => {
   //   setDate(moment(match?.date).format("YYYY-MM-DD"));
   // }, [isOpen]);
@@ -204,6 +228,17 @@ function MatchEdit({
               />
             </div>
           </fieldset>
+          <label className="form__label match-edit__label">Лучший игрок</label>
+          <Select
+            options={optionsUnit(units)}
+            value={bestPlayer}
+            onChange={onChangeBestPlayer}
+            placeholder={<div>Выберите из списка</div>}
+            isClearable
+            isMulti
+            className="match-edit__input select-input"
+          />
+
           <div className="match-edit__user-title user-title">
             <img
               src={peopleIcon}
@@ -221,36 +256,13 @@ function MatchEdit({
             onClick={handleEditUnits}
           /> */}
           <fieldset className="match-edit__users">
-            <div className="match-edit__user">
-            <Select
-              options={units.map((unit) => {
-                return { value: unit._id, label: unit.name };
-              })}
-              // isMulti
-              
-              required
-              placeholder={<div>Шериф</div>}
-              // isClearable
-              // unstyled
-              styles={{
-                control: (baseStyles, state) => ({
-                  ...baseStyles,
-                  border: 0,
-                  width: "50%",
-                  padding: "0px",
-                  margin: "0px",
-                  cursor: "text"
-                 
-                }),
-              }}
-              components={{
-                IndicatorSeparator: () => null,
-                DropdownIndicator: () => null,
-              }}
+            <UnitEdit
+              role={SHERIF}
+              units={units}
+              sheriff={sheriff}
+              onChange={onChangeSheriff}
             />
-            <label className="form__label match-edit__label-units">Шериф</label>
-            </div>
-           
+
             <Select
               options={units.map((unit) => {
                 return { value: unit._id, label: unit.name };
@@ -273,7 +285,9 @@ function MatchEdit({
                 DropdownIndicator: () => null,
               }}
             />
-            <label className="form__label match-edit__label-units">Дон мафии</label>
+            <label className="form__label match-edit__label-units">
+              Дон мафии
+            </label>
           </fieldset>
           <button
             type="button"

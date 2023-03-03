@@ -32,4 +32,8 @@ export const optionsRole = [{
 
 export const RED_RESULT = "Победа города";
 export const BLACK_RESULT = "Победа мафии";
-export const EQUALITY_RESULT = "Ничья"
+export const EQUALITY_RESULT = "Ничья";
+export const SHERIF = "Шериф";
+export const DONE = "Дон мафии";
+export const BLACK = "Мафия";
+export const RED = "Мирный";
