@@ -1,14 +1,14 @@
 import "./UnitEdit.scss";
 import { useEffect, useState } from "react";
 import Select from "react-select";
-function UnitEdit({units, role, sheriff, onChange}) {
+function UnitEdit({units, role, value, onChange}) {
 return (
     <div className="unit-edit">
     <Select
       options={units.map((unit) => {
         return { value: unit._id, label: unit.name };
       })}
-      value={sheriff}
+      value={value}
       onChange={onChange}
       required
       placeholder={<div>{role}</div>}

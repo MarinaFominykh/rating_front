@@ -45,9 +45,18 @@ function MatchEdit({
   const [gameMaster, setGameMaster] = useState({});
   const [result, setResult] = useState("");
   const [date, setDate] = useState("");
-  const [sheriff, setSheriff] = useState({});
   const [bestPlayer, setBestPlayer] = useState([]);
-
+  const [mk, setMk] = useState([]);
+  const [sheriff, setSheriff] = useState({});
+  const [done, setDone] = useState({});
+  const [black1, setBlack1] = useState({});
+  const [black2, setBlack2] = useState({});
+  const [red1, setRed1] = useState({});
+  const [red2, setRed2] = useState({});
+  const [red3, setRed3] = useState({});
+  const [red4, setRed4] = useState({});
+  const [red5, setRed5] = useState({});
+  const [red6, setRed6] = useState({});
   const [message, setMessage] = useState("");
 
   function showInfoToolTip(error) {
@@ -65,8 +74,41 @@ function MatchEdit({
   function onChangeSheriff(newValue) {
     setSheriff(newValue);
   }
+  function onChangeDone(newValue) {
+    setDone(newValue);
+  }
   function onChangeBestPlayer(newValue) {
     setBestPlayer(newValue);
+  }
+  function onChangeMk(newValue) {
+    setMk(newValue);
+  }
+  // function onChangeBlack(newValue) {
+  //   setBlackArray(newValue);
+  // }
+  function onChangeBlack1(newValue) {
+    setBlack1(newValue);
+  }
+  function onChangeBlack2(newValue) {
+    setBlack2(newValue);
+  }
+  function onChangeRed1(newValue) {
+    setRed1(newValue);
+  }
+  function onChangeRed2(newValue) {
+    setRed2(newValue);
+  }
+  function onChangeRed3(newValue) {
+    setRed3(newValue);
+  }
+  function onChangeRed4(newValue) {
+    setRed4(newValue);
+  }
+  function onChangeRed5(newValue) {
+    setRed5(newValue);
+  }
+  function onChangeRed6(newValue) {
+    setRed6(newValue);
   }
   // function getValue() {
   //   return gameMaster ? options().find((c) => c.value === gameMaster) : "";
@@ -74,12 +116,21 @@ function MatchEdit({
 
   function handleSubmit(e) {
     e.preventDefault();
+    console.log("current=>", mk.map((item) => {
+      return item.value;
+    }))
+    console.log("mk=>", match.modKill)
     if (
       (gameMaster.value === match.gameMaster._id || !gameMaster.value) &&
       (values.dateEditMatchForm === match.date || !values.dateEditMatchForm) &&
       (values.titleEditMatchForm === match.title ||
         !values.titleEditMatchForm) &&
       (result.value === match.result || !result.value)
+      && (sheriff.value === match.sheriff._id || !sheriff.value)
+      && (done.value === match.done._id || !done.value)
+      && (mk.map((item) => {
+        return item.value;
+      })) === match.modKill
     ) {
       showInfoToolTip("Измените данные");
     } else if (
@@ -90,6 +141,12 @@ function MatchEdit({
         date: values.dateEditMatchForm,
         result: result.value,
         sheriff: sheriff.value,
+        done: done.value,
+        black: [black1.value, black2.value],
+        red: [red1.value, red2.value, red3.value, red4.value, red5.value, red6.value],
+        modKill: mk.map((item) => {
+          return item.value;
+        }),
         bestPlayer: bestPlayer.map((item) => {
           return item.value;
         }),
@@ -114,10 +171,53 @@ function MatchEdit({
         };
       })
     );
-
+    setMk(
+      match?.modKill?.map((item) => {
+        return {
+          label: item.name,
+          value: item._id,
+        };
+      })
+    );
+    setBlack1({
+      label: match?.black?.[0].name,
+      value: match?.black?.[0]._id,
+    });
+    setBlack2({
+      label: match?.black?.[1].name,
+      value: match?.black?.[1]._id,
+    });
+    setRed1({
+      label: match?.red?.[0].name,
+      value: match?.red?.[0]._id,
+    });
+    setRed2({
+      label: match?.red?.[1].name,
+      value: match?.red?.[1]._id,
+    });
+    setRed3({
+      label: match?.red?.[2].name,
+      value: match?.red?.[2]._id,
+    });
+    setRed4({
+      label: match?.red?.[3].name,
+      value: match?.red?.[3]._id,
+    });
+    setRed5({
+      label: match?.red?.[4].name,
+      value: match?.red?.[4]._id,
+    });
+    setRed6({
+      label: match?.red?.[5].name,
+      value: match?.red?.[5]._id,
+    });
     setSheriff({
       label: match?.sheriff?.name,
       value: match?.sheriff?._id,
+    });
+    setDone({
+      label: match?.done?.name,
+      value: match?.done?._id,
     });
     setDate(moment(match?.date).format("YYYY-MM-DD"));
     setResult({
@@ -238,7 +338,16 @@ function MatchEdit({
             isMulti
             className="match-edit__input select-input"
           />
-
+          <label className="form__label match-edit__label">Модкилл</label>
+          <Select
+            options={optionsUnit(units)}
+            value={mk}
+            onChange={onChangeMk}
+            placeholder={<div>Выберите из списка</div>}
+            isClearable
+            isMulti
+            className="match-edit__input select-input"
+          />
           <div className="match-edit__user-title user-title">
             <img
               src={peopleIcon}
@@ -259,35 +368,63 @@ function MatchEdit({
             <UnitEdit
               role={SHERIF}
               units={units}
-              sheriff={sheriff}
+              value={sheriff}
               onChange={onChangeSheriff}
             />
-
-            <Select
-              options={units.map((unit) => {
-                return { value: unit._id, label: unit.name };
-              })}
-              // isMulti
-              name="blackAddMatchRorm"
-              required
-              placeholder={<div>Дон мафии</div>}
-              isClearable
-              // unstyled
-              styles={{
-                control: (baseStyles, state) => ({
-                  ...baseStyles,
-                  border: 0,
-                  width: "100%px",
-                }),
-              }}
-              components={{
-                IndicatorSeparator: () => null,
-                DropdownIndicator: () => null,
-              }}
+            <UnitEdit
+              role={DONE}
+              units={units}
+              value={done}
+              onChange={onChangeDone}
             />
-            <label className="form__label match-edit__label-units">
-              Дон мафии
-            </label>
+            <UnitEdit
+              role={BLACK}
+              units={units}
+              value={black1}
+              onChange={onChangeBlack1}
+            />
+            <UnitEdit
+              role={BLACK}
+              units={units}
+              value={black2}
+              onChange={onChangeBlack2}
+            />
+            <UnitEdit
+              role={RED}
+              units={units}
+              value={red1}
+              onChange={onChangeRed1}
+            />
+            <UnitEdit
+              role={RED}
+              units={units}
+              value={red2}
+              onChange={onChangeRed2}
+            />
+            <UnitEdit
+              role={RED}
+              units={units}
+              value={red3}
+              onChange={onChangeRed3}
+            />
+            <UnitEdit
+              role={RED}
+              units={units}
+              value={red4}
+              onChange={onChangeRed4}
+            />
+            <UnitEdit
+              role={RED}
+              units={units}
+              value={red5}
+              onChange={onChangeRed5}
+            />
+            <UnitEdit
+              role={RED}
+              units={units}
+              value={red6}
+              onChange={onChangeRed6}
+            />
           </fieldset>
           <button
             type="button"

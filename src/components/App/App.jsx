@@ -285,8 +285,7 @@ function App() {
   function handleDeleteMatchClick() {
     // setMatchDelete(data);
     setIsFormWithConfirmation(true);
-    console.log("Работает");
-  }
+      }
 
   function handleAddUnitsClick(data) {
     setAddUnitsMatch(data);
