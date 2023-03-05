@@ -18,10 +18,19 @@ return (
         control: (baseStyles, state) => ({
           ...baseStyles,
           border: 0,
-          width: "50%",
+          width: "100%",
+          minHeight: "20px",
+          height: "28px",
           padding: "0px",
           margin: "0px",
-          cursor: "text"
+          cursor: "text",
+          fontFamily: "Inter, Arial, Helvetica, sans-serif",
+          fontWeight: "600",
+          fontSize: "16px",
+          // background: "#ffffff",
+          // ":hover": {
+          //   background:'#f6f6f6'
+          // }
          
         }),
       }}

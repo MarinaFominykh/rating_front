@@ -360,6 +360,7 @@ function App() {
         getInitialMatches2023();
         getInitialMatches2024();
         getInitialMatches2025();
+       
       })
       .then(() => closeEditMatchPopup())
       .catch((err) => console.log(err));

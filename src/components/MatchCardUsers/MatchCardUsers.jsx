@@ -61,11 +61,7 @@ function MatchCardUsers({
                 </div>
                 <p className="match-card__role">Шериф</p>
               </div>
-              <div
-                data-tooltip="Редактировать"
-                onClick={onClick}
-                className={`match-card__action match-card__action_${iconClass} ${tooltipClass}`}
-              ></div>
+           
             </li>
             <li className="match-card__user">
               <div className="match-card__item">
@@ -86,10 +82,7 @@ function MatchCardUsers({
                 </div>
                 <p className="match-card__role">Дон мафии</p>
               </div>
-              <div
-                data-tooltip="Редактировать"
-                className={`${tooltipClass} match-card__action match-card__action_${iconClass}`}
-              ></div>
+             
             </li>
           </>
         )}
@@ -112,10 +105,7 @@ function MatchCardUsers({
                   </div>
                   <p className="match-card__role">Мафия</p>
                 </div>
-                <div
-                  data-tooltip="Редактировать"
-                  className={`${tooltipClass} match-card__action match-card__action_${iconClass}`}
-                ></div>
+               
               </li>
             );
           })}
@@ -137,10 +127,7 @@ function MatchCardUsers({
                   </div>
                   <p className="match-card__role">Мирный</p>
                 </div>
-                <div
-                  data-tooltip="Редактировать"
-                  className={`${tooltipClass} match-card__action match-card__action_${iconClass}`}
-                ></div>
+                
               </li>
             );
           })}

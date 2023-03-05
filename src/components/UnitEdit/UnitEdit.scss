@@ -1,4 +1,19 @@
 @import "../mixin.scss";
+.unit-edit {
+  border-bottom: 1px solid #ebedf0;
+  padding: 2px 0px 8px 0px;
+  box-sizing: border-box;
+}
+// .unit-edit:hover {
+//   background: #f6f6f6;
+// }
 .unit-edit__label {
-    padding-left: 10px;
-  }
+  @include mediumText;
+  font-size: 12px;
+  line-height: 14px;
+  color: #525760;
+  padding-left: 10px;
+}
+// .css-1fdsijx-ValueContainer:hover {
+//   background: #f6f6f6;
+// }

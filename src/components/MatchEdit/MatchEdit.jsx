@@ -457,13 +457,13 @@ function MatchEdit({
               onChange={onChangeRed6}
             />
           </fieldset>
-          <button
+          {/* <button
             type="button"
             className="match-edit__add-unit match-edit__button"
             onClick={handleEditUnits}
           >
             + Добавить участника
-          </button>
+          </button> */}
           <button
             type="button"
             className="match-edit__delete-match match-edit__button"

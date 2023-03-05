@@ -28,11 +28,11 @@
   justify-content: space-between;
   align-items: center;
   transition: 0.5s;
-  cursor: pointer;
+  // cursor: pointer;
 }
-.match-card__user:hover {
-  background: #f6f6f6;
-}
+// .match-card__user:hover {
+//   background: #f6f6f6;
+// }
 
 .match-card__action {
   width: 31px;
@@ -96,7 +96,7 @@
   content: attr(data-tooltip);
   /* Главная часть кода, определяющая содержимое всплывающей подсказки */
   margin-top: -24px;
-  right: 5px;
+  left: 25px;
   opacity: 0;
   /* Наш элемент прозрачен... */
   padding: 3px 7px;
