@@ -88,7 +88,7 @@ export function countDonVictory(array, unit) {
 export function countModKill(array, unit) {
     return array.filter((element) => {
         return element.modKill.some(
-            (item) => item === unit._id
+            (item) => item._id === unit._id
         );
     }).length
 
@@ -97,7 +97,7 @@ export function countModKill(array, unit) {
 export function countBestPlayer(array, unit) {
     return array.filter((element) => {
         return element.bestPlayer.some(
-            (item) => item === unit._id
+            (item) => item._id === unit._id
         );
     }).length
 }

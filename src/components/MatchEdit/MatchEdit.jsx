@@ -116,22 +116,44 @@ function MatchEdit({
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("current=>", mk.map((item) => {
-      return item.value;
-    }))
-    console.log("mk=>", match.modKill)
     if (
       (gameMaster.value === match.gameMaster._id || !gameMaster.value) &&
       (values.dateEditMatchForm === match.date || !values.dateEditMatchForm) &&
       (values.titleEditMatchForm === match.title ||
         !values.titleEditMatchForm) &&
-      (result.value === match.result || !result.value)
-      && (sheriff.value === match.sheriff._id || !sheriff.value)
-      && (done.value === match.done._id || !done.value)
-      && (mk.map((item) => {
-        return item.value;
-      })) === match.modKill
-    ) {
+      (result.value === match.result || !result.value) &&
+      (sheriff.value === match.sheriff._id || !sheriff.value) &&
+      (done.value === match.done._id || !done.value) 
+      &&
+      (JSON.stringify(match.black.map((item) => {
+        return item._id
+      })) === JSON.stringify([black1.value, black2.value])
+    )
+    &&
+      (JSON.stringify(match.red.map((item) => {
+        return item._id
+      })) === JSON.stringify([red1.value,
+        red2.value,
+        red3.value,
+        red4.value,
+        red5.value,
+        red6.value,])
+    )
+      &&
+      (JSON.stringify(mk.map((item) => {
+        return {
+          _id: item.value,
+          name: item.label,
+        };
+      })) === JSON.stringify(match.modKill)
+    ) &&
+    (JSON.stringify(bestPlayer.map((item) => {
+      return {
+        _id: item.value,
+        name: item.label,
+      };
+    })) === JSON.stringify(match.bestPlayer)
+  )) {
       showInfoToolTip("Измените данные");
     } else if (
       onEditMatch({
@@ -143,7 +165,14 @@ function MatchEdit({
         sheriff: sheriff.value,
         done: done.value,
         black: [black1.value, black2.value],
-        red: [red1.value, red2.value, red3.value, red4.value, red5.value, red6.value],
+        red: [
+          red1.value,
+          red2.value,
+          red3.value,
+          red4.value,
+          red5.value,
+          red6.value,
+        ],
         modKill: mk.map((item) => {
           return item.value;
         }),
@@ -151,8 +180,10 @@ function MatchEdit({
           return item.value;
         }),
       })
+      
     )
       e.target.reset();
+     
   }
   useEffect(() => {
     // document.querySelector(".css-1dimb5e-singleValue").textContent =

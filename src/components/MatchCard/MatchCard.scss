@@ -175,25 +175,6 @@
   background: #ebefff;
 }
 
-.match-card__delete-match {
-  color: #eb5757;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 40px;
-}
-.match-card__delete-img {
-  width: 20px;
-  height: 20px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-image: url(../../image/icons/red_basket.svg);
-}
-.match-card__delete-text {
-  margin: 0;
-  text-align: center;
-}
 @media screen and (max-width: 769px) {
     .match-card {
     width: 100%;

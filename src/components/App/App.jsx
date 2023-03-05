@@ -350,7 +350,7 @@ function App() {
   }
   function editMatch(data) {
     const { id, title, gameMaster, date, result } = data;
-    console.log("data=>", data)
+
     updateMatch(data)
       .then(() => {
         getInitialMatches();
@@ -361,8 +361,8 @@ function App() {
         getInitialMatches2024();
         getInitialMatches2025();
       })
-    //   .then(() => closeEditMatchPopup())
-    //   .catch((err) => console.log(err));
+      .then(() => closeEditMatchPopup())
+      .catch((err) => console.log(err));
   }
   function addUnits(array) {
     if (addUnitsMatch.units.length >= 10) {
@@ -596,7 +596,7 @@ function App() {
         result={currentMatch.result}
         gameMaster={currentMatch.gameMaster?.name}
         date={currentMatch.date}
-        onMatchDelete={handleDeleteMatchClick}
+        
         // name={currentProfile.name}
         // amount={countMatches(allMatches, currentProfile)}
         // blackCompletion={countBlackRole(allMatches, currentProfile)}
