@@ -325,8 +325,18 @@ function App() {
   }
 
   function addMatch(data) {
-    // const { title, gameMaster, date, result, black, red, sheriff, done } = data;
-    addNewMatch(data)
+    
+    const { title, gameMaster, date, result, black, red, sheriff, done, modKill, bestPlayer } = data;
+    if(gameMaster.__isNew__) {
+     
+      createUnit(gameMaster.value)
+      .then((newGameMaster)=> {
+        
+        addNewMatch({...data, gameMaster: newGameMaster._id})
+      })
+      .catch((err) => console.log(err));
+    } else {
+      addNewMatch(data)
       // Необходим рефакторинг для оптимизации, чтобы избавиться от избыточных запросов к серверу:
       .then(() => {
         getInitialMatches();
@@ -340,13 +350,17 @@ function App() {
       .then(() => {
         closePopup();
       })
+      .catch((err) => console.log(err));
+    }
+    
+    
       // .then((newMatch) => {
       //   console.log(newMatch)
       //   setMatches([...matches, newMatch]);
       //   closePopup();
       // })
 
-      .catch((err) => console.log(err));
+     
   }
   function editMatch(data) {
     const { id, title, gameMaster, date, result } = data;
@@ -391,7 +405,7 @@ function App() {
     createUnit(name)
       .then((newUnit) => {
         setUnits([...units, newUnit]);
-        console.log(newUnit);
+       
         closePopupAddUnit();
       })
 

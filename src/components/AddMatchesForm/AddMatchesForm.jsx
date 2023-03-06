@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useContext, useEffect, useCallback } from "react";
 import { useLocation, Link, useHistory } from "react-router-dom";
 import Select from "react-select";
+import CreatableSelect from 'react-select/creatable';
 import { useForm } from "react-hook-form";
 import "./AddMatchesForm.scss";
 import { getMatches, getUnits } from "../../utils/Api.js";
@@ -119,8 +120,9 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
       return setIsValidComposition(true);
     }
   }, [gameMaster, result, blackUnits, redUnits, sheriff, done]);
+  
   function onSubmit(e) {
-   
+
     if (blackUnits.length !== 2) {
       showInfoToolTip("Проверьте количество мафии");
     } else if (redUnits.length !== 6) {
@@ -128,7 +130,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
     } else {
       onAddMatch({
         title: e.titleAddMatchForm,
-        gameMaster: gameMaster.value,
+        gameMaster: gameMaster,
         date: e.dateMasterAddMatchForm,
         result: result.value,
         black: blackUnits,
@@ -141,6 +143,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
       history.push("/matches");
       window.location.reload();
       reset();
+
     }
   }
   useEffect(() => {
@@ -279,7 +282,8 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
               >
                 Выберите ведущего
               </label>
-              <Select
+              <CreatableSelect
+              formatCreateLabel={(value) => `Не найдено совпадений. Создать ${value}`}
                 options={units.map((unit) => {
                   return { value: unit._id, label: unit.name };
                 })}
@@ -351,7 +355,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
               />
               <Error error={getSpanMessageBlack()}></Error>
               <label className="form__label add-match__label">Дон</label>
-              <Select
+              <CreatableSelect
                 options={units.map((unit) => {
                   return { value: unit._id, label: unit.name };
                 })}
