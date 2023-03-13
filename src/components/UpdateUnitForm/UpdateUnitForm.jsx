@@ -5,9 +5,10 @@ import Popup from "../Popup/Popup.jsx";
 import Form from "../Form/Form.jsx";
 import OptionUnit from "../OptionUnit/OptionUnit.jsx";
 import Error from "../Error/Error.jsx";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 
-function UpdateUnitForm({ onUpdateUnit, onClose, isOpen, currentName }) {
+function UpdateUnitForm({ onUpdateUnit, onClose, isOpen, currentName, message }) {
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
 
@@ -48,6 +49,7 @@ function UpdateUnitForm({ onUpdateUnit, onClose, isOpen, currentName }) {
         <div className="form__error">
           <Error error={errors.updateUnitForm} />
         </div>
+        <InfoTooltip message={message}/>
       </Form>
     </Popup>
   );

@@ -419,9 +419,9 @@ function App() {
         getInitialUnits();
         closeUpdateUnitPopup();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => err.text().then((resText) => showInfoToolTip(resText)));
   }
-
+  // showInfoToolTip("Количество игроков должно быть 10");
   //Измененные данные ведущего видны только после перезагрузки. Необходим рефакторинг
   // function updateGameMasterName(gameMaster) {
   //   updateGameMaster(editGameMaster, gameMaster)
@@ -601,6 +601,7 @@ function App() {
         onUpdateUnit={updateName}
         onClick={handleAddUnitClick}
         currentName={currentProfile.name}
+        message={message}
       />
       <MatchCard
         isOpen={isMatchCardPopupOpen}
