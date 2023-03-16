@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useContext, useEffect, useCallback } from "react";
 import { useLocation, Link, useHistory } from "react-router-dom";
 import Select from "react-select";
-import CreatableSelect from 'react-select/creatable';
+import CreatableSelect from "react-select/creatable";
 import { useForm } from "react-hook-form";
 import "./AddMatchesForm.scss";
 import { getMatches, getUnits } from "../../utils/Api.js";
@@ -12,7 +12,14 @@ import Form from "../Form/Form.jsx";
 import Error from "../Error/Error.jsx";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 import { optionsResult } from "../../utils/constans";
-function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
+function AddMatchesForm({
+  isOpen,
+  onAddMatch,
+  onClose,
+  onClick,
+  units,
+  createUnit,
+}) {
   let location = useLocation();
 
   const history = useHistory();
@@ -24,6 +31,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
   } = useForm({ mode: "onBlur" });
 
   const [gameMaster, setGameMaster] = useState({});
+  const [newGameMaster, setNewGameMaster] = useState({});
   const [result, setResult] = useState({});
   const [blackUnits, setBlackUnits] = useState([]);
   const [redUnits, setRedUnits] = useState([]);
@@ -120,32 +128,45 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
       return setIsValidComposition(true);
     }
   }, [gameMaster, result, blackUnits, redUnits, sheriff, done]);
-  
+
   function onSubmit(e) {
+    // if (blackUnits.length !== 2) {
+    //   showInfoToolTip("Проверьте количество мафии");
+    // } else if (redUnits.length !== 6) {
+    //   showInfoToolTip("Проверьте количество мирных жителей");
+    // }
+    // if (gameMaster.__isNew__) {
+    //   createUnit(gameMaster.value)
+    //     .then((newUnit) =>
+    //       setNewGameMaster({
+    //         label: newUnit.name,
+    //         value: newUnit._id,
+    //       })
+          
+    //     )
+    //     .then(() => {
+    //       console.log(newGameMaster);
+    //     });
+    // }
 
-    if (blackUnits.length !== 2) {
-      showInfoToolTip("Проверьте количество мафии");
-    } else if (redUnits.length !== 6) {
-      showInfoToolTip("Проверьте количество мирных жителей");
-    } else {
-      onAddMatch({
-        title: e.titleAddMatchForm,
-        gameMaster: gameMaster,
-        date: e.dateMasterAddMatchForm,
-        result: result.value,
-        black: blackUnits,
-        red: redUnits,
-        sheriff: sheriff.value,
-        done: done.value,
-        bestPlayer: best,
-        modKill: MK,
-      });
-      history.push("/matches");
-      window.location.reload();
-      reset();
+    onAddMatch({
+      title: e.titleAddMatchForm,
+      gameMaster: gameMaster.value,
+      date: e.dateMasterAddMatchForm,
+      result: result.value,
+      black: blackUnits,
+      red: redUnits,
+      sheriff: sheriff.value,
+      done: done.value,
+      bestPlayer: best,
+      modKill: MK,
+    });
 
-    }
+    history.push("/matches");
+    window.location.reload();
+    reset();
   }
+ 
   useEffect(() => {
     if (location.hash === "#tab_02") {
       return setTab("2");
@@ -282,8 +303,10 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
               >
                 Выберите ведущего
               </label>
-              <CreatableSelect
-              formatCreateLabel={(value) => `Не найдено совпадений. Создать ${value}`}
+              <Select
+                // formatCreateLabel={(value) =>
+                //   `Не найдено совпадений. Создать ${value}`
+                // }
                 options={units.map((unit) => {
                   return { value: unit._id, label: unit.name };
                 })}
@@ -355,7 +378,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, onClick, units }) {
               />
               <Error error={getSpanMessageBlack()}></Error>
               <label className="form__label add-match__label">Дон</label>
-              <CreatableSelect
+              <Select
                 options={units.map((unit) => {
                   return { value: unit._id, label: unit.name };
                 })}

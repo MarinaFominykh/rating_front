@@ -15,6 +15,7 @@ import {
   addNewMatch,
   addUnitsInMatch,
   createUnit,
+  createUnits,
   updateUnit,
   removeUnit,
   removeMatch,
@@ -125,67 +126,77 @@ function App() {
   function getInitialMatches() {
     getMatches().then((dataMatches) => {
       setMatches(dataMatches);
-      // console.log(dataMatches);
+      setMatches2020(filterMatches(dataMatches, "2020"));
+      setMatches2021(filterMatches(dataMatches, "2021"));
+      setMatches2022(filterMatches(dataMatches, "2022"));
+      setMatches2023(filterMatches(dataMatches, "2023"));
+      setMatches2024(filterMatches(dataMatches, "2024"));
+      setMatches2025(filterMatches(dataMatches, "2025"));
     });
   }
 
-  function getInitialMatches2020() {
-    getMatches().then((dataMatches) => {
-      setMatches2020(
-        dataMatches.filter((match) => {
-          return match.date.includes("2020");
-        })
-      );
+  function filterMatches(matchArray, period) {
+    return matchArray.filter((match) => {
+      return match.date.includes(period);
     });
   }
+  // function getInitialMatches2020() {
+  //   getMatches().then((dataMatches) => {
+  //     setMatches2020(
+  //       dataMatches.filter((match) => {
+  //         return match.date.includes("2020");
+  //       })
+  //     );
+  //   });
+  // }
 
-  function getInitialMatches2021() {
-    getMatches().then((dataMatches) => {
-      setMatches2021(
-        dataMatches.filter((match) => {
-          return match.date.includes("2021");
-        })
-      );
-    });
-  }
+  // function getInitialMatches2021() {
+  //   getMatches().then((dataMatches) => {
+  //     setMatches2021(
+  //       dataMatches.filter((match) => {
+  //         return match.date.includes("2021");
+  //       })
+  //     );
+  //   });
+  // }
 
-  function getInitialMatches2022() {
-    getMatches().then((dataMatches) => {
-      setMatches2022(
-        dataMatches.filter((match) => {
-          return match.date.includes("2022");
-        })
-      );
-    });
-  }
+  // function getInitialMatches2022() {
+  //   getMatches().then((dataMatches) => {
+  //     setMatches2022(
+  //       dataMatches.filter((match) => {
+  //         return match.date.includes("2022");
+  //       })
+  //     );
+  //   });
+  // }
 
-  function getInitialMatches2023() {
-    getMatches().then((dataMatches) => {
-      setMatches2023(
-        dataMatches.filter((match) => {
-          return match.date.includes("2023");
-        })
-      );
-    });
-  }
-  function getInitialMatches2024() {
-    getMatches().then((dataMatches) => {
-      setMatches2024(
-        dataMatches.filter((match) => {
-          return match.date.includes("2024");
-        })
-      );
-    });
-  }
-  function getInitialMatches2025() {
-    getMatches().then((dataMatches) => {
-      setMatches2025(
-        dataMatches.filter((match) => {
-          return match.date.includes("2025");
-        })
-      );
-    });
-  }
+  // function getInitialMatches2023() {
+  //   getMatches().then((dataMatches) => {
+  //     setMatches2023(
+  //       dataMatches.filter((match) => {
+  //         return match.date.includes("2023");
+  //       })
+  //     );
+  //   });
+  // }
+  // function getInitialMatches2024() {
+  //   getMatches().then((dataMatches) => {
+  //     setMatches2024(
+  //       dataMatches.filter((match) => {
+  //         return match.date.includes("2024");
+  //       })
+  //     );
+  //   });
+  // }
+  // function getInitialMatches2025() {
+  //   getMatches().then((dataMatches) => {
+  //     setMatches2025(
+  //       dataMatches.filter((match) => {
+  //         return match.date.includes("2025");
+  //       })
+  //     );
+  //   });
+  // }
   // function getFilterMatches(year) {
   //   getMatches().then((dataMatches) => {
   //     setAllMatches(
@@ -213,23 +224,6 @@ function App() {
     return setAllMatches(matches);
   }
 
-  // function getCurrentMatchesArray() {
-  //   if (period === "2020") {
-  //     return getFilterMatches("2020");
-  //   } else if (period === "2021") {
-  //     return getFilterMatches("2021");
-  //   } else if (period === "2022") {
-  //     return getFilterMatches("2022");
-  //   } else if (period === "2023") {
-  //     return getFilterMatches("2023");
-  //   } else if (period === "2024") {
-  //     return getFilterMatches("2024");
-  //   } else if (period === "2025") {
-  //     return getFilterMatches("2025");
-  //   }
-
-  //   return setAllMatches(matches);
-  // }
   const showInfoToolTip = (error) => {
     setMessage(error);
     setTimeout(() => setMessage(""), 8000);
@@ -285,7 +279,7 @@ function App() {
   function handleDeleteMatchClick() {
     // setMatchDelete(data);
     setIsFormWithConfirmation(true);
-      }
+  }
 
   function handleAddUnitsClick(data) {
     setAddUnitsMatch(data);
@@ -323,58 +317,84 @@ function App() {
     setEditUnitMatch(match);
     setIsFormWithReplaceUnit(true);
   }
-
   function addMatch(data) {
-    
-    const { title, gameMaster, date, result, black, red, sheriff, done, modKill, bestPlayer } = data;
-    if(gameMaster.__isNew__) {
-     
-      createUnit(gameMaster.value)
-      .then((newGameMaster)=> {
-        
-        addNewMatch({...data, gameMaster: newGameMaster._id})
-      })
-      .catch((err) => console.log(err));
-    } else {
-      addNewMatch(data)
-      // Необходим рефакторинг для оптимизации, чтобы избавиться от избыточных запросов к серверу:
-      .then(() => {
-        getInitialMatches();
-        getInitialMatches2020();
-        getInitialMatches2021();
-        getInitialMatches2022();
-        getInitialMatches2023();
-        getInitialMatches2024();
-        getInitialMatches2025();
-      })
+    const {
+      title,
+      gameMaster,
+      date,
+      result,
+      black,
+      red,
+      sheriff,
+      done,
+      modKill,
+      bestPlayer,
+    } = data;
+
+    addNewMatch(data)
+      // .then((newMatch) => {
+      //   setMatches([...matches, newMatch]);
+      // })
       .then(() => {
         closePopup();
       })
       .catch((err) => console.log(err));
-    }
-    
-    
-      // .then((newMatch) => {
-      //   console.log(newMatch)
-      //   setMatches([...matches, newMatch]);
-      //   closePopup();
-      // })
-
-     
   }
+  // function addMatch(data) {
+  //   const {
+  //     title,
+  //     gameMaster,
+  //     date,
+  //     result,
+  //     black,
+  //     red,
+  //     sheriff,
+  //     done,
+  //     modKill,
+  //     bestPlayer,
+  //   } = data;
+  //   if (gameMaster.__isNew__) {
+  //     createUnit(gameMaster.value).then((newGameMaster) => {
+  //       addNewMatch({ ...data, gameMaster: newGameMaster._id });
+  //     });
+
+  //     // createUnits([gameMaster.__isNew__ && {name: gameMaster.value}, sheriff.__isNew__ && {name: sheriff.value}])
+  //   } else {
+  //     addNewMatch(data)
+  //       // Необходим рефакторинг для оптимизации, чтобы избавиться от избыточных запросов к серверу:
+  //       .then(() => {
+  //         getInitialMatches();
+  //         getInitialMatches2020();
+  //         getInitialMatches2021();
+  //         getInitialMatches2022();
+  //         getInitialMatches2023();
+  //         getInitialMatches2024();
+  //         getInitialMatches2025();
+  //       })
+  //       .then(() => {
+  //         closePopup();
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+
+  //   // .then((newMatch) => {
+  //   //   console.log(newMatch)
+  //   //   setMatches([...matches, newMatch]);
+  //   //   closePopup();
+  //   // })
+  // }
   function editMatch(data) {
     const { id, title, gameMaster, date, result } = data;
 
     updateMatch(data)
       .then(() => {
         getInitialMatches();
-        getInitialMatches2020();
-        getInitialMatches2021();
-        getInitialMatches2022();
-        getInitialMatches2023();
-        getInitialMatches2024();
-        getInitialMatches2025();
-       
+        // getInitialMatches2020();
+        // getInitialMatches2021();
+        // getInitialMatches2022();
+        // getInitialMatches2023();
+        // getInitialMatches2024();
+        // getInitialMatches2025();
       })
       .then(() => closeEditMatchPopup())
       .catch((err) => console.log(err));
@@ -405,7 +425,7 @@ function App() {
     createUnit(name)
       .then((newUnit) => {
         setUnits([...units, newUnit]);
-       
+
         closePopupAddUnit();
       })
 
@@ -496,13 +516,13 @@ function App() {
 
   useEffect(() => {
     getInitialMatches();
-    getInitialMatches2020();
-    getInitialMatches2021();
-    getInitialMatches2022();
-    getInitialMatches2023();
-    getInitialMatches2024();
-    getInitialMatches2025();
-  }, [location]);
+    // getInitialMatches2020();
+    // getInitialMatches2021();
+    // getInitialMatches2022();
+    // getInitialMatches2023();
+    // getInitialMatches2024();
+    // getInitialMatches2025();
+  }, []);
 
   useEffect(() => {
     getInitialUnits();
@@ -575,6 +595,7 @@ function App() {
         units={units}
         onAddMatch={addMatch}
         onClick={handleAddUnitClick}
+        createUnit={createUnit}
       />
       <Profile
         isOpen={isProfilePopupOpen}
@@ -612,7 +633,7 @@ function App() {
         result={currentMatch.result}
         gameMaster={currentMatch.gameMaster?.name}
         date={currentMatch.date}
-        
+
         // name={currentProfile.name}
         // amount={countMatches(allMatches, currentProfile)}
         // blackCompletion={countBlackRole(allMatches, currentProfile)}

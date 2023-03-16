@@ -1,5 +1,5 @@
-export const BASE_URL = "http://localhost:3001";
-// export const BASE_URL = "https://mafia-raiting.online";
+// export const BASE_URL = "http://localhost:3001";
+export const BASE_URL = "https://mafia-raiting.online";
 
 export const getMatches = () => {
   return fetch(`${BASE_URL}/matches`, {
@@ -68,9 +68,7 @@ export const createUnits = (names) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      names,
-    }),
+    body: JSON.stringify(names),
   }).then(checkResponse);
 };
 export const updateUnit = (unit, newUnit) => {
