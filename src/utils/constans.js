@@ -37,3 +37,4 @@ export const SHERIF = "Шериф";
 export const DONE = "Дон мафии";
 export const BLACK = "Мафия";
 export const RED = "Мирный";
+export const DUPLICATE_ELEMENTS = "Один и тот же игрок указан в двух ролях (либо ведущим). Проверьте данные.";

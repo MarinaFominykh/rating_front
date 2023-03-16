@@ -10,9 +10,10 @@ import OptionUnit from "../OptionUnit/OptionUnit.jsx";
 import Popup from "../Popup/Popup.jsx";
 import Form from "../Form/Form.jsx";
 import Error from "../Error/Error.jsx";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
-import { optionsResult } from "../../utils/constans";
-import { optionsUnit } from "../../utils/functions";
+import { optionsResult, DUPLICATE_ELEMENTS} from "../../utils/constans";
+import { optionsUnit, hasDuplicates } from "../../utils/functions";
 function EditMatchForm({
   isOpen,
   onEditMatch,
@@ -24,27 +25,9 @@ function EditMatchForm({
   let location = useLocation();
 
   const history = useHistory();
-  // const {
-  //   register,
-  //   formState: { errors, isValid },
-  //   handleSubmit,
-  //   reset,
-  // } = useForm({ mode: "onBlur" });
+ 
   const { values, handleChange, resetForm, errors, isValid } =
     useFormWithValidation();
-  const [colourOptions, setColourOptions] = useState([]);
-  // const [colourOptions, setColourOptions] = useState([
-  //   { value: 'ocean', label: 'Ocean' },
-  //   { value: 'blue', label: 'Blue'},
-  //   { value: 'purple', label: 'Purple'},
-  //   { value: 'red', label: 'Red'},
-  //   { value: 'orange', label: 'Orange'},
-  //   { value: 'yellow', label: 'Yellow'},
-  //   { value: 'green', label: 'Green'},
-  //   { value: 'forest', label: 'Forest'},
-  //   { value: 'slate', label: 'Slate'},
-  //   { value: 'silver', label: 'Silver'},
-  // ]) ;
   const [gameMaster, setGameMaster] = useState({});
   const [result, setResult] = useState({});
   const [date, setDate] = useState("");
@@ -201,22 +184,33 @@ function EditMatchForm({
 
   function onSubmit(e) {
     e.preventDefault();
-
-    onEditMatch({
-      id: match._id,
-      title: values.titleEditMatchForm,
-      gameMaster: gameMaster.value,
-      date: values.dateEditMatchForm,
-      result: result.value,
-      black: blackUnits,
-      red: redUnits,
-      sheriff: sheriff.value,
-      done: done.value,
-      bestPlayer: best,
-      modKill: MK,
-    });
-    history.push("/matches");
-    window.location.reload();
+    const data = [
+      ...blackUnits,
+      ...redUnits,
+      sheriff.value,
+      done.value,
+      gameMaster.value,
+    ];
+    if (hasDuplicates(data)) {
+      showInfoToolTip(DUPLICATE_ELEMENTS);
+    } else {
+      onEditMatch({
+        id: match._id,
+        title: values.titleEditMatchForm,
+        gameMaster: gameMaster.value,
+        date: values.dateEditMatchForm,
+        result: result.value,
+        black: blackUnits,
+        red: redUnits,
+        sheriff: sheriff.value,
+        done: done.value,
+        bestPlayer: best,
+        modKill: MK,
+      });
+      // history.push("/matches");
+      // window.location.reload();
+    }
+   
   }
   useEffect(() => {
     if (location.hash === "#tab_02") {
@@ -460,6 +454,7 @@ function EditMatchForm({
             </article>
           </div>
         </div>
+        <InfoTooltip message={message}/>
       </Form>
     </Popup>
   );

@@ -11,7 +11,9 @@ import Popup from "../Popup/Popup.jsx";
 import Form from "../Form/Form.jsx";
 import Error from "../Error/Error.jsx";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
-import { optionsResult } from "../../utils/constans";
+import { optionsResult, DUPLICATE_ELEMENTS } from "../../utils/constans";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import {hasDuplicates} from "../../utils/functions"
 function AddMatchesForm({
   isOpen,
   onAddMatch,
@@ -114,6 +116,7 @@ function AddMatchesForm({
       return `Удалите ${redUnits.length - 6} игрока`;
     } else return;
   }
+ 
   useEffect(() => {
     if (
       !gameMaster?.value ||
@@ -142,31 +145,41 @@ function AddMatchesForm({
     //         label: newUnit.name,
     //         value: newUnit._id,
     //       })
-          
+
     //     )
     //     .then(() => {
     //       console.log(newGameMaster);
     //     });
     // }
+    const data = [
+      ...blackUnits,
+      ...redUnits,
+      sheriff.value,
+      done.value,
+      gameMaster.value,
+    ];
+    if (hasDuplicates(data)) {
+      showInfoToolTip(DUPLICATE_ELEMENTS);
+    } else {
+      onAddMatch({
+        title: e.titleAddMatchForm,
+        gameMaster: gameMaster.value,
+        date: e.dateMasterAddMatchForm,
+        result: result.value,
+        black: blackUnits,
+        red: redUnits,
+        sheriff: sheriff.value,
+        done: done.value,
+        bestPlayer: best,
+        modKill: MK,
+      });
 
-    onAddMatch({
-      title: e.titleAddMatchForm,
-      gameMaster: gameMaster.value,
-      date: e.dateMasterAddMatchForm,
-      result: result.value,
-      black: blackUnits,
-      red: redUnits,
-      sheriff: sheriff.value,
-      done: done.value,
-      bestPlayer: best,
-      modKill: MK,
-    });
-
-    history.push("/matches");
-    window.location.reload();
-    reset();
+      history.push("/matches");
+      window.location.reload();
+      reset();
+    }
   }
- 
+
   useEffect(() => {
     if (location.hash === "#tab_02") {
       return setTab("2");
@@ -224,6 +237,7 @@ function AddMatchesForm({
         linkClass={classLink}
         linkBack={linkBack}
         handlerClick={handleClose}
+       
       >
         <div className="form__tabs">
           <nav className="form__nav">
@@ -447,6 +461,7 @@ function AddMatchesForm({
             </article>
           </div>
         </div>
+        <InfoTooltip message={message}/>
       </Form>
     </Popup>
   );

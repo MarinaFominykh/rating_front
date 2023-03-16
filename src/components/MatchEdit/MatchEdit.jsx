@@ -15,8 +15,9 @@ import {
   DONE,
   BLACK,
   RED,
+  DUPLICATE_ELEMENTS,
 } from "../../utils/constans.js";
-import { optionsUnit } from "../../utils/functions.js";
+import { optionsUnit, hasDuplicates } from "../../utils/functions.js";
 import peopleIcon from "../../image/icons/fluent_people-20-regular.svg";
 function MatchEdit({
   isOpen,
@@ -116,6 +117,19 @@ function MatchEdit({
 
   function handleSubmit(e) {
     e.preventDefault();
+    const data = [
+      black1.value,
+      black2.value,
+      red1.value,
+      red2.value,
+      red3.value,
+      red4.value,
+      red5.value,
+      red6.value,
+      sheriff.value,
+      done.value,
+      gameMaster.value,
+    ];
     if (
       (gameMaster.value === match.gameMaster._id || !gameMaster.value) &&
       (values.dateEditMatchForm === match.date || !values.dateEditMatchForm) &&
@@ -123,38 +137,45 @@ function MatchEdit({
         !values.titleEditMatchForm) &&
       (result.value === match.result || !result.value) &&
       (sheriff.value === match.sheriff._id || !sheriff.value) &&
-      (done.value === match.done._id || !done.value) 
-      &&
-      (JSON.stringify(match.black.map((item) => {
-        return item._id
-      })) === JSON.stringify([black1.value, black2.value])
-    )
-    &&
-      (JSON.stringify(match.red.map((item) => {
-        return item._id
-      })) === JSON.stringify([red1.value,
-        red2.value,
-        red3.value,
-        red4.value,
-        red5.value,
-        red6.value,])
-    )
-      &&
-      (JSON.stringify(mk.map((item) => {
-        return {
-          _id: item.value,
-          name: item.label,
-        };
-      })) === JSON.stringify(match.modKill)
-    ) &&
-    (JSON.stringify(bestPlayer.map((item) => {
-      return {
-        _id: item.value,
-        name: item.label,
-      };
-    })) === JSON.stringify(match.bestPlayer)
-  )) {
+      (done.value === match.done._id || !done.value) &&
+      JSON.stringify(
+        match.black.map((item) => {
+          return item._id;
+        })
+      ) === JSON.stringify([black1.value, black2.value]) &&
+      JSON.stringify(
+        match.red.map((item) => {
+          return item._id;
+        })
+      ) ===
+        JSON.stringify([
+          red1.value,
+          red2.value,
+          red3.value,
+          red4.value,
+          red5.value,
+          red6.value,
+        ]) &&
+      JSON.stringify(
+        mk.map((item) => {
+          return {
+            _id: item.value,
+            name: item.label,
+          };
+        })
+      ) === JSON.stringify(match.modKill) &&
+      JSON.stringify(
+        bestPlayer.map((item) => {
+          return {
+            _id: item.value,
+            name: item.label,
+          };
+        })
+      ) === JSON.stringify(match.bestPlayer)
+    ) {
       showInfoToolTip("Измените данные");
+    } else if (hasDuplicates(data)) {
+      showInfoToolTip(DUPLICATE_ELEMENTS);
     } else if (
       onEditMatch({
         id: match._id,
@@ -180,10 +201,8 @@ function MatchEdit({
           return item.value;
         }),
       })
-      
     )
       e.target.reset();
-     
   }
   useEffect(() => {
     // document.querySelector(".css-1dimb5e-singleValue").textContent =
