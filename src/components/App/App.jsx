@@ -38,6 +38,7 @@ import {
   countBestPlayer,
   countRating,
 } from "../../utils/functions";
+import {MatchesLoad} from "../../redux/actions"
 import Main from "../Main/Main.jsx";
 import AddMatchesForm from "../AddMatchesForm/AddMatchesForm.jsx";
 import AddUnitsForm from "../AddUnitsForm/AddUnitsForm.jsx";
@@ -317,6 +318,7 @@ function App() {
     setEditUnitMatch(match);
     setIsFormWithReplaceUnit(true);
   }
+
   function addMatch(data) {
     const {
       title,
@@ -399,39 +401,39 @@ function App() {
       .then(() => closeEditMatchPopup())
       .catch((err) => console.log(err));
   }
-  function addUnits(array) {
-    if (addUnitsMatch.units.length >= 10) {
-      showInfoToolTip(
-        "В этой игре уже есть данные по всем игрокам. Воспользуйтесь формой редактирования отдельного игрока, если необходимо изменить данные этого игрока"
-      );
-      return;
-    } else if (array.length !== 10) {
-      showInfoToolTip("Количество игроков должно быть 10");
-      return;
-    }
-    addUnitsInMatch(addUnitsMatch, array)
-      // Необходим рефакторинг для оптимизации, чтобы избавиться от избыточных запросов к серверу:
-      .then(() => {
-        getInitialMatches();
-        // setStationSubmitAddUtits(true);
-        closePopup();
-      })
+  // function addUnits(array) {
+  //   if (addUnitsMatch.units.length >= 10) {
+  //     showInfoToolTip(
+  //       "В этой игре уже есть данные по всем игрокам. Воспользуйтесь формой редактирования отдельного игрока, если необходимо изменить данные этого игрока"
+  //     );
+  //     return;
+  //   } else if (array.length !== 10) {
+  //     showInfoToolTip("Количество игроков должно быть 10");
+  //     return;
+  //   }
+  //   addUnitsInMatch(addUnitsMatch, array)
+  //     // Необходим рефакторинг для оптимизации, чтобы избавиться от избыточных запросов к серверу:
+  //     .then(() => {
+  //       getInitialMatches();
+  //       // setStationSubmitAddUtits(true);
+  //       closePopup();
+  //     })
 
-      // .then(() => closePopup())
-      .catch((err) => console.log(err));
-  }
+  //     // .then(() => closePopup())
+  //     .catch((err) => console.log(err));
+  // }
 
-  function addUnit(name) {
-    createUnit(name)
-      .then((newUnit) => {
-        setUnits([...units, newUnit]);
+  // function addUnit(name) {
+  //   createUnit(name)
+  //     .then((newUnit) => {
+  //       setUnits([...units, newUnit]);
 
-        closePopupAddUnit();
-      })
+  //       closePopupAddUnit();
+  //     })
 
-      .then(() => console.log(units))
-      .catch((err) => console.log(err));
-  }
+  //     .then(() => console.log(units))
+  //     .catch((err) => console.log(err));
+  // }
 
   function updateName(name) {
     updateUnit(currentProfile, name)
@@ -441,38 +443,8 @@ function App() {
       })
       .catch((err) => err.text().then((resText) => showInfoToolTip(resText)));
   }
-  // showInfoToolTip("Количество игроков должно быть 10");
-  //Измененные данные ведущего видны только после перезагрузки. Необходим рефакторинг
-  // function updateGameMasterName(gameMaster) {
-  //   updateGameMaster(editGameMaster, gameMaster)
-  //     .then(() => {
-  //       getInitialMatches();
-  //       setFormWithUpdateGameMaster(false);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }
-
-  function updateTitleMatch(title) {
-    updateTitle(editTitle, title)
-      .then(() => {
-        getInitialMatches();
-        setFormWithUpdateTitle(false);
-        closePopup();
-      })
-      .catch((err) => console.log(err));
-  }
-
-  function updateResultMatch(result) {
-    updateResult(editResultMatch, result)
-      .then(() => {
-        getInitialMatches();
-        setFormWithUpdateResult(false);
-        closePopup();
-      })
-      .catch((err) => console.log(err));
-  }
-
-  function replaceUnit(data) {
+ 
+    function replaceUnit(data) {
     const { unit, role } = data;
     //    const array = editUnitMatch.units.filter((el) => {
     //   return el.unit._id !== unitData.unit._id;
