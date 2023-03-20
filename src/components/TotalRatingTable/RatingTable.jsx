@@ -23,7 +23,7 @@ function RatingTable({
   sortData,
   matches,
   showUnit,
-  handleAddUnit,
+  
 }) {
   const [dataUnits, setDataUnits] = useState(allUnits);
   const [order, setOrder] = useState("ASC");

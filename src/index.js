@@ -11,9 +11,9 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-const store = createStore(rootReducer, compose(applyMiddleware(thunk),
-window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const store = createStore(rootReducer, compose(applyMiddleware(thunk)
 ));
+
 root.render( 
   <BrowserRouter>
     <React.StrictMode>

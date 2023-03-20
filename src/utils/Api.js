@@ -8,7 +8,6 @@ export const getMatches = () => {
     },
   }).then(checkResponse);
 };
-
 export const getUnits = () => {
   return fetch(`${BASE_URL}/units`, {
     headers: {
@@ -34,19 +33,6 @@ export const addNewMatch = (data) => {
       done: data.done,
       modKill: data.modKill,
       bestPlayer: data.bestPlayer,
-    }),
-  }).then(checkResponse);
-};
-
-export const addUnitsInMatch = (match, array) => {
-  return fetch(`${BASE_URL}/matches/${match._id}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      match,
-      array,
     }),
   }).then(checkResponse);
 };
@@ -124,47 +110,6 @@ export const updateMatch = (data) => {
       black: data.black,
       modKill: data.modKill,
       bestPlayer: data.bestPlayer,
-    }),
-  }).then(checkResponse);
-};
-
-export const updateTitle = (match, title) => {
-  return fetch(`${BASE_URL}/matches/title`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      match,
-      title,
-    }),
-  }).then(checkResponse);
-};
-
-export const updateResult = (match, result) => {
-  return fetch(`${BASE_URL}/matches/result`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      match,
-      result,
-    }),
-  }).then(checkResponse);
-};
-
-export const updateUnitInMatch = (unit, role, match, currentUnit) => {
-  return fetch(`${BASE_URL}/matches/${match._id}/unit`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      unit,
-      role,
-      match,
-      currentUnit,
     }),
   }).then(checkResponse);
 };

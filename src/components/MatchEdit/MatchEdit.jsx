@@ -30,8 +30,7 @@ function MatchEdit({
   units,
   handleDelete,
   onMatchDelete,
-  onEditUnitsClick,
-  unit,
+   unit,
   isOpenCard,
 }) {
   const { values, handleChange, errors, isValid, resetForm } =
@@ -281,9 +280,6 @@ function MatchEdit({
   //   setDate(moment(match?.date).format("YYYY-MM-DD"));
   // }, [isOpen]);
 
-  const handleEditUnits = () => {
-    onEditUnitsClick(match, unit);
-  };
   return (
     <Popup isOpen={isOpen} className="match-edit">
       <article className="match-edit">

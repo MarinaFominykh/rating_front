@@ -17,14 +17,8 @@ function Main({
   onUpdateUnit,
   sortData,
   matches,
-  matches2020,
-  matches2021,
-  matches2022,  
   showUnit,
-  test,
-  onAdd,
-  onRemove,
-  handleAddUnit,
+
 }) {
   const dispatch = useDispatch();
   const period = useSelector((state) => {
@@ -111,7 +105,7 @@ function Main({
           sortData={sortData}
           matches={matches}
           showUnit={showUnit}
-          handleAddUnit={handleAddUnit}
+         
         />
       </section>
     </main>

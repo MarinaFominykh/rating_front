@@ -18,7 +18,6 @@ function AddMatchesForm({
   isOpen,
   onAddMatch,
   onClose,
-  onClick,
   units,
   createUnit,
 }) {
