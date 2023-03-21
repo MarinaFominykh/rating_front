@@ -13,14 +13,10 @@ import Error from "../Error/Error.jsx";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 import { optionsResult, DUPLICATE_ELEMENTS } from "../../utils/constans";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
-import {hasDuplicates} from "../../utils/functions"
-function AddMatchesForm({
-  isOpen,
-  onAddMatch,
-  onClose,
-  units,
-  createUnit,
-}) {
+import { hasDuplicates } from "../../utils/functions";
+import { useDispatch, useSelector } from 'react-redux';
+import { newGameMaster, sheriffInAddMatch } from "../../redux/actions";
+function AddMatchesForm({ isOpen, onAddMatch, onClose, units, createUnit }) {
   let location = useLocation();
 
   const history = useHistory();
@@ -31,8 +27,12 @@ function AddMatchesForm({
     reset,
   } = useForm({ mode: "onBlur" });
 
+  const newGm = useSelector(state => {
+    const { gameMasterReducer } = state;
+    return gameMasterReducer.data;
+  });
+  const dispatch = useDispatch();
   const [gameMaster, setGameMaster] = useState({});
-  const [newGameMaster, setNewGameMaster] = useState({});
   const [result, setResult] = useState({});
   const [blackUnits, setBlackUnits] = useState([]);
   const [redUnits, setRedUnits] = useState([]);
@@ -55,9 +55,14 @@ function AddMatchesForm({
     setMessage(error);
     setTimeout(() => setMessage(""), 5000);
   };
-  function onChangeGameMaster(newValue) {
-    setGameMaster(newValue);
+
+  function onChangeNewGm (newValue) {
+  // console.log('handle text >>', newValue)
+dispatch(newGameMaster(newValue))
   }
+  // function onChangeGameMaster(newValue) {
+  //   setGameMaster(newValue);
+  // }
   function onChangeResult(newValue) {
     setResult(newValue);
   }
@@ -115,10 +120,12 @@ function AddMatchesForm({
       return `Удалите ${redUnits.length - 6} игрока`;
     } else return;
   }
- 
+
   useEffect(() => {
     if (
-      !gameMaster?.value ||
+      !newGm?.label
+      // !gameMaster?.value 
+      ||
       !result?.value ||
       !sheriff?.value ||
       !done?.value ||
@@ -137,19 +144,6 @@ function AddMatchesForm({
     // } else if (redUnits.length !== 6) {
     //   showInfoToolTip("Проверьте количество мирных жителей");
     // }
-    // if (gameMaster.__isNew__) {
-    //   createUnit(gameMaster.value)
-    //     .then((newUnit) =>
-    //       setNewGameMaster({
-    //         label: newUnit.name,
-    //         value: newUnit._id,
-    //       })
-
-    //     )
-    //     .then(() => {
-    //       console.log(newGameMaster);
-    //     });
-    // }
     const data = [
       ...blackUnits,
       ...redUnits,
@@ -159,7 +153,29 @@ function AddMatchesForm({
     ];
     if (hasDuplicates(data)) {
       showInfoToolTip(DUPLICATE_ELEMENTS);
-    } else {
+    } 
+    else if (newGm.__isNew__) {
+      createUnit(newGm.label).then((newGm) =>
+      onAddMatch({
+        title: e.titleAddMatchForm,
+        gameMaster: newGm._id,
+        date: e.dateMasterAddMatchForm,
+        result: result.value,
+        black: blackUnits,
+        red: redUnits,
+        sheriff: sheriff.value,
+        done: done.value,
+        bestPlayer: best,
+        modKill: MK,
+      })
+      )
+      .then(() => {    
+        history.push("/matches");
+        window.location.reload();
+        reset();})
+     
+    }
+    else {
       onAddMatch({
         title: e.titleAddMatchForm,
         gameMaster: gameMaster.value,
@@ -173,9 +189,9 @@ function AddMatchesForm({
         modKill: MK,
       });
 
-      history.push("/matches");
-      window.location.reload();
-      reset();
+      // history.push("/matches");
+      // window.location.reload();
+      // reset();
     }
   }
 
@@ -236,7 +252,6 @@ function AddMatchesForm({
         linkClass={classLink}
         linkBack={linkBack}
         handlerClick={handleClose}
-       
       >
         <div className="form__tabs">
           <nav className="form__nav">
@@ -316,10 +331,10 @@ function AddMatchesForm({
               >
                 Выберите ведущего
               </label>
-              <Select
-                // formatCreateLabel={(value) =>
-                //   `Не найдено совпадений. Создать ${value}`
-                // }
+              <CreatableSelect
+                formatCreateLabel={(value) =>
+                  `Не найдено совпадений. Создать: ${value}`
+                }
                 options={units.map((unit) => {
                   return { value: unit._id, label: unit.name };
                 })}
@@ -327,7 +342,8 @@ function AddMatchesForm({
                 required
                 placeholder={<div>Выберите из списка</div>}
                 isClearable
-                onChange={onChangeGameMaster}
+                // onChange={onChangeGameMaster}
+                onChange={onChangeNewGm}
               />
               <Error
                 error={!gameMaster && "Поле обязательно для заполнения"}
@@ -460,7 +476,7 @@ function AddMatchesForm({
             </article>
           </div>
         </div>
-        <InfoTooltip message={message}/>
+        <InfoTooltip message={message} />
       </Form>
     </Popup>
   );

@@ -2,7 +2,9 @@ import {
     ADD,
     REMOVE,
     SELECT_VALUE,
-    MATCHES
+    MATCHES,
+    GAME_MASTER,
+    SHERIFF
 } from "./types";
 export function addTest() {
     return {
@@ -22,7 +24,18 @@ export function selectValue(value) {
         value
     }
 }
-
+export function newGameMaster(data) {
+    return {
+        type: GAME_MASTER,
+        data
+    }
+}
+export function sheriffInAddMatch(data) {
+    return {
+        type: SHERIFF,
+        data
+    }
+}
 export function MatchesLoad() {
     return async dispatch => {
         const response = await fetch("http://localhost:3001/matches");
