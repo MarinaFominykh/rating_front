@@ -4,7 +4,12 @@ import {
     SELECT_VALUE,
     MATCHES,
     GAME_MASTER,
-    SHERIFF
+    SHERIFF,
+    DONE,
+    RED_ARRAY,
+    BLACK_ARRAY,
+    BP_ARRAY,
+    MK_ARRAY
 } from "./types";
 export function addTest() {
     return {
@@ -36,13 +41,34 @@ export function sheriffInAddMatch(data) {
         data
     }
 }
-export function MatchesLoad() {
-    return async dispatch => {
-        const response = await fetch("http://localhost:3001/matches");
-        const jsonData = await response.json();
-        dispatch({
-            type: MATCHES,
-            data: jsonData
-        })
+export function doneInAddMatch(data) {
+    return {
+        type: DONE,
+        data
     }
 }
+export function redArrayInAddMatch(data) {
+    return {
+        type: RED_ARRAY,
+        data
+    }
+}
+export function blackArrayInAddMatch(data) {
+    return {
+        type: BLACK_ARRAY,
+        data
+    }
+}
+export function bestPlayerArrayInAddMatch(data) {
+    return {
+        type: BP_ARRAY,
+        data
+    }
+}
+export function modKillArrayInAddMatch(data) {
+    return {
+        type: MK_ARRAY,
+        data
+    }
+}
+

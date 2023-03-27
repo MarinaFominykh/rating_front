@@ -14,9 +14,24 @@ import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 import { optionsResult, DUPLICATE_ELEMENTS } from "../../utils/constans";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import { hasDuplicates } from "../../utils/functions";
-import { useDispatch, useSelector } from 'react-redux';
-import { newGameMaster, sheriffInAddMatch } from "../../redux/actions";
-function AddMatchesForm({ isOpen, onAddMatch, onClose, units, createUnit }) {
+import { useDispatch, useSelector } from "react-redux";
+import {
+  newGameMaster,
+  sheriffInAddMatch,
+  doneInAddMatch,
+  redArrayInAddMatch,
+  blackArrayInAddMatch,
+  bestPlayerArrayInAddMatch,
+  modKillArrayInAddMatch
+} from "../../redux/actions";
+function AddMatchesForm({
+  isOpen,
+  onAddMatch,
+  onClose,
+  units,
+  createUnit,
+  createUnits,
+}) {
   let location = useLocation();
 
   const history = useHistory();
@@ -26,20 +41,43 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, units, createUnit }) {
     handleSubmit,
     reset,
   } = useForm({ mode: "onBlur" });
-
-  const newGm = useSelector(state => {
-    const { gameMasterReducer } = state;
-    return gameMasterReducer.data;
-  });
   const dispatch = useDispatch();
+  const dataForm = useSelector((state) => {
+    const { newMatchReducer } = state;
+    return newMatchReducer;
+  })
+  const newGm = useSelector((state) => {
+    const { newMatchReducer } = state;
+    return newMatchReducer.gameMaster;
+  });
+  const sheriff = useSelector((state) => {
+    const { newMatchReducer } = state;
+    return newMatchReducer.sheriff;
+  });
+  const done = useSelector((state) => {
+    const { newMatchReducer } = state;
+    return newMatchReducer.done;
+  });
+  const redUnits = useSelector((state) => {
+    const { newMatchReducer } = state;
+    return newMatchReducer.red;
+  });
+  const blackUnits = useSelector((state) => {
+    const { newMatchReducer } = state;
+    return newMatchReducer.black;
+  });
+  const best = useSelector((state) => {
+    const { newMatchReducer } = state;
+    return newMatchReducer.bestPlayer;
+  })
+  const MK = useSelector((state) => {
+    const { newMatchReducer } = state;
+    return newMatchReducer.modKill;
+  })
+
   const [gameMaster, setGameMaster] = useState({});
   const [result, setResult] = useState({});
-  const [blackUnits, setBlackUnits] = useState([]);
-  const [redUnits, setRedUnits] = useState([]);
-  const [sheriff, setSheriff] = useState({});
-  const [done, setDone] = useState({});
-  const [best, setBest] = useState([]);
-  const [MK, setMK] = useState([]);
+
   const [tab, setTab] = useState("1");
   const [linkText, setLinkText] = useState("");
   const [classSubmit, setСlassSubmit] = useState("");
@@ -56,50 +94,79 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, units, createUnit }) {
     setTimeout(() => setMessage(""), 5000);
   };
 
-  function onChangeNewGm (newValue) {
-  // console.log('handle text >>', newValue)
-dispatch(newGameMaster(newValue))
+  function onChangeNewGm(newValue) {
+    dispatch(newGameMaster(newValue));
+  }
+  function onChangeSheriff(newValue) {
+    dispatch(sheriffInAddMatch(newValue));
+  }
+  function onChangeDone(newValue) {
+    dispatch(doneInAddMatch(newValue));
+  }
+  function onChangeRed(newValue) {
+    dispatch(
+      redArrayInAddMatch(
+        newValue.map((item) => {
+          return item.value;
+        })
+      )
+    );
+  }
+  function onChangeBlack(newValue) {
+    dispatch(
+      blackArrayInAddMatch(
+        newValue.map((item) => {
+          return item.value;
+        })
+      )
+    );
+  }
+  function onChangeBest(newValue) {
+    dispatch(
+      bestPlayerArrayInAddMatch(
+        newValue.map((item) => {
+          return item.value;
+        })
+      )
+    );
+  }
+  function onChangeMK(newValue) {
+    dispatch(
+      modKillArrayInAddMatch(
+        newValue.map((item) => {
+          return item.value;
+        })
+      )
+    );
   }
   // function onChangeGameMaster(newValue) {
   //   setGameMaster(newValue);
   // }
+  // function onChangeSheriff(newValue) {
+  //   setSheriff(newValue);
+  // }
+  // function onChangeDone(newValue) {
+  //   setDone(newValue);
+  // }
+  // function onChangeRed(newValue) {
+  //   setRedUnits(
+  //     newValue.map((item) => {
+  //       return item.value;
+  //     })
+  //   );
+  // }
+  // function onChangeBlack(newValue) {
+  //   setBlackUnits(
+  //     newValue.map((item) => {
+  //       return item.value;
+  //     })
+  //   );
+  // }
   function onChangeResult(newValue) {
     setResult(newValue);
   }
-  function onChangeBlack(newValue) {
-    setBlackUnits(
-      newValue.map((item) => {
-        return item.value;
-      })
-    );
-  }
-  function onChangeRed(newValue) {
-    setRedUnits(
-      newValue.map((item) => {
-        return item.value;
-      })
-    );
-  }
-  function onChangeDone(newValue) {
-    setDone(newValue);
-  }
-  function onChangeSheriff(newValue) {
-    setSheriff(newValue);
-  }
-  function onChangeBest(newValue) {
-    setBest(
-      newValue.map((item) => {
-        return item.value;
-      })
-    );
-  }
-  function onChangeMK(newValue) {
-    setMK(
-      newValue.map((item) => {
-        return item.value;
-      })
-    );
-  }
+
+ 
   function handleClose() {
     if (location.hash === "#tab_01" || !location.hash) {
       return onClose();
@@ -123,11 +190,9 @@ dispatch(newGameMaster(newValue))
 
   useEffect(() => {
     if (
-      !newGm?.label
-      // !gameMaster?.value 
-      ||
+      !newGm?.value ||
+      // !gameMaster?.value
       !result?.value ||
-      !sheriff?.value ||
       !done?.value ||
       blackUnits.length !== 2 ||
       redUnits.length !== 6
@@ -136,7 +201,7 @@ dispatch(newGameMaster(newValue))
     } else {
       return setIsValidComposition(true);
     }
-  }, [gameMaster, result, blackUnits, redUnits, sheriff, done]);
+  }, [newGm, result, blackUnits, redUnits, sheriff, done]);
 
   function onSubmit(e) {
     // if (blackUnits.length !== 2) {
@@ -144,55 +209,36 @@ dispatch(newGameMaster(newValue))
     // } else if (redUnits.length !== 6) {
     //   showInfoToolTip("Проверьте количество мирных жителей");
     // }
+
     const data = [
       ...blackUnits,
       ...redUnits,
       sheriff.value,
       done.value,
-      gameMaster.value,
+      newGm.value,
     ];
+
     if (hasDuplicates(data)) {
       showInfoToolTip(DUPLICATE_ELEMENTS);
-    } 
-    else if (newGm.__isNew__) {
-      createUnit(newGm.label).then((newGm) =>
-      onAddMatch({
-        title: e.titleAddMatchForm,
-        gameMaster: newGm._id,
-        date: e.dateMasterAddMatchForm,
-        result: result.value,
-        black: blackUnits,
-        red: redUnits,
-        sheriff: sheriff.value,
-        done: done.value,
-        bestPlayer: best,
-        modKill: MK,
-      })
-      )
-      .then(() => {    
-        history.push("/matches");
-        window.location.reload();
-        reset();})
-     
+      return;
     }
-    else {
-      onAddMatch({
-        title: e.titleAddMatchForm,
-        gameMaster: gameMaster.value,
-        date: e.dateMasterAddMatchForm,
-        result: result.value,
-        black: blackUnits,
-        red: redUnits,
-        sheriff: sheriff.value,
-        done: done.value,
-        bestPlayer: best,
-        modKill: MK,
-      });
+console.log("data=>", dataForm)
+    onAddMatch({
+      title: e.titleAddMatchForm,
+      gameMaster: newGm.value,
+      date: e.dateMasterAddMatchForm,
+      result: result.value,
+      black: blackUnits,
+      red: redUnits,
+      sheriff: sheriff.value,
+      done: done.value,
+      bestPlayer: best,
+      modKill: MK,
+    });
 
-      // history.push("/matches");
-      // window.location.reload();
-      // reset();
-    }
+    // history.push("/matches");
+    // window.location.reload();
+    // reset();
   }
 
   useEffect(() => {
@@ -331,10 +377,10 @@ dispatch(newGameMaster(newValue))
               >
                 Выберите ведущего
               </label>
-              <CreatableSelect
-                formatCreateLabel={(value) =>
-                  `Не найдено совпадений. Создать: ${value}`
-                }
+              <Select
+                // formatCreateLabel={(value) =>
+                //   `Не найдено совпадений. Создать: ${value}`
+                // }
                 options={units.map((unit) => {
                   return { value: unit._id, label: unit.name };
                 })}
@@ -420,6 +466,9 @@ dispatch(newGameMaster(newValue))
               <Error error={!done && "Укажите дона мафии"}></Error>
               <label className="form__label add-match__label">Шериф</label>
               <Select
+                // formatCreateLabel={(value) =>
+                //   `Не найдено совпадений. Создать: ${value}`
+                // }
                 options={units.map((unit) => {
                   return { value: unit._id, label: unit.name };
                 })}

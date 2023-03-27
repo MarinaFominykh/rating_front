@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 import { testReducer } from "./testReducer";
 import { selectPeriodReducer } from "./selectPeriodReducer";
-import {gameMasterReducer} from "./gameMasterReducer"
+import {newMatchReducer} from "./newMatchReducer"
 export const rootReducer = combineReducers({
   testReducer,
   selectPeriodReducer,
-  gameMasterReducer
+  newMatchReducer,
 });

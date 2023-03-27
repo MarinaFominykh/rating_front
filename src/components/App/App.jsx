@@ -184,9 +184,9 @@ function App() {
     } = data;
 
     addNewMatch(data)
-      // .then((newMatch) => {
-      //   setMatches([...matches, newMatch]);
-      // })
+      .then((newMatch) => {
+        setMatches([...matches, newMatch]);
+      })
       .then(() => {
         closePopup();
       })
@@ -336,6 +336,7 @@ function App() {
         units={units}
         onAddMatch={addMatch}
         createUnit={createUnit}
+        createUnits={createUnits}
       />
       <Profile
         isOpen={isProfilePopupOpen}
