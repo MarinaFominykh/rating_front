@@ -13,7 +13,7 @@ import Error from "../Error/Error.jsx";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 import { optionsResult, DUPLICATE_ELEMENTS } from "../../utils/constans";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
-import { hasDuplicates } from "../../utils/functions";
+import { hasDuplicates, optionsUnit } from "../../utils/functions";
 import { useDispatch, useSelector } from "react-redux";
 import {
   newGameMaster,
@@ -22,7 +22,7 @@ import {
   redArrayInAddMatch,
   blackArrayInAddMatch,
   bestPlayerArrayInAddMatch,
-  modKillArrayInAddMatch
+  modKillArrayInAddMatch,
 } from "../../redux/actions";
 function AddMatchesForm({
   isOpen,
@@ -45,39 +45,10 @@ function AddMatchesForm({
   const dataForm = useSelector((state) => {
     const { newMatchReducer } = state;
     return newMatchReducer;
-  })
-  const newGm = useSelector((state) => {
-    const { newMatchReducer } = state;
-    return newMatchReducer.gameMaster;
   });
-  const sheriff = useSelector((state) => {
-    const { newMatchReducer } = state;
-    return newMatchReducer.sheriff;
-  });
-  const done = useSelector((state) => {
-    const { newMatchReducer } = state;
-    return newMatchReducer.done;
-  });
-  const redUnits = useSelector((state) => {
-    const { newMatchReducer } = state;
-    return newMatchReducer.red;
-  });
-  const blackUnits = useSelector((state) => {
-    const { newMatchReducer } = state;
-    return newMatchReducer.black;
-  });
-  const best = useSelector((state) => {
-    const { newMatchReducer } = state;
-    return newMatchReducer.bestPlayer;
-  })
-  const MK = useSelector((state) => {
-    const { newMatchReducer } = state;
-    return newMatchReducer.modKill;
-  })
-
-  const [gameMaster, setGameMaster] = useState({});
+  const { gameMaster, sheriff, done, red, black } =
+    dataForm;
   const [result, setResult] = useState({});
-
   const [tab, setTab] = useState("1");
   const [linkText, setLinkText] = useState("");
   const [classSubmit, setСlassSubmit] = useState("");
@@ -139,34 +110,10 @@ function AddMatchesForm({
       )
     );
   }
-  // function onChangeGameMaster(newValue) {
-  //   setGameMaster(newValue);
-  // }
-  // function onChangeSheriff(newValue) {
-  //   setSheriff(newValue);
-  // }
-  // function onChangeDone(newValue) {
-  //   setDone(newValue);
-  // }
-  // function onChangeRed(newValue) {
-  //   setRedUnits(
-  //     newValue.map((item) => {
-  //       return item.value;
-  //     })
-  //   );
-  // }
-  // function onChangeBlack(newValue) {
-  //   setBlackUnits(
-  //     newValue.map((item) => {
-  //       return item.value;
-  //     })
-  //   );
-  // }
-  function onChangeResult(newValue) {
+   function onChangeResult(newValue) {
     setResult(newValue);
   }
 
- 
   function handleClose() {
     if (location.hash === "#tab_01" || !location.hash) {
       return onClose();
@@ -174,71 +121,54 @@ function AddMatchesForm({
   }
 
   function getSpanMessageBlack() {
-    if (blackUnits.length > 0 && blackUnits.length < 2) {
-      return `Добавьте ещё ${2 - blackUnits.length} игрока`;
-    } else if (blackUnits.length > 0 && blackUnits.length > 2) {
-      return `Удалите ${blackUnits.length - 2} игрока`;
+    if (black.length > 0 && black.length < 2) {
+      return `Добавьте ещё ${2 - black.length} игрока`;
+    } else if (black.length > 0 && black.length > 2) {
+      return `Удалите ${black.length - 2} игрока`;
     } else return;
   }
   function getSpanMessageRed() {
-    if (redUnits.length > 0 && redUnits.length < 6) {
-      return `Добавьте ещё ${6 - redUnits.length} игрока`;
-    } else if (redUnits.length > 0 && redUnits.length > 6) {
-      return `Удалите ${redUnits.length - 6} игрока`;
+    if (red.length > 0 && red.length < 6) {
+      return `Добавьте ещё ${6 - red.length} игрока`;
+    } else if (red.length > 0 && red.length > 6) {
+      return `Удалите ${red.length - 6} игрока`;
     } else return;
   }
 
   useEffect(() => {
     if (
-      !newGm?.value ||
-      // !gameMaster?.value
+      !gameMaster?.value ||
       !result?.value ||
       !done?.value ||
-      blackUnits.length !== 2 ||
-      redUnits.length !== 6
+      black.length !== 2 ||
+      red.length !== 6
     ) {
       return setIsValidComposition(false);
     } else {
       return setIsValidComposition(true);
     }
-  }, [newGm, result, blackUnits, redUnits, sheriff, done]);
+  }, [dataForm, result]);
 
   function onSubmit(e) {
-    // if (blackUnits.length !== 2) {
-    //   showInfoToolTip("Проверьте количество мафии");
-    // } else if (redUnits.length !== 6) {
-    //   showInfoToolTip("Проверьте количество мирных жителей");
-    // }
-
-    const data = [
-      ...blackUnits,
-      ...redUnits,
-      sheriff.value,
-      done.value,
-      newGm.value,
-    ];
+    const data = [...black, ...red, sheriff.value, done.value];
 
     if (hasDuplicates(data)) {
       showInfoToolTip(DUPLICATE_ELEMENTS);
       return;
     }
-console.log("data=>", dataForm)
     onAddMatch({
-      title: e.titleAddMatchForm,
-      gameMaster: newGm.value,
+      ...dataForm,
+       title: e.titleAddMatchForm,
       date: e.dateMasterAddMatchForm,
       result: result.value,
-      black: blackUnits,
-      red: redUnits,
+      gameMaster: gameMaster.value,
       sheriff: sheriff.value,
       done: done.value,
-      bestPlayer: best,
-      modKill: MK,
     });
-
-    // history.push("/matches");
-    // window.location.reload();
-    // reset();
+    
+    history.push("/matches");
+    window.location.reload();
+    reset();
   }
 
   useEffect(() => {
@@ -250,6 +180,7 @@ console.log("data=>", dataForm)
       return setTab("1");
     }
   }, [location]);
+
   useEffect(() => {
     if (location.hash === "#tab_02") {
       setLinkText("Назад");
@@ -381,9 +312,7 @@ console.log("data=>", dataForm)
                 // formatCreateLabel={(value) =>
                 //   `Не найдено совпадений. Создать: ${value}`
                 // }
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
+                options={optionsUnit(units)}
                 name="gameMasterAddMatchForm"
                 required
                 placeholder={<div>Выберите из списка</div>}
