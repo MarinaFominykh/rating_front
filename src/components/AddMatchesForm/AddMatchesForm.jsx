@@ -13,7 +13,7 @@ import Error from "../Error/Error.jsx";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 import { optionsResult, DUPLICATE_ELEMENTS } from "../../utils/constans";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
-import { hasDuplicates, optionsUnit } from "../../utils/functions";
+import { hasDuplicates, optionsUnit, getIdArray } from "../../utils/functions";
 import { useDispatch, useSelector } from "react-redux";
 import {
   newGameMaster,
@@ -29,12 +29,10 @@ function AddMatchesForm({
   onAddMatch,
   onClose,
   units,
-  createUnit,
-  createUnits,
+ 
 }) {
   let location = useLocation();
 
-  const history = useHistory();
   const {
     register,
     formState: { errors, isValid },
@@ -46,9 +44,9 @@ function AddMatchesForm({
     const { newMatchReducer } = state;
     return newMatchReducer;
   });
-  const { gameMaster, sheriff, done, red, black } =
-    dataForm;
+  const { gameMaster, sheriff, done, red, black } = dataForm;
   const [result, setResult] = useState({});
+  const [currentPoolOptions, setCurrentPoolOptions] = useState([]);
   const [tab, setTab] = useState("1");
   const [linkText, setLinkText] = useState("");
   const [classSubmit, setСlassSubmit] = useState("");
@@ -78,7 +76,7 @@ function AddMatchesForm({
     dispatch(
       redArrayInAddMatch(
         newValue.map((item) => {
-          return item.value;
+          return item;
         })
       )
     );
@@ -87,7 +85,7 @@ function AddMatchesForm({
     dispatch(
       blackArrayInAddMatch(
         newValue.map((item) => {
-          return item.value;
+          return item;
         })
       )
     );
@@ -110,7 +108,7 @@ function AddMatchesForm({
       )
     );
   }
-   function onChangeResult(newValue) {
+  function onChangeResult(newValue) {
     setResult(newValue);
   }
 
@@ -148,6 +146,12 @@ function AddMatchesForm({
       return setIsValidComposition(true);
     }
   }, [dataForm, result]);
+  
+  useEffect(() => {
+    const array = [...black, ...red, sheriff, done];
+    const filterArray = array.filter((item) => item !== null);
+    setCurrentPoolOptions(filterArray);
+  }, [dataForm]);
 
   function onSubmit(e) {
     const data = [...black, ...red, sheriff.value, done.value];
@@ -158,17 +162,19 @@ function AddMatchesForm({
     }
     onAddMatch({
       ...dataForm,
-       title: e.titleAddMatchForm,
+      title: e.titleAddMatchForm,
       date: e.dateMasterAddMatchForm,
       result: result.value,
       gameMaster: gameMaster.value,
       sheriff: sheriff.value,
       done: done.value,
+      black: getIdArray(black),
+      red: getIdArray(red),
     });
-    
-    history.push("/matches");
-    window.location.reload();
-    reset();
+
+    // history.push("/matches");
+    // window.location.reload();
+    // reset();
   }
 
   useEffect(() => {
@@ -371,9 +377,7 @@ function AddMatchesForm({
             <article className={classSecondArticle} id="tab_02">
               <label className="form__label add-match__label">Мафия</label>
               <Select
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
+                options={optionsUnit(units)}
                 isMulti
                 name="blackAddMatchRorm"
                 onChange={onChangeBlack}
@@ -383,9 +387,7 @@ function AddMatchesForm({
               <Error error={getSpanMessageBlack()}></Error>
               <label className="form__label add-match__label">Дон</label>
               <Select
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
+                options={optionsUnit(units)}
                 name="doneAddMatchRorm"
                 onChange={onChangeDone}
                 required
@@ -398,9 +400,7 @@ function AddMatchesForm({
                 // formatCreateLabel={(value) =>
                 //   `Не найдено совпадений. Создать: ${value}`
                 // }
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
+                options={optionsUnit(units)}
                 name="sheriffAddMatchRorm"
                 onChange={onChangeSheriff}
                 required
@@ -412,9 +412,7 @@ function AddMatchesForm({
                 Мирные жители
               </label>
               <Select
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
+                options={optionsUnit(units)}
                 isMulti
                 name="redAddMatchRorm"
                 onChange={onChangeRed}
@@ -429,9 +427,7 @@ function AddMatchesForm({
                 Лучший игрок
               </label>
               <Select
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
+                options={currentPoolOptions}
                 isMulti
                 name="bestAddMatchRorm"
                 onChange={onChangeBest}
@@ -441,9 +437,7 @@ function AddMatchesForm({
               />
               <label className="form__label add-match__label">МК</label>
               <Select
-                options={units.map((unit) => {
-                  return { value: unit._id, label: unit.name };
-                })}
+                options={currentPoolOptions}
                 isMulti
                 name="mkAddMatchRorm"
                 onChange={onChangeMK}

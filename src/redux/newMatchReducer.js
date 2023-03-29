@@ -8,7 +8,7 @@ import {
   MK_ARRAY,
 } from "./types";
 
-const intialState = {
+const initialState = {
   gameMaster: {
     value: "",
     label: "",
@@ -27,7 +27,7 @@ const intialState = {
   modKill: [],
 };
 
-export const newMatchReducer = (state = intialState, action) => {
+export const newMatchReducer = (state = initialState, action) => {
   switch (action.type) {
     case GAME_MASTER:
       return {

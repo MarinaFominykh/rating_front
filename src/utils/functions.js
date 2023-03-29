@@ -142,7 +142,11 @@ export const optionsUnit = (array) => {
         };
     });
 }
-
+export const getIdArray = (array) => {
+    return array?.map((item) => {
+        return item.value
+    });
+}
 export const hasDuplicates = (arr) => {
     return new Set(arr).size !== arr.length;
   }

@@ -45,6 +45,7 @@ import MatchEdit from "../MatchEdit/MatchEdit";
 import Menu from "../Menu/Menu";
 import { selectValue } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { matchData } from "../../redux/actions";
 
 function App() {
   let location = useLocation();
@@ -52,6 +53,10 @@ function App() {
   const period = useSelector((state) => {
     const { selectPeriodReducer } = state;
     return selectPeriodReducer.value;
+  });
+  const currentMatch = useSelector((state) => {
+    const { currentMatchReducer } = state;
+    return currentMatchReducer.match;
   });
   const [units, setUnits] = useState([]);
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false);
@@ -71,7 +76,7 @@ function App() {
   const [allMatches, setAllMatches] = useState(matches);
   const [message, setMessage] = useState("");
   const [currentProfile, setCurrentProfile] = useState({});
-  const [currentMatch, setCurrentMatch] = useState({});
+  // const [currentMatch, setCurrentMatch] = useState({});
 
   //Получаем массив игроков
   function getInitialUnits() {
@@ -154,9 +159,10 @@ function App() {
     setCurrentProfile(data);
   }
   function handleDetailMatchClick(data) {
-    setCurrentMatch(data);
+    dispatch(matchData(data));
     setIsMatchCardPopupOpen(true);
   }
+  
   function handleEditMatchClick() {
     setIsMatchEditPopupOpen(true);
   }
