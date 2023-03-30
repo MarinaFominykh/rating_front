@@ -382,11 +382,9 @@ function App() {
       />
       <MatchEdit
         isOpen={isMatchEditPopupOpen}
-        match={currentMatch}
         onClose={closeEditMatchPopup}
         units={units}
         onEditMatch={editMatch}
-        handleDelete={handleUnitDelete}
         onMatchDelete={handleDeleteMatchClick}
         isOpenCard={isMatchCardPopupOpen}
       />

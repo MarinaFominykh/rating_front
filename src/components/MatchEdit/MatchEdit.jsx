@@ -1,14 +1,11 @@
 import "./MatchEdit.scss";
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Select from "react-select";
 import moment from "moment";
-import MatchCardUsers from "../MatchCardUsers/MatchCardUsers";
 import Popup from "../Popup/Popup.jsx";
 import Form from "../Form/Form";
-import OptionUnit from "../OptionUnit/OptionUnit";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import UnitEdit from "../UnitEdit/UnitEdit";
-import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 import {
   optionsResult,
   SHERIF,
@@ -21,11 +18,11 @@ import {
   optionsUnit,
   hasDuplicates,
   getIdArray,
+  idArray,
 } from "../../utils/functions.js";
 import peopleIcon from "../../image/icons/fluent_people-20-regular.svg";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  matchData,
   titleInEditMatch,
   gameMasterInEditMatch,
   dateInEditMatch,
@@ -45,19 +42,12 @@ import {
 } from "../../redux/actions";
 function MatchEdit({
   isOpen,
-  match,
   onClose,
   onEditMatch,
-  currentTitle,
-  currentGameMaster,
   units,
-  handleDelete,
   onMatchDelete,
-  unit,
   isOpenCard,
 }) {
-  const { values, handleChange, errors, isValid, resetForm } =
-    useFormWithValidation();
   const dispatch = useDispatch();
   const currentMatch = useSelector((state) => {
     const { currentMatchReducer } = state;
@@ -85,7 +75,7 @@ function MatchEdit({
     red5,
     red6,
   } = dataForm;
-
+  const [currentPoolOptions, setCurrentPoolOptions] = useState([]);
   const [message, setMessage] = useState("");
 
   function showInfoToolTip(error) {
@@ -101,6 +91,9 @@ function MatchEdit({
   }
   function onChangeResult(newValue) {
     dispatch(resultInEditMatch(newValue));
+  }
+  function onChangeDate(e) {
+    dispatch(dateInEditMatch(e.target.value));
   }
   function onChangeBestPlayer(newValue) {
     dispatch(
@@ -152,154 +145,6 @@ function MatchEdit({
     dispatch(red6InEditMatch(newValue));
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const data = [
-      black1.value,
-      black2.value,
-      red1.value,
-      red2.value,
-      red3.value,
-      red4.value,
-      red5.value,
-      red6.value,
-      sheriff.value,
-      done.value,
-      gameMaster.value,
-    ];
-    const bpArray = bestPlayer.map((item) => {
-      return item.value;
-    });
-    const mkArray = modKill.map((item) => {
-      return item.value;
-    });
-    const currentValues = [
-      title,
-      gameMaster.value,
-      date,
-      result.value,
-      ...bpArray,
-      ...mkArray,
-      sheriff.value,
-      done.value,
-      black1.value,
-      black2.value,
-      red1.value,
-      red2.value,
-      red3.value,
-      red4.value,
-      red5.value,
-      red6.value,
-    ];
-
-    if (
-      (gameMaster.value === currentMatch.gameMaster._id || !gameMaster.value) &&
-      (date === currentMatch.date || !date) &&
-      (title === currentMatch.title || !title) &&
-      (result.value === currentMatch.result || !result.value) &&
-      (sheriff.value === currentMatch.sheriff._id || !sheriff.value) &&
-      (done.value === currentMatch.done._id || !done.value) &&
-      // &&
-      // JSON.stringify(
-      //   match.black.map((item) => {
-      //     return item._id;
-      //   })
-      // ) === JSON.stringify([black1.value, black2.value]) &&
-      // JSON.stringify(
-      //   match.red.map((item) => {
-      //     return item._id;
-      //   })
-      // ) ===
-      //   JSON.stringify([
-      //     red1.value,
-      //     red2.value,
-      //     red3.value,
-      //     red4.value,
-      //     red5.value,
-      //     red6.value,
-      //   ]) &&
-      // JSON.stringify(
-      //   modKill.map((item) => {
-      //     return {
-      //       _id: item.value,
-      //       name: item.label,
-      //     };
-      //   })
-      // ) === JSON.stringify(match.modKill) &&
-      // JSON.stringify(
-      //   bestPlayer.map((item) => {
-      //     return {
-      //       _id: item.value,
-      //       name: item.label,
-      //     };
-      //   })
-      // ) === JSON.stringify(match.bestPlayer)
-      JSON.stringify(
-        match.black.map((item) => {
-          return item._id;
-        })
-      ) === JSON.stringify([black1.value, black2.value]) &&
-      JSON.stringify(
-        match.red.map((item) => {
-          return item._id;
-        })
-      ) ===
-        JSON.stringify([
-          red1.value,
-          red2.value,
-          red3.value,
-          red4.value,
-          red5.value,
-          red6.value,
-        ]) &&
-      JSON.stringify(
-        modKill.map((item) => {
-          return {
-            _id: item.value,
-            name: item.label,
-          };
-        })
-      ) === JSON.stringify(match.modKill) &&
-      JSON.stringify(
-        bestPlayer.map((item) => {
-          return {
-            _id: item.value,
-            name: item.label,
-          };
-        })
-      ) === JSON.stringify(match.bestPlayer)
-    ) {
-      showInfoToolTip("Измените данные");
-    } else if (hasDuplicates(data)) {
-      showInfoToolTip(DUPLICATE_ELEMENTS);
-    } else if (
-      onEditMatch({
-        id: match._id,
-        title: values.titleEditMatchForm,
-        gameMaster: gameMaster.value,
-        date: values.dateEditMatchForm,
-        result: result.value,
-        sheriff: sheriff.value,
-        done: done.value,
-        black: [black1.value, black2.value],
-        red: [
-          red1.value,
-          red2.value,
-          red3.value,
-          red4.value,
-          red5.value,
-          red6.value,
-        ],
-        modKill: modKill.map((item) => {
-          return item.value;
-        }),
-        bestPlayer: bestPlayer.map((item) => {
-          return item.value;
-        }),
-      })
-    )
-      e.target.reset();
-  }
   useEffect(() => {
     dispatch(titleInEditMatch(currentMatch.title));
     dispatch(
@@ -394,25 +239,97 @@ function MatchEdit({
         })
       )
     );
-    // setBestPlayer(
-    //   match?.bestPlayer?.map((item) => {
-    //     return {
-    //       label: item.name,
-    //       value: item._id,
-    //     };
-    //   })
-    // );
-    // setMk(
-    //   match?.modKill?.map((item) => {
-    //     return {
-    //       label: item.name,
-    //       value: item._id,
-    //     };
-    //   })
-    // );
 
-    dispatch(dateInEditMatch(moment(match?.date).format("YYYY-MM-DD")));
+    dispatch(dateInEditMatch(moment(currentMatch.date).format("YYYY-MM-DD")));
   }, [isOpenCard, isOpen]);
+  useEffect(() => {
+    const array = [
+      black1,
+      black2,
+      red1,
+      red2,
+      red3,
+      red4,
+      red5,
+      red6,
+      sheriff,
+      done,
+    ];
+    setCurrentPoolOptions(array);
+  }, [dataForm]);
+  function handleSubmit(e) {
+    e.preventDefault();
+    const data = [
+      black1.value,
+      black2.value,
+      red1.value,
+      red2.value,
+      red3.value,
+      red4.value,
+      red5.value,
+      red6.value,
+      sheriff.value,
+      done.value,
+    ];
+
+    const prevValues = [
+      currentMatch.title,
+      currentMatch.gameMaster._id,
+      moment(currentMatch.date).format("YYYY-MM-DD"),
+      currentMatch.result,
+      ...idArray(currentMatch.bestPlayer),
+      ...idArray(currentMatch.modKill),
+      currentMatch.sheriff._id,
+      currentMatch.done._id,
+      ...idArray(currentMatch.black),
+      ...idArray(currentMatch.red),
+    ];
+    const currentValues = [
+      title,
+      gameMaster.value,
+      date,
+      result.value,
+      ...getIdArray(bestPlayer),
+      ...getIdArray(modKill),
+      sheriff.value,
+      done.value,
+      black1.value,
+      black2.value,
+      red1.value,
+      red2.value,
+      red3.value,
+      red4.value,
+      red5.value,
+      red6.value,
+    ];
+
+    if (!title || !date) {
+      showInfoToolTip("Заполните все поля");
+    } else if (JSON.stringify(prevValues) === JSON.stringify(currentValues)) {
+      showInfoToolTip("Измените данные");
+    } else if (hasDuplicates(data)) {
+      showInfoToolTip(DUPLICATE_ELEMENTS);
+    } else
+      onEditMatch({
+        id: currentMatch._id,
+        ...dataForm,
+        gameMaster: gameMaster.value,
+        result: result.value,
+        sheriff: sheriff.value,
+        done: done.value,
+        black: [black1.value, black2.value],
+        red: [
+          red1.value,
+          red2.value,
+          red3.value,
+          red4.value,
+          red5.value,
+          red6.value,
+        ],
+        modKill: getIdArray(modKill),
+        bestPlayer: getIdArray(bestPlayer),
+      });
+  }
 
   return (
     <Popup isOpen={isOpen} className="match-edit">
@@ -423,7 +340,6 @@ function MatchEdit({
           className="match-edit"
           title="Редактирование игры"
           buttonLeftValue="Назад"
-          // isDisabled={!isValid}
           handlerClick={onClose}
           linkClass="hidden"
           submitClass="visible"
@@ -447,7 +363,6 @@ function MatchEdit({
           <Select
             options={optionsUnit(units)}
             placeholder={<div>Выберите из списка</div>}
-            isClearable
             value={gameMaster}
             onChange={onChangeGameMaster}
             className="match-edit__input select-input"
@@ -463,8 +378,8 @@ function MatchEdit({
                 id="dateEditMatchForm"
                 type="date"
                 placeholder="Дата окончания игры"
-                defaultValue={date}
-                onChange={handleChange}
+                value={date}
+                onChange={onChangeDate}
               />
             </div>
             <div className="match-edit__result-item">
@@ -479,14 +394,13 @@ function MatchEdit({
                 value={result}
                 onChange={onChangeResult}
                 placeholder={<div>Выберите из списка</div>}
-                isClearable
                 className="select-input"
               />
             </div>
           </fieldset>
           <label className="form__label match-edit__label">Лучший игрок</label>
           <Select
-            options={optionsUnit(units)}
+            options={currentPoolOptions}
             value={bestPlayer}
             onChange={onChangeBestPlayer}
             placeholder={<div>Выберите из списка</div>}
@@ -496,7 +410,7 @@ function MatchEdit({
           />
           <label className="form__label match-edit__label">Модкилл</label>
           <Select
-            options={optionsUnit(units)}
+            options={currentPoolOptions}
             value={modKill}
             onChange={onChangeMk}
             placeholder={<div>Выберите из списка</div>}

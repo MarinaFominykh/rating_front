@@ -3,7 +3,7 @@
   gap: 20px;
 }
 .match-edit {
-  min-width: 477px;
+  width: 477px;
   // height: 100vh;
   background: #ffffff;
   padding: 32px 32px 62px 32px;
@@ -51,6 +51,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  width: 100%;
 }
 .match-edit__input {
   margin-bottom: 12px;

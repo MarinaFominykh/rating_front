@@ -147,6 +147,11 @@ export const getIdArray = (array) => {
         return item.value
     });
 }
+export const idArray = (array) => {
+    return array?.map((item) => {
+        return item._id
+    });
+}
 export const hasDuplicates = (arr) => {
     return new Set(arr).size !== arr.length;
   }
