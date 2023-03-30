@@ -1,14 +1,19 @@
 import "./Menu.scss";
 import { NavLink, useLocation } from "react-router-dom";
-function Menu({ onClickAddMatch, isOpen, onClose }) {
+import { useDispatch, useSelector } from "react-redux";
+function Menu({ onClickAddMatch, onClickAddUnit, onClose }) {
+  const checked = useSelector((state) => {
+    const { checkboxReducer } = state;
+    return checkboxReducer.value;
+  });
   return (
-    <div className={`menu ${isOpen && "menu_opened"}`}>
+    <div className={`menu ${checked && "menu_opened"}`}>
       <div className="menu__wrapper">
         <div>
-          <div className="menu__head">
+          {/* <div className="menu__head">
             <div className="menu__close" onClick={onClose}></div>
             <p className="menu__title">Mafia&nbsp;Rating</p>
-          </div>
+          </div> */}
           <nav className="menu__nav">
             <ul className="menu__nav-list">
               <NavLink
@@ -36,10 +41,14 @@ function Menu({ onClickAddMatch, isOpen, onClose }) {
             </ul>
           </nav>
         </div>
-
-        <button className="button menu__button" onClick={onClickAddMatch}>
-          Новая игра &#43;
-        </button>
+        <div className="menu__buttons">
+          <button className="button menu__button" onClick={onClickAddMatch}>
+            Новая игра &#43;
+          </button>
+          <button className="button menu__button" onClick={onClickAddUnit}>
+            Новый игрок &#43;
+          </button>
+        </div>
       </div>
     </div>
   );

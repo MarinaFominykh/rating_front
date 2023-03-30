@@ -32,6 +32,7 @@ function AddMatchesForm({
  
 }) {
   let location = useLocation();
+  const history = useHistory();
 
   const {
     register,
@@ -172,9 +173,9 @@ function AddMatchesForm({
       red: getIdArray(red),
     });
 
-    // history.push("/matches");
-    // window.location.reload();
-    // reset();
+    history.push("/matches");
+    window.location.reload();
+    reset();
   }
 
   useEffect(() => {

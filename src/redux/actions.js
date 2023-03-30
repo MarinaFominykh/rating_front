@@ -12,6 +12,9 @@ import {
   MK_ARRAY,
 } from "./types";
 import {
+  CHECKBOX,
+  PERIOD_VALUE_MATCHES,
+  PERIOD_VALUE_MAIN,
   CURRENT_MATCH,
   TITLE_EDIT_MATCH,
   SHERIFF_EDIT_MATCH,
@@ -41,14 +44,25 @@ export function removeTest() {
     type: REMOVE,
   };
 }
-
-export function selectValue(value) {
+export function checkbox(value) {
+  console.log("check+>", value)
   return {
-    type: SELECT_VALUE,
+    type: CHECKBOX,
     value,
   };
 }
-
+export function selectValue(value) {
+  return {
+    type: PERIOD_VALUE_MAIN,
+    value,
+  };
+}
+export function  selectValueMatches(value) {
+  return {
+    type: PERIOD_VALUE_MATCHES,
+    value,
+  };
+}
 export function matchData(data) {
   return {
     type: CURRENT_MATCH,

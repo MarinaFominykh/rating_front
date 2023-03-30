@@ -18,6 +18,7 @@ function Main({
   sortData,
   matches,
   showUnit,
+  handleAddUnit
 
 }) {
   const dispatch = useDispatch();
@@ -58,9 +59,9 @@ function Main({
             <select
               className="select"
               name="period"
-              // value={values.period}
+              value={period}
               onChange={handleSelectChange}
-              defaultValue="allTime"
+              // defaultValue="allTime"
             >
               <option className="select__option" value="allTime">
                 За все время
@@ -105,6 +106,7 @@ function Main({
           sortData={sortData}
           matches={matches}
           showUnit={showUnit}
+          handleAddUnit={handleAddUnit}
          
         />
       </section>

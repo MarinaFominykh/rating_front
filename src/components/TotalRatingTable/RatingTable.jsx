@@ -23,6 +23,7 @@ function RatingTable({
   sortData,
   matches,
   showUnit,
+  handleAddUnit
   
 }) {
   const [dataUnits, setDataUnits] = useState(allUnits);
@@ -51,9 +52,9 @@ function RatingTable({
               Рейтинг
             </th>
             <th className="table__cell table__cell-head unit__head">
-              {/* <button onClick={handleAddUnit} className="button">
-                Добавить игрока
-              </button> */}
+              <button onClick={handleAddUnit} className="button">
+                Новый игрок +
+              </button>
             </th>
           </tr>
         </thead>

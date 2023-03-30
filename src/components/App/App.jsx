@@ -35,6 +35,7 @@ import {
 import { MatchesLoad } from "../../redux/actions";
 import Main from "../Main/Main.jsx";
 import AddMatchesForm from "../AddMatchesForm/AddMatchesForm.jsx";
+import AddUnitForm from "../AddUnitForm/AddUnitForm";
 import UpdateUnitForm from "../UpdateUnitForm/UpdateUnitForm.jsx";
 import Header from "../Header/Header.jsx";
 import Matches from "../Matches/Matches.jsx";
@@ -45,11 +46,15 @@ import MatchEdit from "../MatchEdit/MatchEdit";
 import Menu from "../Menu/Menu";
 import { selectValue } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { matchData } from "../../redux/actions";
+import { matchData, checkbox } from "../../redux/actions";
 
 function App() {
   let location = useLocation();
   const dispatch = useDispatch();
+  const checked = useSelector((state) => {
+    const { checkboxReducer } = state;
+    return checkboxReducer.value;
+  });
   const period = useSelector((state) => {
     const { selectPeriodReducer } = state;
     return selectPeriodReducer.value;
@@ -65,7 +70,8 @@ function App() {
   const [isMatchEditPopupOpen, setIsMatchEditPopupOpen] = useState(false);
   const [isFormWithUpdateUnit, setIsFormWithUpdateUnit] = useState(false);
   const [isFormWithConfirmation, setIsFormWithConfirmation] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAddUnitPopupOpen, setIsAddUnitPopupOpen] = useState(false);
+  // const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [matches, setMatches] = useState([]);
   const [matches2020, setMatches2020] = useState([]);
   const [matches2021, setMatches2021] = useState([]);
@@ -131,6 +137,7 @@ function App() {
     setIsFormPopupOpen(false);
     setIsProfilePopupOpen(false);
     setIsMatchCardPopupOpen(false);
+    setIsAddUnitPopupOpen(false);
   }
   function closeConfirmPopup() {
     setIsFormWithConfirmation(false);
@@ -139,7 +146,7 @@ function App() {
     setIsMatchEditPopupOpen(false);
   }
   function closeMenu() {
-    setIsMenuOpen(false);
+    dispatch(checkbox(!checked));
   }
   function closeUpdateUnitPopup() {
     setIsFormWithUpdateUnit(false);
@@ -151,18 +158,22 @@ function App() {
     closeMenu();
   }
 
-  function handleBurgerClick() {
-    setIsMenuOpen(true);
-  }
+  // function handleBurgerClick() {
+  //   setIsMenuOpen(true);
+  // }
   function handleProfileClick(data) {
     setIsProfilePopupOpen(true);
     setCurrentProfile(data);
+  }
+  function handlerAddUnitClick() {
+    setIsAddUnitPopupOpen(true);
+    closeMenu();
   }
   function handleDetailMatchClick(data) {
     dispatch(matchData(data));
     setIsMatchCardPopupOpen(true);
   }
-  
+
   function handleEditMatchClick() {
     setIsMatchEditPopupOpen(true);
   }
@@ -251,7 +262,14 @@ function App() {
       .then(() => closeEditMatchPopup())
       .catch((err) => console.log(err));
   }
-
+function addUnit(name) {
+  createUnit(name)
+  .then((newUnit) => {
+    setUnits([...units, newUnit]) 
+  })
+  .then(() => closePopup())
+  .catch((err) => console.log(err));
+}
   function updateName(name) {
     updateUnit(currentProfile, name)
       .then(() => {
@@ -307,8 +325,8 @@ function App() {
     <div className="page">
       <Header
         onClickAddMatch={handleAddMatchClick}
-        onClickBurger={handleBurgerClick}
-        onClose={closeMenu}
+       
+        // onClose={closeMenu}
       />
       <Switch>
         <Route exact path="/">
@@ -316,6 +334,7 @@ function App() {
             allUnits={units}
             matches={allMatches}
             showUnit={handleProfileClick}
+            handleAddUnit = {handlerAddUnitClick}
           />
         </Route>
 
@@ -341,9 +360,9 @@ function App() {
         onClose={closePopup}
         units={units}
         onAddMatch={addMatch}
-        createUnit={createUnit}
-        createUnits={createUnits}
+       
       />
+      <AddUnitForm isOpen={isAddUnitPopupOpen} onClose={closePopup} onAddUnit={addUnit} />
       <Profile
         isOpen={isProfilePopupOpen}
         onClose={closePopup}
@@ -396,8 +415,9 @@ function App() {
       />
       <Menu
         onClickAddMatch={handleAddMatchClick}
-        isOpen={isMenuOpen}
-        onClose={closeMenu}
+      
+        // onClose={closeMenu}
+        onClickAddUnit={handlerAddUnitClick}
       />
     </div>
   );

@@ -5,6 +5,8 @@ import Match from "../Match/Match.jsx";
 import UserCurrentWidth from "../../hooks/useCurrentWidth.js";
 import { getLoadStep, getInitialCount } from "../../utils/getLoadStep.js";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
+import { useDispatch, useSelector } from "react-redux";
+import { selectValueMatches } from "../../redux/actions";
 import noGames from "../../image/no_games.png";
 
 function Matches({
@@ -20,32 +22,29 @@ function Matches({
   onMatchDelete,
   // onClose,
   units,
-  // addUnit,
-  // onUpdateTitle,
-  // isOpenUpdateTitle,
-  // onClickEditTitleButton,
-  // onReplaceUnit,
-  // isOpenReplaceUnit,
-  // onClickReplaceUnitButton,
   onEditTitle,
   onEditGameMatch,
   onEditUnit,
   onEditResult,
   showMatch,
-  // stationSubmit,
+
 }) {
+  const dispatch = useDispatch();
+  const period = useSelector((state) => {
+    const { selectPeriodMatchesReducer } = state;
+    return selectPeriodMatchesReducer.value;
+  });
   const width = UserCurrentWidth();
   const [count, setCount] = useState(getInitialCount(width));
-  const [period, setPeriod] = useState("allTime");
-  const { values, handleChange, errors, isValid, resetForm } =
-    useFormWithValidation();
+
 
   function handleLoadMore() {
     setCount((prevCount) => prevCount + getLoadStep(width));
   }
-  function getPeriod() {
-    setPeriod(values.period);
+  function handleSelectChange(e) {
+    dispatch(selectValueMatches(e.target.value));
   }
+
   const matchesArray = () => {
     if (period === "2020") {
       return matches2020;
@@ -62,9 +61,7 @@ function Matches({
     }
     return matches;
   };
-  useEffect(() => {
-    getPeriod();
-  }, [values.period]);
+
   return (
     <main className="main">
       {/* <nav className="matches__nav-container">
@@ -109,9 +106,9 @@ function Matches({
           <select
             className="select matches__select"
             name="period"
-            value={values.period}
-            onChange={handleChange}
-            defaultValue="allTime"
+            value={period}
+            onChange={handleSelectChange}
+           
           >
             <option className="select__option" value="allTime">
               За все время

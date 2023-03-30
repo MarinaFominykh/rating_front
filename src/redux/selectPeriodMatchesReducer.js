@@ -1,13 +1,13 @@
 import {
-    PERIOD_VALUE_MAIN
+    PERIOD_VALUE_MATCHES,
 } from "./../utils/constans"
 const initialState = {
     value: "allTime"
 }
 
-export const selectPeriodReducer = (state = initialState, action) => {
+export const selectPeriodMatchesReducer = (state = initialState, action) => {
     switch (action.type) {
-        case PERIOD_VALUE_MAIN:
+        case PERIOD_VALUE_MATCHES:
             return {
                 ...state, value: action.value
             }
