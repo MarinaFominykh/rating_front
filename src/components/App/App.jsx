@@ -146,7 +146,7 @@ function App() {
     setIsMatchEditPopupOpen(false);
   }
   function closeMenu() {
-    dispatch(checkbox(!checked));
+    dispatch(checkbox(false));
   }
   function closeUpdateUnitPopup() {
     setIsFormWithUpdateUnit(false);

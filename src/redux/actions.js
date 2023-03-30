@@ -45,8 +45,7 @@ export function removeTest() {
   };
 }
 export function checkbox(value) {
-  console.log("check+>", value)
-  return {
+   return {
     type: CHECKBOX,
     value,
   };
