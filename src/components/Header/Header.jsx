@@ -14,6 +14,7 @@ function Header({ onClickAddMatch, onClickBurger }) {
   function changeCheckbox() {
     dispatch(checkbox(!checked));
  }
+ const className = checked ? "header__burger-input" : ""
   return (
     <header className="header">
       <div className="header__container">
@@ -27,7 +28,7 @@ function Header({ onClickAddMatch, onClickBurger }) {
         <div className="header__nav-container">
           <div className="header__logo-container">
           <label className="header__burger">
-          <input type="checkbox" value={checked} onChange={changeCheckbox}/>
+          <input type="checkbox" className={className} value={checked} onChange={changeCheckbox}/>
           <svg viewBox="0 0 32 32">
             <path
               className="line line-top-bottom"

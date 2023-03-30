@@ -415,8 +415,7 @@ function addUnit(name) {
       />
       <Menu
         onClickAddMatch={handleAddMatchClick}
-      
-        // onClose={closeMenu}
+        onClose={closeMenu}
         onClickAddUnit={handlerAddUnitClick}
       />
     </div>
