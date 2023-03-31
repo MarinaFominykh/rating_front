@@ -61,7 +61,7 @@ function Main({
               name="period"
               value={period}
               onChange={handleSelectChange}
-              // defaultValue="allTime"
+              
             >
               <option className="select__option" value="allTime">
                 За все время

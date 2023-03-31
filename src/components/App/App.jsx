@@ -1,18 +1,12 @@
 import "./App.scss";
 import { useEffect, useState } from "react";
+import { Route, Switch, useLocation, useHistory } from "react-router-dom";
 import {
-  Route,
-  Switch,
-  Redirect,
-  useHistory,
-  useLocation,
-} from "react-router-dom";
-import {
+  authorize,
   getMatches,
   getUnits,
   addNewMatch,
   createUnit,
-  createUnits,
   updateUnit,
   removeUnit,
   removeMatch,
@@ -32,7 +26,15 @@ import {
   countBestPlayer,
   countRating,
 } from "../../utils/functions";
-import { MatchesLoad } from "../../redux/actions";
+import {
+  CONFLICT_LOGIN_MESSAGE,
+  AUTH_DATA_ERROR_MESSAGE,
+  SERVER_ERROR_MESSAGE,
+  INVALID_TOKEN_ERROR_MESSAGE,
+  INVALID_DATA_ERROR_MESSAGE,
+
+} from "../../utils/constans";
+import Login from "../Login/Login.jsx";
 import Main from "../Main/Main.jsx";
 import AddMatchesForm from "../AddMatchesForm/AddMatchesForm.jsx";
 import AddUnitForm from "../AddUnitForm/AddUnitForm";
@@ -44,17 +46,13 @@ import Profile from "../Profile/Profile.jsx";
 import MatchCard from "../MatchCard/MatchCard";
 import MatchEdit from "../MatchEdit/MatchEdit";
 import Menu from "../Menu/Menu";
-import { selectValue } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { matchData, checkbox } from "../../redux/actions";
 
 function App() {
   let location = useLocation();
+  const history = useHistory();
   const dispatch = useDispatch();
-  const checked = useSelector((state) => {
-    const { checkboxReducer } = state;
-    return checkboxReducer.value;
-  });
   const period = useSelector((state) => {
     const { selectPeriodReducer } = state;
     return selectPeriodReducer.value;
@@ -63,6 +61,7 @@ function App() {
     const { currentMatchReducer } = state;
     return currentMatchReducer.match;
   });
+  const [loggedIn, setLoggedIn] = useState(false);
   const [units, setUnits] = useState([]);
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false);
   const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
@@ -71,7 +70,6 @@ function App() {
   const [isFormWithUpdateUnit, setIsFormWithUpdateUnit] = useState(false);
   const [isFormWithConfirmation, setIsFormWithConfirmation] = useState(false);
   const [isAddUnitPopupOpen, setIsAddUnitPopupOpen] = useState(false);
-  // const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [matches, setMatches] = useState([]);
   const [matches2020, setMatches2020] = useState([]);
   const [matches2021, setMatches2021] = useState([]);
@@ -82,8 +80,28 @@ function App() {
   const [allMatches, setAllMatches] = useState(matches);
   const [message, setMessage] = useState("");
   const [currentProfile, setCurrentProfile] = useState({});
-  // const [currentMatch, setCurrentMatch] = useState({});
 
+  // Авторизация
+  function handleLogin({ login, password }) {
+    authorize(login, password)
+      .then((jwt) => {
+        if (jwt.token) {
+          localStorage.setItem("token", jwt.token);
+          setLoggedIn(true);
+          history.push("/");
+        }
+        showInfoToolTip(INVALID_TOKEN_ERROR_MESSAGE);
+      })
+      .catch((error) => {
+        if (error === 400) {
+          showInfoToolTip(INVALID_DATA_ERROR_MESSAGE);
+        } else if (error === 401) {
+          showInfoToolTip(AUTH_DATA_ERROR_MESSAGE);
+        } else {
+          showInfoToolTip(SERVER_ERROR_MESSAGE);
+        }
+      });
+  }
   //Получаем массив игроков
   function getInitialUnits() {
     getUnits().then((dataUnits) => {
@@ -158,9 +176,6 @@ function App() {
     closeMenu();
   }
 
-  // function handleBurgerClick() {
-  //   setIsMenuOpen(true);
-  // }
   function handleProfileClick(data) {
     setIsProfilePopupOpen(true);
     setCurrentProfile(data);
@@ -187,19 +202,6 @@ function App() {
 
   // запросы к серверу
   function addMatch(data) {
-    const {
-      title,
-      gameMaster,
-      date,
-      result,
-      black,
-      red,
-      sheriff,
-      done,
-      modKill,
-      bestPlayer,
-    } = data;
-
     addNewMatch(data)
       .then((newMatch) => {
         setMatches([...matches, newMatch]);
@@ -253,8 +255,6 @@ function App() {
   //   // })
   // }
   function editMatch(data) {
-    const { id, title, gameMaster, date, result } = data;
-
     updateMatch(data)
       .then(() => {
         getInitialMatches();
@@ -262,14 +262,14 @@ function App() {
       .then(() => closeEditMatchPopup())
       .catch((err) => console.log(err));
   }
-function addUnit(name) {
-  createUnit(name)
-  .then((newUnit) => {
-    setUnits([...units, newUnit]) 
-  })
-  .then(() => closePopup())
-  .catch((err) => console.log(err));
-}
+  function addUnit(name) {
+    createUnit(name)
+      .then((newUnit) => {
+        setUnits([...units, newUnit]);
+      })
+      .then(() => closePopup())
+      .catch((err) => console.log(err));
+  }
   function updateName(name) {
     updateUnit(currentProfile, name)
       .then(() => {
@@ -302,11 +302,12 @@ function addUnit(name) {
 
   useEffect(() => {
     getInitialMatches();
-  }, []);
-
-  useEffect(() => {
     getInitialUnits();
   }, []);
+
+  // useEffect(() => {
+  //   getInitialUnits();
+  // }, []);
   useEffect(() => {
     getCurrentMatchesArray();
   }, [matches, period, location]);
@@ -323,18 +324,14 @@ function addUnit(name) {
 
   return (
     <div className="page">
-      <Header
-        onClickAddMatch={handleAddMatchClick}
-       
-        // onClose={closeMenu}
-      />
+      <Header onClickAddMatch={handleAddMatchClick} />
       <Switch>
         <Route exact path="/">
           <Main
             allUnits={units}
             matches={allMatches}
             showUnit={handleProfileClick}
-            handleAddUnit = {handlerAddUnitClick}
+            handleAddUnit={handlerAddUnitClick}
           />
         </Route>
 
@@ -353,6 +350,9 @@ function addUnit(name) {
             showMatch={handleDetailMatchClick}
           ></Matches>
         </Route>
+        <Route path="/sign-in">
+            <Login onLogin={handleLogin} message={message} />
+          </Route>
       </Switch>
 
       <AddMatchesForm
@@ -360,9 +360,12 @@ function addUnit(name) {
         onClose={closePopup}
         units={units}
         onAddMatch={addMatch}
-       
       />
-      <AddUnitForm isOpen={isAddUnitPopupOpen} onClose={closePopup} onAddUnit={addUnit} />
+      <AddUnitForm
+        isOpen={isAddUnitPopupOpen}
+        onClose={closePopup}
+        onAddUnit={addUnit}
+      />
       <Profile
         isOpen={isProfilePopupOpen}
         onClose={closePopup}

@@ -1,5 +1,20 @@
-// export const BASE_URL = "http://localhost:3001";
-export const BASE_URL = "https://mafia-raiting.online"; 
+export const BASE_URL = "http://localhost:3001";
+// export const BASE_URL = "https://mafia-raiting.online"; 
+
+// Авторизация
+export const authorize = (login, password) => {
+  return fetch(`${BASE_URL}/signin`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      login,
+      password,
+    }),
+  }).then(checkResponse);
+};
 
 export const getMatches = () => {
   return fetch(`${BASE_URL}/matches`, {
@@ -49,7 +64,7 @@ export const createUnit = (name) => {
   }).then(checkResponse);
 };
 export const createUnits = (names) => {
-  return fetch(`${BASE_URL}/many-units`, {
+  return fetch(`${BASE_URL}/units/many-units`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
