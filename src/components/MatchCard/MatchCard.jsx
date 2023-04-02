@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import Popup from "../Popup/Popup.jsx";
 import MatchCardUsers from "../MatchCardUsers/MatchCardUsers";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import avatar from "../../image/icons/avatar.svg";
 import amountIcon from "../../image/icons/profile_amount.svg";
 import blackIcon from "../../image/icons/profile_black.svg";
@@ -13,6 +14,7 @@ import settingIcon from "../../image/icons/fluent_settings-16-filled.svg";
 import gameMasterIcon from "../../image/icons/gamemaster.svg";
 import calendarIcon from "../../image/icons/calendar.svg";
 import peopleIcon from "../../image/icons/fluent_people-20-regular.svg";
+import {FORBIDDEN_ERROR_MESSAGE} from "../../utils/constans";
 
 function MatchCard({
   isOpen,
@@ -26,12 +28,18 @@ function MatchCard({
   match,
   onEdit,
   onMatchDelete,
+  loggedIn,
 }) {
+  const [message, setMessage] = useState("");
+  function showInfoToolTip(error) {
+    setMessage(error);
+    setTimeout(() => setMessage(""), 5000);
+  }
   function handleUpdateName() {
     onUpdateUnit(unit);
   }
   function handlerEdit() {
-    onEdit(match);
+    loggedIn ? onEdit(match) : showInfoToolTip(FORBIDDEN_ERROR_MESSAGE);
   }
 
   return (
@@ -99,7 +107,7 @@ function MatchCard({
           iconClass="menu"
           wrapperClass="card"
         />
-
+        <InfoTooltip message={message} />
         <div className="match-card__buttons">
           <button
             type="button"
@@ -112,6 +120,7 @@ function MatchCard({
             type="button"
             className="match-card__edit-btn"
             onClick={handlerEdit}
+            // disabled={!loggedIn}
           >
             Редактировать
           </button>

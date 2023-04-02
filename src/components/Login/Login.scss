@@ -75,21 +75,21 @@
     opacity: 1;
 }
 
-.form__close {
-    width: 32px;
-    height: 32px;
-    background: transparent url(../../image/Close_Icon.svg);
-    position: absolute;
-    top: -40px;
-    right: -40px;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    transition: .5s;
-    object-fit: contain;
-    object-position: center;
-    border: 1px red;
-}
+// .form__close {
+//     width: 32px;
+//     height: 32px;
+//     background: transparent url(../../image/Close_Icon.svg);
+//     position: absolute;
+//     top: -40px;
+//     right: -40px;
+//     border: none;
+//     padding: 0;
+//     cursor: pointer;
+//     transition: .5s;
+//     object-fit: contain;
+//     object-position: center;
+//     border: 1px red;
+// }
 
 
 .form__close:hover {

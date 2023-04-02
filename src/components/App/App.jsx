@@ -32,7 +32,6 @@ import {
   SERVER_ERROR_MESSAGE,
   INVALID_TOKEN_ERROR_MESSAGE,
   INVALID_DATA_ERROR_MESSAGE,
-
 } from "../../utils/constans";
 import Login from "../Login/Login.jsx";
 import Main from "../Main/Main.jsx";
@@ -102,6 +101,12 @@ function App() {
         }
       });
   }
+
+  function handleSignOut() {
+    localStorage.removeItem("token");
+    setLoggedIn(false);
+  }
+
   //Получаем массив игроков
   function getInitialUnits() {
     getUnits().then((dataUnits) => {
@@ -300,6 +305,16 @@ function App() {
 
   // Эффекты
 
+  // проверка токена и получение данных текущего пользователя
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      setLoggedIn(true);
+      // history.push("/");
+    }
+  }, [history, loggedIn]);
+
   useEffect(() => {
     getInitialMatches();
     getInitialUnits();
@@ -324,7 +339,7 @@ function App() {
 
   return (
     <div className="page">
-      <Header onClickAddMatch={handleAddMatchClick} />
+      <Header onClickAddMatch={handleAddMatchClick} loggedIn={loggedIn} handleSignOut={handleSignOut} />
       <Switch>
         <Route exact path="/">
           <Main
@@ -351,8 +366,8 @@ function App() {
           ></Matches>
         </Route>
         <Route path="/sign-in">
-            <Login onLogin={handleLogin} message={message} />
-          </Route>
+          <Login onLogin={handleLogin} message={message} />
+        </Route>
       </Switch>
 
       <AddMatchesForm
@@ -384,6 +399,7 @@ function App() {
         raiting={countRating(allMatches, currentProfile)}
         onUpdateUnit={handleUpdateUnitsClick}
         unit={currentProfile}
+        logged={loggedIn}
       />
       <UpdateUnitForm
         isOpen={isFormWithUpdateUnit}
@@ -401,6 +417,7 @@ function App() {
         result={currentMatch.result}
         gameMaster={currentMatch.gameMaster?.name}
         date={currentMatch.date}
+        loggedIn={loggedIn}
       />
       <MatchEdit
         isOpen={isMatchEditPopupOpen}

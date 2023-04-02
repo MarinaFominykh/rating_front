@@ -1,5 +1,7 @@
 import "./Profile.scss";
+import React, { useState, useEffect } from "react";
 import Popup from "../Popup/Popup.jsx";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import avatar from "../../image/icons/avatar.svg";
 import amountIcon from "../../image/icons/profile_amount.svg";
 import blackIcon from "../../image/icons/profile_black.svg";
@@ -9,6 +11,7 @@ import doneIcon from "../../image/icons/profile_done.svg";
 import settingIcon from "../../image/icons/fluent_settings-16-filled.svg";
 import { selectValue } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import {FORBIDDEN_ERROR_MESSAGE} from "../../utils/constans";
 
 function Profile({
   isOpen,
@@ -28,9 +31,17 @@ function Profile({
   onUpdateUnit,
   unit,
   raiting,
+  logged
 }) {
+  const [message, setMessage] = useState("");
+  function showInfoToolTip(error) {
+    setMessage(error);
+    setTimeout(() => setMessage(""), 5000);
+  }
   function handleUpdateName() {
-    onUpdateUnit(unit);
+    logged
+    ? onUpdateUnit(unit)
+    : showInfoToolTip(FORBIDDEN_ERROR_MESSAGE)
   }
   return (
     <Popup isOpen={isOpen} className="profile">
@@ -110,6 +121,7 @@ function Profile({
               </div>
             </li>
           </ul>
+          <InfoTooltip message={message} />
           <button
             onClick={handleUpdateName}
             type="button"

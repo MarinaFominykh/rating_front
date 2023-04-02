@@ -172,6 +172,26 @@
     stroke-dashoffset: -32.42;
   }
 }
+.header_button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+}
+.header__logout {
+  @include mediumText;
+  color: #2e3555;
+  font-size: 16px;
+  line-height: 20px;
+  margin: 0;
+  border-bottom: 4px #ffffff solid;
+  transition: 0.5s;
+}
+.header__logout:hover {
+  // @include hover;
+  border-bottom: 4px #4480f3 solid;
+  cursor: pointer;
+}
 
 @media screen and (max-width: 1200px) {
   .header__container {
