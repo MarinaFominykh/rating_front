@@ -22,9 +22,9 @@
     overflow-y: auto;
     /* z-index: 3; */
 }
-// .popup_type_match-card{
-//     overflow-y: auto;
-// }
+.popup_type_match-card{
+    transition: .5s;
+}
 // .popup_type_match-edit{
 //     overflow-y: auto;
 // }

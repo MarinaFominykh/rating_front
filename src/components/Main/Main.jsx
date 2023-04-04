@@ -1,6 +1,7 @@
 import "./Main.scss";
 import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import PacmanLoader from "react-spinners/PacmanLoader";
 import { connect } from "react-redux";
 import { getMatches, getUnits } from "../../utils/Api.js";
 import Unit from "../Unit/Unit.jsx";
@@ -18,7 +19,8 @@ function Main({
   sortData,
   matches,
   showUnit,
-  handleAddUnit
+  handleAddUnit,
+  preloader
 
 }) {
   const dispatch = useDispatch();
@@ -99,8 +101,10 @@ function Main({
 
           <p className="raiting__count-text">Мафия</p>
         </div>
-
-        <RatingTable
+        {preloader ? (  <article className="loader">
+          {" "}
+          <PacmanLoader color="#118dff" size={50} />
+        </article>) : (<RatingTable
           allUnits={allUnits}
           onUpdateUnit={onUpdateUnit}
           sortData={sortData}
@@ -108,7 +112,9 @@ function Main({
           showUnit={showUnit}
           handleAddUnit={handleAddUnit}
          
-        />
+        />)}
+
+       
       </section>
     </main>
   );

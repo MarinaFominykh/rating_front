@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import PacmanLoader from "react-spinners/PacmanLoader";
+import ClipLoader from "react-spinners/ClipLoader";
 import "./Matches.scss";
 import Match from "../Match/Match.jsx";
 import UserCurrentWidth from "../../hooks/useCurrentWidth.js";
@@ -27,7 +29,7 @@ function Matches({
   onEditUnit,
   onEditResult,
   showMatch,
-
+  preloader,
 }) {
   const dispatch = useDispatch();
   const period = useSelector((state) => {
@@ -36,7 +38,6 @@ function Matches({
   });
   const width = UserCurrentWidth();
   const [count, setCount] = useState(getInitialCount(width));
-
 
   function handleLoadMore() {
     setCount((prevCount) => prevCount + getLoadStep(width));
@@ -108,7 +109,6 @@ function Matches({
             name="period"
             value={period}
             onChange={handleSelectChange}
-           
           >
             <option className="select__option" value="allTime">
               За все время
@@ -138,39 +138,46 @@ function Matches({
       {/* <button className="button" onClick={onClickAddMatch}>
         Добавить игру
       </button> */}
-      <section className="matches">
-        {matchesArray()
-          .map((match) => {
-            return (
-              <Match
-                key={match._id}
-                title={match.title}
-                onMatchDelete={onMatchDelete}
-                match={match}
-                gameMaster={match.gameMaster.name}
-                onClickAddUnits={onClickAddUnits}
-                // onClose={onClose}
-                units={units}
-                // addUnit={addUnit}
-                // onUpdateTitle={onUpdateTitle}
-                // isOpenUpdateTitle={isOpenUpdateTitle}
-                // onClickEditTitleButton={onClickEditTitleButton}
-                // onReplaceUnit={onReplaceUnit}
-                // isOpenReplaceUnit={isOpenReplaceUnit}
-                // onClickReplaceUnitButton={onClickReplaceUnitButton}
-                onEditTitle={onEditTitle}
-                onEditGameMatch={onEditGameMatch}
-                onEditUnit={onEditUnit}
-                onEditResult={onEditResult}
-                onClickDetail={showMatch}
-                // stationSubmit={stationSubmit}
-              ></Match>
-            );
-          })
-          .reverse()
-          .slice(0, count)}
-      </section>
-      {matchesArray().length > count && (
+      {preloader ? (
+        <article className="loader">
+          {" "}
+          <PacmanLoader color="#118dff" size={50} />
+        </article>
+      ) : (
+        <>
+          <section className="matches">
+            {matchesArray()
+              .map((match) => {
+                return (
+                  <Match
+                    key={match._id}
+                    title={match.title}
+                    onMatchDelete={onMatchDelete}
+                    match={match}
+                    gameMaster={match.gameMaster.name}
+                    onClickAddUnits={onClickAddUnits}
+                    // onClose={onClose}
+                    units={units}
+                    // addUnit={addUnit}
+                    // onUpdateTitle={onUpdateTitle}
+                    // isOpenUpdateTitle={isOpenUpdateTitle}
+                    // onClickEditTitleButton={onClickEditTitleButton}
+                    // onReplaceUnit={onReplaceUnit}
+                    // isOpenReplaceUnit={isOpenReplaceUnit}
+                    // onClickReplaceUnitButton={onClickReplaceUnitButton}
+                    onEditTitle={onEditTitle}
+                    onEditGameMatch={onEditGameMatch}
+                    onEditUnit={onEditUnit}
+                    onEditResult={onEditResult}
+                    onClickDetail={showMatch}
+                    // stationSubmit={stationSubmit}
+                  ></Match>
+                );
+              })
+              .reverse()
+              .slice(0, count)}
+          </section>
+          {matchesArray().length > count && (
         <button className="button button__load-more" onClick={handleLoadMore}>
           Загрузить ещё
         </button>
@@ -201,6 +208,10 @@ function Matches({
           </button>
         </article>
       )}
+        </>
+      )}
+
+
     </main>
   );
 }

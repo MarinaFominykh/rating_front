@@ -1,5 +1,5 @@
-// export const BASE_URL = "http://localhost:3001";
-export const BASE_URL = "https://mafia-raiting.online"; 
+export const BASE_URL = "http://localhost:3001";
+// export const BASE_URL = "https://mafia-raiting.online"; 
 
 // Авторизация
 export const authorize = (login, password) => {
@@ -72,15 +72,14 @@ export const createUnits = (names) => {
     body: JSON.stringify(names),
   }).then(checkResponse);
 };
-export const updateUnit = (unit, newUnit) => {
-  return fetch(`${BASE_URL}/units`, {
+export const updateUnit = (id, name) => {
+  return fetch(`${BASE_URL}/units/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      unit,
-      newUnit,
+      name,
     }),
   })
     // .then((response) => response.text())

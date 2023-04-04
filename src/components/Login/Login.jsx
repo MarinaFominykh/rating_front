@@ -18,8 +18,8 @@ function Login({ onLogin, message }) {
   return (
     <section className="login">
        <form className="login__form" onSubmit={handleSubmit } noValidate>
-      <h2 className="form__title">Авторизация</h2>
-      <fieldset className="form__inputs">
+      <h2 className="login__title">Авторизация</h2>
+      <fieldset className="login__inputs">
       <input
           name="login"
           className="form__input"
@@ -40,7 +40,7 @@ function Login({ onLogin, message }) {
         />
         <InfoTooltip message={errors.password || ""}></InfoTooltip>
       </fieldset>
-      <InfoTooltip message={message} />
+      <InfoTooltip message={message} className="login__infotolltip"/>
       <button
         type="submit"
         className="login__button"

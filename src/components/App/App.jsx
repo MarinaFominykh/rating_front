@@ -61,6 +61,8 @@ function App() {
     return currentMatchReducer.match;
   });
   const [loggedIn, setLoggedIn] = useState(false);
+  const [preloaderMatches, setPreloaderMatches] = useState(false);
+  const [preloaderUnits, setPreloaderUnits] = useState(true);
   const [units, setUnits] = useState([]);
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false);
   const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
@@ -109,13 +111,19 @@ function App() {
 
   //Получаем массив игроков
   function getInitialUnits() {
-    getUnits().then((dataUnits) => {
+    setPreloaderUnits(true)
+    getUnits()
+    .then((dataUnits) => {
       setUnits(dataUnits);
-    });
+    })
+    .then(()=> setPreloaderUnits(false))
+    .catch((error) => console.log(error))
+    .finally(() => setPreloaderUnits(false))
   }
 
   // Получаем массив игр
   function getInitialMatches() {
+    setPreloaderMatches(true);
     getMatches().then((dataMatches) => {
       setMatches(dataMatches);
       setMatches2020(filterMatches(dataMatches, "2020"));
@@ -124,7 +132,12 @@ function App() {
       setMatches2023(filterMatches(dataMatches, "2023"));
       setMatches2024(filterMatches(dataMatches, "2024"));
       setMatches2025(filterMatches(dataMatches, "2025"));
-    });
+    })
+    .then(() => setPreloaderMatches(false))
+     .catch((error) => console.log(error))
+      .finally(() => {
+        setPreloaderMatches(false);
+      });
   }
   // Вынести в utils/functions
   function filterMatches(matchArray, period) {
@@ -276,7 +289,7 @@ function App() {
       .catch((err) => console.log(err));
   }
   function updateName(name) {
-    updateUnit(currentProfile, name)
+    updateUnit(currentProfile._id, name)
       .then(() => {
         getInitialUnits();
         closeUpdateUnitPopup();
@@ -347,6 +360,7 @@ function App() {
             matches={allMatches}
             showUnit={handleProfileClick}
             handleAddUnit={handlerAddUnitClick}
+            preloader={preloaderUnits}
           />
         </Route>
 
@@ -363,9 +377,10 @@ function App() {
             units={units}
             showUnit={handleProfileClick}
             showMatch={handleDetailMatchClick}
+            preloader={preloaderMatches}
           ></Matches>
         </Route>
-        <Route path="/sign-in">
+        <Route exact path="/sign-in">
           <Login onLogin={handleLogin} message={message} />
         </Route>
       </Switch>

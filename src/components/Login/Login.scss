@@ -1,5 +1,5 @@
 @import "../mixin.scss";
-.form__title {
+.login__title {
     text-align: center;
     font-size: 24px;
     line-height: 29px;
@@ -10,29 +10,14 @@
     text-align: left;
 }
 
-.form__inputs {
+.login__inputs {
     border: none;
     margin-bottom: 20px;
 }
 
-.form__input {
-    width: 100%;
-    font-size: 14px;
-    line-height: 17px;
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid #CCCCCC;
-    /* padding: 0 0 13px 0; */
+.login__infotolltip{
+    margin-bottom: 25px
 }
-
-.form__input:disabled {
-    background: #d9d7d7;
-}
-.form__unputs-text {
-    display: flex;
-    flex-direction: column;
-}
-
 .login__button {
     @include regularText;
     font-size: 16px;
