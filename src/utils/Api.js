@@ -1,5 +1,5 @@
-export const BASE_URL = "http://localhost:3001";
-// export const BASE_URL = "https://mafia-raiting.online"; 
+// export const BASE_URL = "http://localhost:3001";
+export const BASE_URL = "https://mafia-raiting.online"; 
 
 // Авторизация
 export const authorize = (login, password) => {
@@ -84,7 +84,7 @@ export const updateUnit = (id, name) => {
   })
     // .then((response) => response.text())
     // .then((responseText) => console.log(responseText));
-    .then(checkResponseUpdateUnit);
+    .then(checkResponse);
 
 };
 

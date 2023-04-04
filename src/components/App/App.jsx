@@ -28,6 +28,7 @@ import {
 } from "../../utils/functions";
 import {
   CONFLICT_LOGIN_MESSAGE,
+  CONFLICT_NAME_MESSAGE,
   AUTH_DATA_ERROR_MESSAGE,
   SERVER_ERROR_MESSAGE,
   INVALID_TOKEN_ERROR_MESSAGE,
@@ -82,6 +83,11 @@ function App() {
   const [message, setMessage] = useState("");
   const [currentProfile, setCurrentProfile] = useState({});
 
+  const showInfoToolTip = (error) => {
+    setMessage(error);
+    setTimeout(() => setMessage(""), 8000);
+  };
+
   // Авторизация
   function handleLogin({ login, password }) {
     authorize(login, password)
@@ -111,30 +117,31 @@ function App() {
 
   //Получаем массив игроков
   function getInitialUnits() {
-    setPreloaderUnits(true)
+    setPreloaderUnits(true);
     getUnits()
-    .then((dataUnits) => {
-      setUnits(dataUnits);
-    })
-    .then(()=> setPreloaderUnits(false))
-    .catch((error) => console.log(error))
-    .finally(() => setPreloaderUnits(false))
+      .then((dataUnits) => {
+        setUnits(dataUnits);
+      })
+      .then(() => setPreloaderUnits(false))
+      .catch((error) => console.log(error))
+      .finally(() => setPreloaderUnits(false));
   }
 
   // Получаем массив игр
   function getInitialMatches() {
     setPreloaderMatches(true);
-    getMatches().then((dataMatches) => {
-      setMatches(dataMatches);
-      setMatches2020(filterMatches(dataMatches, "2020"));
-      setMatches2021(filterMatches(dataMatches, "2021"));
-      setMatches2022(filterMatches(dataMatches, "2022"));
-      setMatches2023(filterMatches(dataMatches, "2023"));
-      setMatches2024(filterMatches(dataMatches, "2024"));
-      setMatches2025(filterMatches(dataMatches, "2025"));
-    })
-    .then(() => setPreloaderMatches(false))
-     .catch((error) => console.log(error))
+    getMatches()
+      .then((dataMatches) => {
+        setMatches(dataMatches);
+        setMatches2020(filterMatches(dataMatches, "2020"));
+        setMatches2021(filterMatches(dataMatches, "2021"));
+        setMatches2022(filterMatches(dataMatches, "2022"));
+        setMatches2023(filterMatches(dataMatches, "2023"));
+        setMatches2024(filterMatches(dataMatches, "2024"));
+        setMatches2025(filterMatches(dataMatches, "2025"));
+      })
+      .then(() => setPreloaderMatches(false))
+      .catch((error) => console.log(error))
       .finally(() => {
         setPreloaderMatches(false);
       });
@@ -163,11 +170,6 @@ function App() {
 
     return setAllMatches(matches);
   }
-
-  const showInfoToolTip = (error) => {
-    setMessage(error);
-    setTimeout(() => setMessage(""), 8000);
-  };
 
   function closePopup() {
     setIsFormPopupOpen(false);
@@ -286,7 +288,12 @@ function App() {
         setUnits([...units, newUnit]);
       })
       .then(() => closePopup())
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if (err === 409) {
+          showInfoToolTip(CONFLICT_NAME_MESSAGE);
+        }
+        console.log(err);
+      });
   }
   function updateName(name) {
     updateUnit(currentProfile._id, name)
@@ -294,7 +301,13 @@ function App() {
         getInitialUnits();
         closeUpdateUnitPopup();
       })
-      .catch((err) => err.text().then((resText) => showInfoToolTip(resText)));
+      // .catch((err) => err.text().then((resText) => showInfoToolTip(resText)));
+      .catch((err) => {
+        if (err === 409) {
+          showInfoToolTip(CONFLICT_NAME_MESSAGE);
+        }
+        console.log(err);
+      });
   }
 
   function handleUnitDelete(unit) {
@@ -352,7 +365,11 @@ function App() {
 
   return (
     <div className="page">
-      <Header onClickAddMatch={handleAddMatchClick} loggedIn={loggedIn} handleSignOut={handleSignOut} />
+      <Header
+        onClickAddMatch={handleAddMatchClick}
+        loggedIn={loggedIn}
+        handleSignOut={handleSignOut}
+      />
       <Switch>
         <Route exact path="/">
           <Main
@@ -395,6 +412,7 @@ function App() {
         isOpen={isAddUnitPopupOpen}
         onClose={closePopup}
         onAddUnit={addUnit}
+        message={message}
       />
       <Profile
         isOpen={isProfilePopupOpen}
