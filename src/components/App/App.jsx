@@ -346,9 +346,6 @@ function App() {
     getInitialUnits();
   }, []);
 
-  // useEffect(() => {
-  //   getInitialUnits();
-  // }, []);
   useEffect(() => {
     getCurrentMatchesArray();
   }, [matches, period, location]);
@@ -360,6 +357,7 @@ function App() {
       }
     };
     document.addEventListener("keydown", closeByEscape);
+    
     return () => document.removeEventListener("keydown", closeByEscape);
   }, []);
 
