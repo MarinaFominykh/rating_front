@@ -1,5 +1,5 @@
 name: Demo
-on: workflow_dispatch
+on: push
 jobs:
   demo: 
     runs-on: ubuntu-latest
