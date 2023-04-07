@@ -1,5 +1,4 @@
 import "./Form.scss";
-import InfoTooltip from "../InfoTooltip/InfoTooltip.jsx";
 function Form({
   onSubmit,
   onClose,

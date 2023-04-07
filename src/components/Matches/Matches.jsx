@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import React, { useState } from "react";
 import PacmanLoader from "react-spinners/PacmanLoader";
-import ClipLoader from "react-spinners/ClipLoader";
 import "./Matches.scss";
 import Match from "../Match/Match.jsx";
 import UserCurrentWidth from "../../hooks/useCurrentWidth.js";
 import { getLoadStep, getInitialCount } from "../../utils/getLoadStep.js";
-import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 import { useDispatch, useSelector } from "react-redux";
 import { selectValueMatches } from "../../redux/actions";
 import noGames from "../../image/no_games.png";

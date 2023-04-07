@@ -1,6 +1,6 @@
 import "./Menu.scss";
-import { NavLink, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 function Menu({ onClickAddMatch, onClickAddUnit, onClose }) {
   const checked = useSelector((state) => {
     const { checkboxReducer } = state;

@@ -20,9 +20,9 @@ function Match({
   isSubmited,
   onClickDetail
 }) {
-  const addUnitsButtonClassName = `button ${
-    isSubmited ? "table__add-button_hidden" : "table__add-button"
-  }`;
+  // const addUnitsButtonClassName = `button ${
+  //   isSubmited ? "table__add-button_hidden" : "table__add-button"
+  // }`;
   const imageClass = () => {
     if (match.result === "Победа города") {
       return "match__image match__red";
@@ -32,25 +32,25 @@ function Match({
     return "match__image match__null";
   };
 
-  function handleDeleteMatch() {
-    onMatchDelete(match);
-  }
+  // function handleDeleteMatch() {
+  //   onMatchDelete(match);
+  // }
 
-  function handleEditMatch() {
-    onEditTitle(match);
-  }
+  // function handleEditMatch() {
+  //   onEditTitle(match);
+  // }
 
-  function handleEditGameMasterButton() {
-    onEditGameMatch(match);
-  }
+  // function handleEditGameMasterButton() {
+  //   onEditGameMatch(match);
+  // }
 
-  function handleEditResultButton() {
-    onEditResult(match);
-  }
+  // function handleEditResultButton() {
+  //   onEditResult(match);
+  // }
 
-  function handleAddUnits() {
-    onClickAddUnits(match);
-  }
+  // function handleAddUnits() {
+  //   onClickAddUnits(match);
+  // }
   function handleDetail() {
     onClickDetail(match);
   }

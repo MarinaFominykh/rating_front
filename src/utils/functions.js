@@ -1,8 +1,7 @@
 import {
     RED_RESULT,
     BLACK_RESULT,
-    EQUALITY_RESULT
-} from "./constans"
+   } from "./constans"
 
 export function getBlack(array, unit) {
     return array.filter((element) => {
