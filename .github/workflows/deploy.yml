@@ -1,7 +1,7 @@
 name: Deploy
 on: push
 jobs:
-  lint: 
+  Lint: 
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -10,12 +10,14 @@ jobs:
         run: npm ci 
       - name: Lint appliation
         run: npm run lint
-  build: 
+  Build: 
     runs-on: ubuntu-latest
-      steps:
-        - name: Get code
-          uses: actions/checkout@v3
-        - name: Install dependecies
-          run: npm ci 
-        - name: Build appliation
-          run: npm run build
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependecies
+        run: npm ci 
+      - name: Build appliation
+        run: npm run build
+  
+       
