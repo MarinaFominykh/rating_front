@@ -1,8 +1,8 @@
 name: Demo
-on: push
+on: workflow-dispatch
 jobs:
   print: 
     runs-on: ubuntu-latest
     steps:
       -name: Print to console
-        run: echo Hello, world!
+        run: echo Hello, world
