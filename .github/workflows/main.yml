@@ -1,8 +1,12 @@
 name: Demo
 on: workflow_dispatch
 jobs:
-  print: 
+  demo: 
     runs-on: ubuntu-latest
     steps:
-      - name: Print to console
-        run: echo Hello world
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependecies
+        run: npm ci 
+      - name: Build
+        run: npm run build
