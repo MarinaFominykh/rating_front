@@ -8,7 +8,6 @@ import {
   addNewMatch,
   createUnit,
   updateUnit,
-  removeUnit,
   removeMatch,
   updateMatch,
 } from "../../utils/Api.js";

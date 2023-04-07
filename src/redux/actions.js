@@ -1,8 +1,6 @@
 import {
   ADD,
   REMOVE,
-  SELECT_VALUE,
-  MATCHES,
   GAME_MASTER,
   SHERIFF,
   DONE,
