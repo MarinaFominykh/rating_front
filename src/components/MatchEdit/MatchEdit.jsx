@@ -241,6 +241,7 @@ function MatchEdit({
     );
 
     dispatch(dateInEditMatch(moment(currentMatch.date).format("YYYY-MM-DD")));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpenCard, isOpen]);
   useEffect(() => {
     const array = [
@@ -256,6 +257,7 @@ function MatchEdit({
       done,
     ];
     setCurrentPoolOptions(array);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataForm]);
   function handleSubmit(e) {
     e.preventDefault();

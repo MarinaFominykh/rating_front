@@ -1,16 +1,9 @@
 import "./MatchCard.scss";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import Popup from "../Popup/Popup.jsx";
 import MatchCardUsers from "../MatchCardUsers/MatchCardUsers";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
-import avatar from "../../image/icons/avatar.svg";
-import amountIcon from "../../image/icons/profile_amount.svg";
-import blackIcon from "../../image/icons/profile_black.svg";
-import redIcon from "../../image/icons/profile_red.svg";
-import sheriffIcon from "../../image/icons/profile_sheriff.svg";
-import doneIcon from "../../image/icons/profile_done.svg";
-import settingIcon from "../../image/icons/fluent_settings-16-filled.svg";
 import gameMasterIcon from "../../image/icons/gamemaster.svg";
 import calendarIcon from "../../image/icons/calendar.svg";
 import peopleIcon from "../../image/icons/fluent_people-20-regular.svg";
@@ -35,9 +28,7 @@ function MatchCard({
     setMessage(error);
     setTimeout(() => setMessage(""), 5000);
   }
-  function handleUpdateName() {
-    onUpdateUnit(unit);
-  }
+
   function handlerEdit() {
     loggedIn ? onEdit(match) : showInfoToolTip(FORBIDDEN_ERROR_MESSAGE);
   }

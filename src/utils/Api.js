@@ -135,14 +135,14 @@ const checkResponse = (res) => {
   return Promise.reject(res.status);
 };
 
-const checkResponseUpdateUnit = (res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(res);
-    // return Promise.reject(res.text())
-    // .catch((resText) => {return resText})
-  };
+// const checkResponseUpdateUnit = (res) => {
+//     if (res.ok) {
+//       return res.json();
+//     }
+//     return Promise.reject(res);
+//     return Promise.reject(res.text())
+//     .catch((resText) => {return resText})
+//   };
 
 
     // .then((response) => response.text())

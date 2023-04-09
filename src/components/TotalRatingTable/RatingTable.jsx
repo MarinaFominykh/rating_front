@@ -1,6 +1,4 @@
 import "./RatingTable.scss";
-import { useEffect, useState } from "react";
-import { getMatches, getUnits } from "../../utils/Api.js";
 import Unit from "../Unit/Unit.jsx";
 import {
   countMatches,
@@ -26,9 +24,6 @@ function RatingTable({
   handleAddUnit
   
 }) {
-  const [dataUnits, setDataUnits] = useState(allUnits);
-  const [order, setOrder] = useState("ASC");
-  const [rating, setRating] = useState(0);
 
   return (
     <div className="wrapper">

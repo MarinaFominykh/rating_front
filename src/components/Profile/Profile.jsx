@@ -1,5 +1,5 @@
 import "./Profile.scss";
-import React, { useState, useEffect } from "react";
+import React, { useState, } from "react";
 import Popup from "../Popup/Popup.jsx";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import avatar from "../../image/icons/avatar.svg";
@@ -9,8 +9,6 @@ import redIcon from "../../image/icons/profile_red.svg";
 import sheriffIcon from "../../image/icons/profile_sheriff.svg";
 import doneIcon from "../../image/icons/profile_done.svg";
 import settingIcon from "../../image/icons/fluent_settings-16-filled.svg";
-import { selectValue } from "../../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
 import {FORBIDDEN_ERROR_MESSAGE} from "../../utils/constans";
 
 function Profile({

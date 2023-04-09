@@ -1,5 +1,5 @@
 import "./UnitEdit.scss";
-import { useEffect, useState } from "react";
+
 import Select from "react-select";
 function UnitEdit({units, role, value, onChange}) {
 return (

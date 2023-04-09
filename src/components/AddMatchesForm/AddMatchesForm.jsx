@@ -1,16 +1,13 @@
 import React from "react";
-import { useState, useContext, useEffect, useCallback } from "react";
-import { useLocation, Link, useHistory } from "react-router-dom";
+import { useState, useEffect} from "react";
+import { useLocation, useHistory } from "react-router-dom";
 import Select from "react-select";
-import CreatableSelect from "react-select/creatable";
+// import CreatableSelect from "react-select/creatable";
 import { useForm } from "react-hook-form";
 import "./AddMatchesForm.scss";
-import { getMatches, getUnits } from "../../utils/Api.js";
-import OptionUnit from "../OptionUnit/OptionUnit.jsx";
 import Popup from "../Popup/Popup.jsx";
 import Form from "../Form/Form.jsx";
 import Error from "../Error/Error.jsx";
-import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 import { optionsResult, DUPLICATE_ELEMENTS } from "../../utils/constans";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import { hasDuplicates, optionsUnit, getIdArray } from "../../utils/functions";
@@ -146,12 +143,14 @@ function AddMatchesForm({
     } else {
       return setIsValidComposition(true);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataForm, result]);
   
   useEffect(() => {
     const array = [...black, ...red, sheriff, done];
     const filterArray = array.filter((item) => item !== null);
     setCurrentPoolOptions(filterArray);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataForm]);
 
   function onSubmit(e) {

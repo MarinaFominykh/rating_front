@@ -1,7 +1,7 @@
 import "./Header.scss";
-import React, { useState, useContext, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import Menu from "../Menu/Menu";
+import React from "react";
+import { NavLink } from "react-router-dom";
+// import Menu from "../Menu/Menu";
 import { checkbox } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 

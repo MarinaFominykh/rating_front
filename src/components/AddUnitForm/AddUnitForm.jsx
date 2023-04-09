@@ -1,21 +1,16 @@
 import React from "react";
-import { useState, useContext, useEffect } from "react";
 import "./AddUnitForm.scss";
 import Popup from "../Popup/Popup.jsx";
 import Form from "../Form/Form.jsx";
-import OptionUnit from "../OptionUnit/OptionUnit.jsx";
+
 import Error from "../Error/Error.jsx";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
 
 function AddUnitForm({ onAddUnit, onClose, isOpen, currentName, message }) {
-  const { values, handleChange, errors, isValid, resetForm } =
+  const { values, handleChange, errors, isValid } =
     useFormWithValidation();
 
-  const [name, setName] = useState("");
-  function handleInputNameChange(e) {
-    setName(e.target.value);
-  }
   function handleSubmit(e) {
     e.preventDefault();
     onAddUnit(values.addUnitForm);

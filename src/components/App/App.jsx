@@ -8,7 +8,6 @@ import {
   addNewMatch,
   createUnit,
   updateUnit,
-  removeUnit,
   removeMatch,
   updateMatch,
 } from "../../utils/Api.js";
@@ -27,8 +26,7 @@ import {
   countRating,
 } from "../../utils/functions";
 import {
-  CONFLICT_LOGIN_MESSAGE,
-  CONFLICT_NAME_MESSAGE,
+   CONFLICT_NAME_MESSAGE,
   AUTH_DATA_ERROR_MESSAGE,
   SERVER_ERROR_MESSAGE,
   INVALID_TOKEN_ERROR_MESSAGE,
@@ -310,13 +308,13 @@ function App() {
       });
   }
 
-  function handleUnitDelete(unit) {
-    removeUnit(unit._id)
-      .then(() => {
-        setUnits((state) => state.filter((c) => c._id !== unit._id));
-      })
-      .catch((err) => console.log(err));
-  }
+  // function handleUnitDelete(unit) {
+  //   removeUnit(unit._id)
+  //     .then(() => {
+  //       setUnits((state) => state.filter((c) => c._id !== unit._id));
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
 
   function handleDeleteMatch() {
     removeMatch(currentMatch)
@@ -344,10 +342,12 @@ function App() {
   useEffect(() => {
     getInitialMatches();
     getInitialUnits();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     getCurrentMatchesArray();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matches, period, location]);
 
   useEffect(() => {

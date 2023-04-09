@@ -1,16 +1,7 @@
 import "./Main.scss";
-import { useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import { connect } from "react-redux";
-import { getMatches, getUnits } from "../../utils/Api.js";
-import Unit from "../Unit/Unit.jsx";
 import RatingTable from "../TotalRatingTable/RatingTable.jsx";
-import { useFormWithValidation } from "../../hooks/UseFormValidation.js";
-import {
-  CurrentStateSelect,
-  currentStateDefault,
-} from "../../contexts/CurrentStateSelect.jsx";
 import { addTest, removeTest, selectValue } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 function Main({
@@ -28,8 +19,7 @@ function Main({
     const { selectPeriodReducer } = state;
     return selectPeriodReducer.value;
   });
-  const { values, handleChange, errors, isValid, resetForm } =
-    useFormWithValidation();
+ 
   function handleSelectChange(e) {
     dispatch(selectValue(e.target.value));
   }
