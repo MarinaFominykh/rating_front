@@ -1,23 +1,22 @@
-name: Deploy
+name: Build
 on: push
 jobs:
-  Lint: 
+  Deploy: 
     runs-on: ubuntu-latest
     steps:
       - name: Get code
         uses: actions/checkout@v3
       - name: Install dependecies
-        run: npm i 
+        run: npm ci 
       - name: Lint appliation
         run: npm run lint
-  Build: 
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get code
-        uses: actions/checkout@v3
-      - name: Install dependecies
-        run: npm i 
-      - name: Build appliation
+      - name: Build application
         run: npm run build
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: build
+          name: build-files
+ 
   
        
