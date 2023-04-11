@@ -21,7 +21,7 @@ function Login({ onLogin, message }) {
       <input
           name="login"
           className="form__input"
-          placeholder="Логин"
+          placeholder="Введите логин"
           value={values.login || ""}
           onChange={handleChange}
           required
@@ -31,7 +31,7 @@ function Login({ onLogin, message }) {
           name="password"
           type="password"
           className="form__input"
-          placeholder="Пароль"
+          placeholder="Введите пароль"
           value={values.password || ""}
           onChange={handleChange}
           required
