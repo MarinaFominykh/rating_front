@@ -10,29 +10,21 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2.3.1
-        with:
-          key: "${{ secrets.PRIVATE_KEY }}"
-          known_hosts: "just-a-placeholder-so-we-dont-get-errors"
-      - name: Generate auth hosts
-        run: ssh-keyscan -H ${{ env.SERVER_HOST }} >> ~/.ssh/known_hosts
+      - run: set -eu
+      - run: mkdir "$HOME/.ssh"
+      - run: echo "${{ secrets.PRIVATE_KEY }}" > "$HOME/.ssh/key"
+      - run: chmod 600 "$HOME/.ssh/key"
+      # - name: Install SSH Key
+      #   uses: shimataro/ssh-key-action@v2.3.1
+      #   with:
+      #     key: "${{ secrets.PRIVATE_KEY }}"
+      #     known_hosts: "just-a-placeholder-so-we-dont-get-errors"
+      # - name: Generate auth hosts
+      #   run: ssh-keyscan -H ${{ env.SERVER_HOST }} >> ~/.ssh/known_hosts
       - name: Install dependecies
         run: npm ci 
       - name: Build application
         run: npm run build
       - name: Deploy
         run: scp -r ./build/* ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}:${{ env.SERVER_PATH }}
-      # - name: Upload artifact
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     path: build
-      #     name: build-files
-  # deploy:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-      # - name: Get build project
-      #   uses: actions/download-artifact@v3
-      #   with:
-      #     name: build-files
+
