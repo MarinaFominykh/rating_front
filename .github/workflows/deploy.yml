@@ -1,5 +1,7 @@
 name: Build
 on: push
+  branches:
+    - main
 env:
   SERVER_HOST: 158.160.35.130 
   SERVER_USER: fominykh

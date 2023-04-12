@@ -13,6 +13,9 @@
 .login__inputs {
     border: none;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px
 }
 
 .login__infotolltip{
