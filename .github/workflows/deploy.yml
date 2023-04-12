@@ -41,6 +41,6 @@ jobs:
           button: true
           button_name: Посмотреть изменения
           button_url: https://github.com/${{ github.repository }}/commit/${{github.sha}}
-          is_notify: false
+          is_notify: true
           is_preview: false
 
