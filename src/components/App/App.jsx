@@ -26,7 +26,7 @@ import {
   countRating,
 } from "../../utils/functions";
 import {
-   CONFLICT_NAME_MESSAGE,
+  //  CONFLICT_NAME_MESSAGE,
   AUTH_DATA_ERROR_MESSAGE,
   SERVER_ERROR_MESSAGE,
   INVALID_TOKEN_ERROR_MESSAGE,
@@ -288,7 +288,7 @@ function App() {
       .then(() => closePopup())
       .catch((err) => {
         if (err === 409) {
-          showInfoToolTip(CONFLICT_NAME_MESSAGE);
+          showInfoToolTip(`Игрок с именем "${name}" уже существует`);
         }
         console.log(err);
       });
@@ -302,7 +302,7 @@ function App() {
       // .catch((err) => err.text().then((resText) => showInfoToolTip(resText)));
       .catch((err) => {
         if (err === 409) {
-          showInfoToolTip(CONFLICT_NAME_MESSAGE);
+          showInfoToolTip(`Игрок с именем "${name}" уже существует`);
         }
         console.log(err);
       });
