@@ -1,6 +1,7 @@
 // export const BASE_URL = "http://localhost:3001";
 // export const BASE_URL = "https://mafia-raiting.online"; 
-export const BASE_URL = "http://1415729-cz86573.tw1.ru"; 
+// export const BASE_URL = "http://1415729-cz86573.tw1.ru"; 
+export const BASE_URL = "http://pilona.ru/api"; 
 
 // Авторизация
 export const authorize = (login, password) => {
