@@ -59,10 +59,10 @@ function App() {
     const { currentMatchReducer } = state;
     return currentMatchReducer.match;
   });
-  const unitsData = useSelector((state) => {
-    const {unitsReducer} = state;
-    return unitsReducer.units
-  })
+  // const unitsData = useSelector((state) => {
+  //   const {unitsReducer} = state;
+  //   return unitsReducer.units
+  // })
   const [loggedIn, setLoggedIn] = useState(false);
   const [preloaderMatches, setPreloaderMatches] = useState(false);
   const [preloaderUnits, setPreloaderUnits] = useState(true);

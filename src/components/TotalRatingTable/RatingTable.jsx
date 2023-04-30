@@ -68,15 +68,12 @@ function RatingTable({
         modKill: countModKill(matches, unit),
         bestPlayer: countBestPlayer(matches, unit),
       };
+    }).sort(function (a, b) {
+      return a.rating < b.rating ? 1 : -1;
     })
-
-      .sort(function (a, b) {
-        return a.rating < b.rating ? 1 : -1;
-
-      })
     ))
 
-  }, [matches]);
+  }, [matches, unitsData, dispatch]);
   return (
     <div className="wrapper">
       <table className="table">
@@ -90,7 +87,7 @@ function RatingTable({
             <th className="table__cell table__cell-head table__cell-sort"
               onClick={() => sortData("victory")}>Побед</th>
             <th className="table__cell table__cell-head best__head"
-            onClick={() => sortData("bestPlayer")}>Лучший игрок</th>
+              onClick={() => sortData("bestPlayer")}>Лучший игрок</th>
             <th className="table__cell table__cell-head raiting__head-cell"
               onClick={() => sortData("rating")}
             >Рейтинг</th>
