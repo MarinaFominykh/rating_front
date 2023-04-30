@@ -10,6 +10,8 @@ import {
   MK_ARRAY,
 } from "./types";
 import {
+  UNITS,
+  TRANSFORM_UNITS,
   CHECKBOX,
   PERIOD_VALUE_MATCHES,
   PERIOD_VALUE_MAIN,
@@ -219,4 +221,20 @@ export function sheriffInEditMatch(data) {
       type: RED6_EDIT_MATCH,
       data,
     };
+  }
+
+  export function unitsArray(data) {
+    return {
+      type: UNITS,
+      data,
+    }
+  
+  }
+
+  export function unitsTransformArray (data) {
+    return {
+      type: TRANSFORM_UNITS,
+      data,
+    }
+  
   }

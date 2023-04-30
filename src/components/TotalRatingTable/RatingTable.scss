@@ -37,8 +37,11 @@
   border: none;
   height: 64px;
   @include mediumText;
+  cursor: pointer;
 }
-
+.name__head {
+  text-align: left;
+}
 * {
   scrollbar-width: 14px;
   scrollbar-color: #d4d5d9 #ffffff;
@@ -140,9 +143,7 @@ table tr td:first-child::before {
   visibility: hidden;
   opacity: 0;
 }
-.table__cell-name {
-  text-align: left;
-}
+
 .unit__order {
   max-width: 75px;
 }
@@ -224,9 +225,7 @@ line-height: 16px;
   .best__head {
     display: none;
   }
-  .amount__head {
-    display: none;
-  }
+
 .raiting__head-cell{
   margin: 0;
   justify-content: center;

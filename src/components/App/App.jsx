@@ -45,7 +45,7 @@ import MatchCard from "../MatchCard/MatchCard";
 import MatchEdit from "../MatchEdit/MatchEdit";
 import Menu from "../Menu/Menu";
 import { useDispatch, useSelector } from "react-redux";
-import { matchData, checkbox } from "../../redux/actions";
+import { matchData, checkbox, unitsArray } from "../../redux/actions";
 
 function App() {
   let location = useLocation();
@@ -59,6 +59,10 @@ function App() {
     const { currentMatchReducer } = state;
     return currentMatchReducer.match;
   });
+  const unitsData = useSelector((state) => {
+    const {unitsReducer} = state;
+    return unitsReducer.units
+  })
   const [loggedIn, setLoggedIn] = useState(false);
   const [preloaderMatches, setPreloaderMatches] = useState(false);
   const [preloaderUnits, setPreloaderUnits] = useState(true);
@@ -119,6 +123,7 @@ function App() {
     getUnits()
       .then((dataUnits) => {
         setUnits(dataUnits);
+        dispatch(unitsArray(dataUnits))
       })
       .then(() => setPreloaderUnits(false))
       .catch((error) => console.log(error))
@@ -216,10 +221,6 @@ function App() {
 
   function handleUpdateUnitsClick(data) {
     setIsFormWithUpdateUnit(true);
-  }
-
-  const sortData = (field) => {
-    console.log(field)
   }
 
   // запросы к серверу
@@ -375,12 +376,11 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Main
-            allUnits={units}
             matches={allMatches}
             showUnit={handleProfileClick}
             handleAddUnit={handlerAddUnitClick}
             preloader={preloaderUnits}
-            sortData={sortData}
+            
           />
         </Route>
 
