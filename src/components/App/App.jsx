@@ -218,6 +218,10 @@ function App() {
     setIsFormWithUpdateUnit(true);
   }
 
+  const sortData = (field) => {
+    console.log(field)
+  }
+
   // запросы к серверу
   function addMatch(data) {
     addNewMatch(data)
@@ -376,6 +380,7 @@ function App() {
             showUnit={handleProfileClick}
             handleAddUnit={handlerAddUnitClick}
             preloader={preloaderUnits}
+            sortData={sortData}
           />
         </Route>
 

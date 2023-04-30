@@ -1,4 +1,5 @@
 import "./RatingTable.scss";
+import { useState, useEffect } from "react";
 import Unit from "../Unit/Unit.jsx";
 import {
   countMatches,
@@ -18,20 +19,52 @@ import {
 function RatingTable({
   allUnits,
   onUpdateUnit,
-  sortData,
+  // sortData,
   matches,
   showUnit,
-  handleAddUnit
-  
+  handleAddUnit,
 }) {
+  const [unitsArray, setUnitsArray] = useState([]);
 
+  const sortData = (field) => {
+    setUnitsArray(unitsArray.sort((a, b) => {
+      return a[field] < b[field] ? 1 : -1;
+    }));
+   
+    console.log(unitsArray);
+  };
+  useEffect(() => {
+    setUnitsArray(
+      allUnits.map((unit) => {
+        return {
+          id: unit._id,
+          name: unit.name,
+          matches: countMatches(matches, unit),
+          rating: countRating(matches, unit),
+          black: countBlackRole(matches, unit),
+          blackVictory: countBlackVictory(matches, unit),
+          red: countRedRole(matches, unit),
+          redVictory: countRedVictory(matches, unit),
+          sheriff: countSheriffRole(matches, unit),
+          sheriffVictory: countSheriffVictory(matches, unit),
+          don: countDonRole(matches, unit),
+          donVictory: countDonVictory(matches, unit),
+          modKill: countModKill(matches, unit),
+          bestPlayer: countBestPlayer(matches, unit),
+        };
+      })
+    );
+  }, [allUnits, matches]);
   return (
     <div className="wrapper">
       <table className="table">
         <thead className="table__head">
           <tr className="table__row table__row-head">
             <th className="table__cell table__cell-head">№</th>
-            <th className="table__cell table__cell-head table__cell-name">
+            <th
+              className="table__cell table__cell-head table__cell-name"
+              onClick={() => sortData("name")}
+            >
               Ник игрока
             </th>
             <th className="table__cell table__cell-head amount__head">
@@ -43,7 +76,10 @@ function RatingTable({
             <th className="table__cell table__cell-head best__head">
               Лучший игрок
             </th>
-            <th className="table__cell table__cell-head raiting__head-cell">
+            <th
+              className="table__cell table__cell-head raiting__head-cell"
+              onClick={() => sortData("rating")}
+            >
               Рейтинг
             </th>
             <th className="table__cell table__cell-head unit__head">
@@ -54,29 +90,46 @@ function RatingTable({
           </tr>
         </thead>
         <tbody>
-          {allUnits
+          {unitsArray
             .map((unit, index) => {
               return (
                 <Unit
-                  key={unit._id}
+                  key={unit.id}
                   victory={
                     countBlackVictory(matches, unit) +
                     countRedVictory(matches, unit)
                   }
                   name={unit.name}
-                  matches={countMatches(matches, unit)}
-                  rating={countRating(matches, unit)}
-                  black={countBlackRole(matches, unit)}
-                  blackVictory={countBlackVictory(matches, unit)}
-                  red={countRedRole(matches, unit)}
-                  redVictory={countRedVictory(matches, unit)}
-                  sheriff={countSheriffRole(matches, unit)}
-                  sheriffVictory={countSheriffVictory(matches, unit)}
-                  don={countDonRole(matches, unit)}
-                  donVictory={countDonVictory(matches, unit)}
-                  modKill={countModKill(matches, unit)}
-                  bestPlayer={countBestPlayer(matches, unit)}
-                  unit={unit}
+                  matches={unit.matches}
+                  rating={unit.rating}
+                  black={unit.black}
+                  blackVictory={unit.blackVictory}
+                  red={unit.red}
+                  redVictory={unit.redVictory}
+                  sheriff={unit.sheriff}
+                  sheriffVictory={unit.sheriffVictory}
+                  don={unit.don}
+                  donVictory={unit.donVictory}
+                  modKill={unit.modKill}
+                  bestPlayer={unit.bestPlayer}
+                  // victory={
+                  //   countBlackVictory(matches, unit) +
+                  //   countRedVictory(matches, unit)
+                  // }
+                  // name={unit.name}
+                  // matches={countMatches(matches, unit)}
+                  // rating={countRating(matches, unit)}
+                  // black={countBlackRole(matches, unit)}
+                  // blackVictory={countBlackVictory(matches, unit)}
+                  // red={countRedRole(matches, unit)}
+                  // redVictory={countRedVictory(matches, unit)}
+                  // sheriff={countSheriffRole(matches, unit)}
+                  // sheriffVictory={countSheriffVictory(matches, unit)}
+                  // don={countDonRole(matches, unit)}
+                  // donVictory={countDonVictory(matches, unit)}
+                  // modKill={countModKill(matches, unit)}
+                  // bestPlayer={countBestPlayer(matches, unit)}
+                  unit={{ _id: unit.id, name: unit.name }}
                   onUpdateUnit={onUpdateUnit}
                   showUnit={showUnit}
                 ></Unit>
