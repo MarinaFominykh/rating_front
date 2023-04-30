@@ -84,7 +84,7 @@ function RatingTable({
               onClick={() => sortData("name")}>Ник игрока</th>
             <th className="table__cell table__cell-head amount__head"
               onClick={() => sortData("matches")}>Количество игр</th>
-            <th className="table__cell table__cell-head table__cell-sort"
+            <th className="table__cell table__cell-head victory__head"
               onClick={() => sortData("victory")}>Побед</th>
             <th className="table__cell table__cell-head best__head"
               onClick={() => sortData("bestPlayer")}>Лучший игрок</th>
