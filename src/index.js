@@ -14,15 +14,15 @@ const store = createStore(rootReducer, compose(applyMiddleware(thunk)
 ));
 
 root.render( 
-  <BrowserRouter>
+  <HashRouter>
     <React.StrictMode>
-    <HashRouter>
+    {/* <HashRouter> */}
       <Provider store={store}>
         <App />
       </Provider>
-      </HashRouter>
+      {/* </HashRouter> */}
     </React.StrictMode>
-  </BrowserRouter>
+  </HashRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
