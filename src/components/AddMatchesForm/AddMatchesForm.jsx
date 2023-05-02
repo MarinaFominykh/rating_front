@@ -188,6 +188,10 @@ function AddMatchesForm({
   }, [location]);
 
   useEffect(() => {
+   console.log('loc', location)
+  }, [location]);
+
+  useEffect(() => {
     if (location.hash === "#tab_02") {
       setLinkText("Назад");
       setСlassSubmit("hidden");
