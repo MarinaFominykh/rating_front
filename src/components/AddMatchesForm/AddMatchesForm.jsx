@@ -26,10 +26,11 @@ import {
   bestPlayerArrayInAddMatch,
   modKillArrayInAddMatch,
 } from "../../redux/actions";
-let path;
+
 function AddMatchesForm({ isOpen, onAddMatch, onClose, units }) {
   let location = useLocation();
   const history = useHistory();
+  let path;
   useEffect(() => {
     if (location.pathname === "/matches") {
       path = HOMEPAGE_MATCHES;
