@@ -192,8 +192,8 @@ function AddMatchesForm({
       setLinkText("Назад");
       setСlassSubmit("hidden");
       setСlassLink("visible");
-      setLink("#tab_03");
-      setLinkBack("#tab_01");
+      setLink(`${HOMEPAGE}#tab_03`);
+      setLinkBack(`${HOMEPAGE}#tab_01`);
       setClassArticle("form__tabs-block");
       setClassLastArticle("form__tabs-block");
       setSecondArticle("form__tabs-block-visible");
@@ -201,7 +201,7 @@ function AddMatchesForm({
       setLinkText("Назад");
       setСlassSubmit("visible");
       setСlassLink("hidden");
-      setLinkBack("#tab_02");
+      setLinkBack(`${HOMEPAGE}#tab_02`);
       setClassArticle("form__tabs-block");
       setSecondArticle("form__tabs-block");
       setClassLastArticle("form__tabs-block-visible");
@@ -209,7 +209,7 @@ function AddMatchesForm({
       setLinkText("Отменить");
       setСlassSubmit("hidden");
       setСlassLink("visible");
-      setLink("#tab_02");
+      setLink(`${HOMEPAGE}#tab_02`);
       setSecondArticle("form__tabs-block");
       setClassLastArticle("form__tabs-block");
       setClassArticle("form__tabs-block-visible");
