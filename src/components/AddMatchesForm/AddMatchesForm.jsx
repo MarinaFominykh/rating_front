@@ -8,7 +8,7 @@ import "./AddMatchesForm.scss";
 import Popup from "../Popup/Popup.jsx";
 import Form from "../Form/Form.jsx";
 import Error from "../Error/Error.jsx";
-import { optionsResult, DUPLICATE_ELEMENTS, HOMEPAGE } from "../../utils/constans";
+import { optionsResult, DUPLICATE_ELEMENTS, HOMEPAGE_ROOT, HOMEPAGE_MATCHES } from "../../utils/constans";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import { hasDuplicates, optionsUnit, getIdArray } from "../../utils/functions";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,6 +30,7 @@ function AddMatchesForm({
 }) {
   let location = useLocation();
   const history = useHistory();
+  const path = `${location.pathname} === "/matches" ? ${HOMEPAGE_MATCHES} : ${HOMEPAGE_ROOT}`
 
   const {
     register,
@@ -192,8 +193,8 @@ function AddMatchesForm({
       setLinkText("Назад");
       setСlassSubmit("hidden");
       setСlassLink("visible");
-      setLink(`${HOMEPAGE}#tab_03`);
-      setLinkBack(`${HOMEPAGE}#tab_01`);
+      setLink(`${path}#tab_03`);
+      setLinkBack(`${path}#tab_01`);
       setClassArticle("form__tabs-block");
       setClassLastArticle("form__tabs-block");
       setSecondArticle("form__tabs-block-visible");
@@ -201,7 +202,7 @@ function AddMatchesForm({
       setLinkText("Назад");
       setСlassSubmit("visible");
       setСlassLink("hidden");
-      setLinkBack(`${HOMEPAGE}#tab_02`);
+      setLinkBack(`${path}#tab_02`);
       setClassArticle("form__tabs-block");
       setSecondArticle("form__tabs-block");
       setClassLastArticle("form__tabs-block-visible");
@@ -209,7 +210,7 @@ function AddMatchesForm({
       setLinkText("Отменить");
       setСlassSubmit("hidden");
       setСlassLink("visible");
-      setLink(`${HOMEPAGE}#tab_02`);
+      setLink(`${path}#tab_02`);
       setSecondArticle("form__tabs-block");
       setClassLastArticle("form__tabs-block");
       setClassArticle("form__tabs-block-visible");
@@ -238,7 +239,7 @@ function AddMatchesForm({
       >
         <div className="form__tabs">
           <nav className="form__nav">
-            <a href={`${HOMEPAGE}#tab_01`} className="form__nav-item">
+            <a href={`${path}#tab_01`} className="form__nav-item">
               <p
                 className={`form__nav-paragraph form__nav-number ${
                   tab !== "1" && "form__nav-number_disabled"
@@ -254,7 +255,7 @@ function AddMatchesForm({
                 Параметры игры
               </p>
             </a>
-            <a href={`${HOMEPAGE}#tab_02`} className="form__nav-item">
+            <a href={`${path}#tab_02`} className="form__nav-item">
               <p
                 className={`form__nav-paragraph form__nav-number ${
                   tab !== "2" && "form__nav-number_disabled"
@@ -270,7 +271,7 @@ function AddMatchesForm({
                 Участники
               </p>
             </a>
-            <a href={`${HOMEPAGE}#tab_03`} className="form__nav-item">
+            <a href={`${path}#tab_03`} className="form__nav-item">
               <p
                 className={`form__nav-paragraph form__nav-number ${
                   tab !== "3" && "form__nav-number_disabled"
