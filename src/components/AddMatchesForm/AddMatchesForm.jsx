@@ -187,6 +187,9 @@ function AddMatchesForm({
       return setTab("1");
     }
   }, [location]);
+  useEffect(() => {
+    console.log("loc", location)
+  }, [location]);
 
   useEffect(() => {
     if (location.hash === "#tab_02") {
