@@ -34,9 +34,11 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, units }) {
   const path = () => {
     if (location.pathname === "/matches") {
       return HOMEPAGE_MATCHES;
+    } else {
+      return HOMEPAGE_ROOT;
     }
 
-    return HOMEPAGE_ROOT;
+    
   };
 
   const {
