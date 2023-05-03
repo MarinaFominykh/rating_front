@@ -8,7 +8,7 @@ import "./AddMatchesForm.scss";
 import Popup from "../Popup/Popup.jsx";
 import Form from "../Form/Form.jsx";
 import Error from "../Error/Error.jsx";
-import { optionsResult, DUPLICATE_ELEMENTS } from "../../utils/constans";
+import { optionsResult, DUPLICATE_ELEMENTS, HOMEPAGE } from "../../utils/constans";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import { hasDuplicates, optionsUnit, getIdArray } from "../../utils/functions";
 import { useDispatch, useSelector } from "react-redux";
@@ -238,7 +238,7 @@ function AddMatchesForm({
       >
         <div className="form__tabs">
           <nav className="form__nav">
-            <a href="#tab_01" className="form__nav-item">
+            <a href="https://marinafominykh.github.io/rating_front/#/#tab_01" className="form__nav-item">
               <p
                 className={`form__nav-paragraph form__nav-number ${
                   tab !== "1" && "form__nav-number_disabled"
@@ -254,7 +254,7 @@ function AddMatchesForm({
                 Параметры игры
               </p>
             </a>
-            <a href="#tab_02" className="form__nav-item">
+            <a href="https://marinafominykh.github.io/rating_front/#/#tab_02" className="form__nav-item">
               <p
                 className={`form__nav-paragraph form__nav-number ${
                   tab !== "2" && "form__nav-number_disabled"

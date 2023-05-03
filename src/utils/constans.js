@@ -68,3 +68,4 @@ export const RED3_EDIT_MATCH = "RED3_EDIT_MATCH";
 export const RED4_EDIT_MATCH = "RED4_EDIT_MATCH";
 export const RED5_EDIT_MATCH = "RED5_EDIT_MATCH";
 export const RED6_EDIT_MATCH = "RED6_EDIT_MATCH";
+export const HOMEPAGE = "https://marinafominykh.github.io/rating_front/#/"
