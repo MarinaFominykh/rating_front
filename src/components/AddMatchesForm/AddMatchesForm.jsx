@@ -189,6 +189,7 @@ function AddMatchesForm({
   }, [location]);
   useEffect(() => {
     console.log("loc", location)
+    console.log("path", path)
   }, [location]);
 
   useEffect(() => {
