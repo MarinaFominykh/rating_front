@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/rating_front/static/css/main.64278ea2.css",
-    "main.js": "/rating_front/static/js/main.83e456ea.js",
+    "main.js": "/rating_front/static/js/main.74e7df2c.js",
     "static/js/787.d952914e.chunk.js": "/rating_front/static/js/787.d952914e.chunk.js",
     "static/media/Inter-Bold.woff": "/rating_front/static/media/Inter-Bold.1e547cd04bfe2dae1f98.woff",
     "static/media/Inter-SemiBold.woff": "/rating_front/static/media/Inter-SemiBold.7f6c3678e245486167d9.woff",
@@ -40,11 +40,11 @@
     "static/media/pen.svg": "/rating_front/static/media/pen.6c7bf05444b9793fdf6e.svg",
     "static/media/fluent_chevron-down-16-filled.svg": "/rating_front/static/media/fluent_chevron-down-16-filled.29fba99a5b978c8e5b9f.svg",
     "main.64278ea2.css.map": "/rating_front/static/css/main.64278ea2.css.map",
-    "main.83e456ea.js.map": "/rating_front/static/js/main.83e456ea.js.map",
+    "main.74e7df2c.js.map": "/rating_front/static/js/main.74e7df2c.js.map",
     "787.d952914e.chunk.js.map": "/rating_front/static/js/787.d952914e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.64278ea2.css",
-    "static/js/main.83e456ea.js"
+    "static/js/main.74e7df2c.js"
   ]
 }
