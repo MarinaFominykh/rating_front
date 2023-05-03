@@ -30,21 +30,14 @@ import {
 function AddMatchesForm({ isOpen, onAddMatch, onClose, units }) {
   let location = useLocation();
   const history = useHistory();
-  let path;
-  useEffect(() => {
+  
+  const path = () => {
     if (location.pathname === "/matches") {
-      path = HOMEPAGE_MATCHES;
+      return HOMEPAGE_MATCHES;
     }
 
-    path = HOMEPAGE_ROOT;
-  }, [location])
-  // const path = () => {
-  //   if (location.pathname === "/matches") {
-  //     return HOMEPAGE_MATCHES;
-  //   }
-
-  //   return HOMEPAGE_ROOT;
-  // };
+    return HOMEPAGE_ROOT;
+  };
 
   const {
     register,
@@ -203,7 +196,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, units }) {
   }, [location]);
   useEffect(() => {
     console.log("loc", location);
-    console.log("path", path);
+    console.log("path", path());
   }, [location]);
 
   useEffect(() => {
@@ -211,8 +204,8 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, units }) {
       setLinkText("Назад");
       setСlassSubmit("hidden");
       setСlassLink("visible");
-      setLink(`${path}#tab_03`);
-      setLinkBack(`${path}#tab_01`);
+      setLink(`${path()}#tab_03`);
+      setLinkBack(`${path()}#tab_01`);
       setClassArticle("form__tabs-block");
       setClassLastArticle("form__tabs-block");
       setSecondArticle("form__tabs-block-visible");
@@ -220,7 +213,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, units }) {
       setLinkText("Назад");
       setСlassSubmit("visible");
       setСlassLink("hidden");
-      setLinkBack(`${path}#tab_02`);
+      setLinkBack(`${path()}#tab_02`);
       setClassArticle("form__tabs-block");
       setSecondArticle("form__tabs-block");
       setClassLastArticle("form__tabs-block-visible");
@@ -228,7 +221,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, units }) {
       setLinkText("Отменить");
       setСlassSubmit("hidden");
       setСlassLink("visible");
-      setLink(`${path}#tab_02`);
+      setLink(`${path()}#tab_02`);
       setSecondArticle("form__tabs-block");
       setClassLastArticle("form__tabs-block");
       setClassArticle("form__tabs-block-visible");
@@ -257,7 +250,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, units }) {
       >
         <div className="form__tabs">
           <nav className="form__nav">
-            <a href={`${path}#tab_01`} className="form__nav-item">
+            <a href={`${path()}#tab_01`} className="form__nav-item">
               <p
                 className={`form__nav-paragraph form__nav-number ${
                   tab !== "1" && "form__nav-number_disabled"
@@ -273,7 +266,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, units }) {
                 Параметры игры
               </p>
             </a>
-            <a href={`${path}#tab_02`} className="form__nav-item">
+            <a href={`${path()}#tab_02`} className="form__nav-item">
               <p
                 className={`form__nav-paragraph form__nav-number ${
                   tab !== "2" && "form__nav-number_disabled"
@@ -289,7 +282,7 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, units }) {
                 Участники
               </p>
             </a>
-            <a href={`${path}#tab_03`} className="form__nav-item">
+            <a href={`${path()}#tab_03`} className="form__nav-item">
               <p
                 className={`form__nav-paragraph form__nav-number ${
                   tab !== "3" && "form__nav-number_disabled"
