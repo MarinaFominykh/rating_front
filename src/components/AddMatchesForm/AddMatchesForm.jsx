@@ -258,7 +258,7 @@ function AddMatchesForm({
                 Параметры игры
               </p>
             </a>
-            <a href="rating_front/#/#tab_02" className="form__nav-item">
+            <a href="/#/#tab_02" className="form__nav-item">
               <p
                 className={`form__nav-paragraph form__nav-number ${
                   tab !== "2" && "form__nav-number_disabled"
@@ -274,7 +274,7 @@ function AddMatchesForm({
                 Участники
               </p>
             </a>
-            <a href="rating_front/#/#tab_03" className="form__nav-item">
+            <a href="/#/#tab_03" className="form__nav-item">
               <p
                 className={`form__nav-paragraph form__nav-number ${
                   tab !== "3" && "form__nav-number_disabled"
