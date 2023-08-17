@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import PacmanLoader from "react-spinners/PacmanLoader";
-import "./Matches.scss";
-import Match from "../Match/Match.jsx";
-import UserCurrentWidth from "../../hooks/useCurrentWidth.js";
-import { getLoadStep, getInitialCount } from "../../utils/getLoadStep.js";
-import { useDispatch, useSelector } from "react-redux";
-import { selectValueMatches } from "../../redux/actions";
-import noGames from "../../image/no_games.png";
+import React, { useState } from 'react';
+import PacmanLoader from 'react-spinners/PacmanLoader';
+import './Matches.scss';
+import Match from '../Match/Match.jsx';
+import UserCurrentWidth from '../../hooks/useCurrentWidth.js';
+import { getLoadStep, getInitialCount } from '../../utils/getLoadStep.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectValueMatches } from '../../redux/actions';
+import noGames from '../../image/no_games.png';
 
 function Matches({
   matches,
@@ -44,24 +44,24 @@ function Matches({
   }
 
   const matchesArray = () => {
-    if (period === "2020") {
+    if (period === '2020') {
       return matches2020;
-    } else if (period === "2021") {
+    } else if (period === '2021') {
       return matches2021;
-    } else if (period === "2022") {
+    } else if (period === '2022') {
       return matches2022;
-    } else if (period === "2023") {
+    } else if (period === '2023') {
       return matches2023;
-    } else if (period === "2024") {
+    } else if (period === '2024') {
       return matches2024;
-    } else if (period === "2025") {
+    } else if (period === '2025') {
       return matches2025;
     }
     return matches;
   };
 
   return (
-    <main className="main">
+    <main className='main'>
       {/* <nav className="matches__nav-container">
         <ul className="matches__nav-list">
           <NavLink
@@ -98,34 +98,34 @@ function Matches({
           </NavLink>
         </ul>
       </nav> */}
-      <div className="matches__head">
-        <h1 className="matches__title">Игры</h1>
-        <form className="matches__form-select">
+      <div className='matches__head'>
+        <h1 className='matches__title'>Игры</h1>
+        <form className='matches__form-select'>
           <select
-            className="select matches__select"
-            name="period"
+            className='select matches__select'
+            name='period'
             value={period}
             onChange={handleSelectChange}
           >
-            <option className="select__option" value="allTime">
+            <option className='select__option' value='allTime'>
               За все время
             </option>
-            <option className="select__option" value="2020">
+            <option className='select__option' value='2020'>
               2020
             </option>
-            <option className="select__option" value="2021">
+            <option className='select__option' value='2021'>
               2021
             </option>
-            <option className="select__option" value="2022">
+            <option className='select__option' value='2022'>
               2022
             </option>
-            <option className="select__option" value="2023">
+            <option className='select__option' value='2023'>
               2023
             </option>
-            <option className="select__option" value="2024">
+            <option className='select__option' value='2024'>
               2024
             </option>
-            <option className="select__option" value="2025">
+            <option className='select__option' value='2025'>
               2025
             </option>
           </select>
@@ -136,13 +136,13 @@ function Matches({
         Добавить игру
       </button> */}
       {preloader ? (
-        <article className="loader">
-          {" "}
-          <PacmanLoader color="#118dff" size={50} />
+        <article className='loader'>
+          {' '}
+          <PacmanLoader color='#118dff' size={50} />
         </article>
       ) : (
         <>
-          <section className="matches">
+          <section className='matches'>
             {matchesArray()
               .map((match) => {
                 return (
@@ -171,44 +171,48 @@ function Matches({
                   ></Match>
                 );
               })
-              .reverse()
+              .sort((a, b) => {
+                return a.props.match.date < b.props.match.date ? 1 : -1;
+              })
+              // .reverse()
               .slice(0, count)}
           </section>
           {matchesArray().length > count && (
-        <button className="button button__load-more" onClick={handleLoadMore}>
-          Загрузить ещё
-        </button>
-      )}
-      {matchesArray().length === 0 && (
-        <article className="no-games">
-          <div className="no-games__image-wrapper">
-            <img
-              src={noGames}
-              alt="Игры не найдены"
-              className="no-games__image"
-            />
-          </div>
+            <button
+              className='button button__load-more'
+              onClick={handleLoadMore}
+            >
+              Загрузить ещё
+            </button>
+          )}
+          {matchesArray().length === 0 && (
+            <article className='no-games'>
+              <div className='no-games__image-wrapper'>
+                <img
+                  src={noGames}
+                  alt='Игры не найдены'
+                  className='no-games__image'
+                />
+              </div>
 
-          <p className="no-games__title">
-            Мы не смогли найти игры за выбранный период
-          </p>
-          <p className="no-games__text">
-            Создайте новую игру или подождите пока другой пользователь сделает
-            это
-          </p>
-          <button
-            onClick={onClickAddMatch}
-            type="button"
-            className="button no-games__button"
-          >
-            Создать игру &#43;
-          </button>
-        </article>
-      )}
+              <p className='no-games__title'>
+                Мы не смогли найти игры за выбранный период
+              </p>
+              <p className='no-games__text'>
+                Создайте новую игру или подождите пока другой пользователь
+                сделает это
+              </p>
+              <button
+                onClick={onClickAddMatch}
+                type='button'
+                className='button no-games__button'
+              >
+                Создать игру &#43;
+              </button>
+            </article>
+          )}
         </>
       )}
-
-
     </main>
   );
 }
