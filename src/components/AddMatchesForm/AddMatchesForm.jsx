@@ -195,12 +195,6 @@ function AddMatchesForm({ isOpen, onAddMatch, onClose, units }) {
     }
   }, [location]);
   useEffect(() => {
-    console.log('loc', location);
-    console.log('path', path());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
-
-  useEffect(() => {
     if (location.hash === '#tab_02') {
       setLinkText('Назад');
       setСlassSubmit('hidden');

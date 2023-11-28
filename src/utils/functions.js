@@ -44,7 +44,6 @@ export function getDoneResult(array, unit, result) {
     }).length
 }
 
-
 // Количество игр за роль
 export function countMatches(array, unit) {
     return getBlack(array, unit) + getRed(array, unit) + getSheriff(array, unit) + getDone(array, unit)
