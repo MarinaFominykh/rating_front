@@ -392,7 +392,7 @@ function App() {
             matches2022={matches2022}
             matches2023={matches2023}
             matches2024={matches2024}
-            matches2025={matches2024}
+            matches2025={matches2025}
             onClickAddMatch={handleAddMatchClick}
             units={units}
             showUnit={handleProfileClick}

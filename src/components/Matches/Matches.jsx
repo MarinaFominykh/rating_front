@@ -33,6 +33,7 @@ function Matches({
     const { selectPeriodMatchesReducer } = state;
     return selectPeriodMatchesReducer.value;
   });
+  
   const width = UserCurrentWidth();
   const [count, setCount] = useState(getInitialCount(width));
 

@@ -1,14 +1,15 @@
-// export const BASE_URL = "http://localhost:3001/api";
-export const BASE_URL = "https://mafia-raiting.ru/api"; 
-// export const BASE_URL = "https://api.pilona.ru"; 
+export const BASE_URL = 'http://109.172.83.226:3001/api';
+//export const BASE_URL = 'http://localhost:3001';
+// export const BASE_URL = "https://mafia-raiting.ru/api";
+// export const BASE_URL = "https://api.pilona.ru";
 
 // Авторизация
 export const authorize = (login, password) => {
   return fetch(`${BASE_URL}/signin`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       login,
@@ -20,23 +21,23 @@ export const authorize = (login, password) => {
 export const getMatches = () => {
   return fetch(`${BASE_URL}/matches`, {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   }).then(checkResponse);
 };
 export const getUnits = () => {
   return fetch(`${BASE_URL}/units`, {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   }).then(checkResponse);
 };
 
 export const addNewMatch = (data) => {
   return fetch(`${BASE_URL}/matches`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       title: data.title,
@@ -55,9 +56,9 @@ export const addNewMatch = (data) => {
 
 export const createUnit = (name) => {
   return fetch(`${BASE_URL}/units`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       name,
@@ -66,52 +67,53 @@ export const createUnit = (name) => {
 };
 export const createUnits = (names) => {
   return fetch(`${BASE_URL}/units/many-units`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(names),
   }).then(checkResponse);
 };
 export const updateUnit = (id, name) => {
-  return fetch(`${BASE_URL}/units/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name,
-    }),
-  })
-    // .then((response) => response.text())
-    // .then((responseText) => console.log(responseText));
-    .then(checkResponse);
-
+  return (
+    fetch(`${BASE_URL}/units/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+      }),
+    })
+      // .then((response) => response.text())
+      // .then((responseText) => console.log(responseText));
+      .then(checkResponse)
+  );
 };
 
 export const removeUnit = (id) => {
   return fetch(`${BASE_URL}/units/${id}`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   }).then(checkResponse);
 };
 
 export const removeMatch = (match) => {
   return fetch(`${BASE_URL}/matches/${match._id}`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   }).then(checkResponse);
 };
 
 export const updateMatch = (data) => {
   return fetch(`${BASE_URL}/matches/${data.id}`, {
-    method: "PATCH",
+    method: 'PATCH',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       id: data.id,
@@ -145,6 +147,5 @@ const checkResponse = (res) => {
 //     .catch((resText) => {return resText})
 //   };
 
-
-    // .then((response) => response.text())
-    // .then((responseText) => console.log(responseText));
+// .then((response) => response.text())
+// .then((responseText) => console.log(responseText));
