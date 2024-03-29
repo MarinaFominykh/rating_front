@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://178.253.43.83:3001';
+export const BASE_URL = 'https://pilona.ru';
 //export const BASE_URL = 'http://localhost:3001';
 // export const BASE_URL = "https://mafia-raiting.ru/api";
 // export const BASE_URL = "https://api.pilona.ru";
